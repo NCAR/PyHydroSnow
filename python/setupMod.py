@@ -484,59 +484,60 @@ class modelDatabase:
         else:
             self.nCores.append(self.nCores[aliasInd])
 
-def addModelProject():
-	""" Setup new model project, which will be added to the db
-	    containing all model projects, whith their associated
-	    information
-	"""
+def addModelProject():    
+    """ Setup new model project, which will be added to the db
+        containing all model projects, whith their associated
+        information
+    """
 
-	configPath = "./parm/setup_parm.parm"
-	parser = SafeConfigParser()
+    configPath = "./parm/setup_parm.parm"
+    parser = SafeConfigParser()
 
-	if os.path.isfile(configPath):
-		parser.read(configPath)
-	else:
-		print "ERROR: Config file setup_parm.parm not found."
-		return
+    if os.path.isfile(configPath):
+        parser.read(configPath)
+    else:
+        print "ERROR: Config file setup_parm.parm not found."
+        return
 
-	outDir = parser.get('top_level','topOut')
+    outDir = parser.get('top_level','topOut')
 
-	if not os.path.exists(outDir):
-		print "ERROR: output directory: " + outDir + " not found."
-		return
+    if not os.path.exists(outDir):
+        print "ERROR: output directory: " + outDir + " not found."
+        return
 
-	# Initiate model database class instance
-	db = modelDatabase()
+    # Initiate model database class instance
+    db = modelDatabase()
 
-	# Read in model database containing all relevant information
-	readFlag = 1
-	dbPath = "./parm/modelMeta_db.pkl"
-	if not os.path.isfile(dbPath):
-		readFlag = 0
+    # Read in model database containing all relevant information
+    readFlag = 1
+    dbPath = "./parm/modelMeta_db.pkl"
+    if not os.path.isfile(dbPath):
+        readFlag = 0
 
-	modelDatabase.readData(db,parser,readFlag)
-	numModels = len(db.tag)
+    modelDatabase.readData(db,parser,readFlag)
+    numModels = len(db.tag)
 
-	# Check for existence of files/directories
-	if not os.path.exists(db.modelInDir[numModels-1]):
-		print "ERROR: Model input directory: " + db.modelInDir[numModels-1] + " not found."
-	if not os.path.exists(db.forceInDir[numModels-1]):
-		print "ERROR: Forcing input directory: " + db.forceInDir[numModels-1] + " not found."
-	if not os.path.isfile(db.geoFile[numModels-1]):
-		print "ERROR: Geofile: " + db.geoFile[numModels] + db.geoFile[numModels-1] + " not found."
-	if not os.path.isfile(db.fullDomFile[numModels-1]):
-		print "ERROR: High resolution geofile: " + db.fullDomFile[numModels-1] + " not found."
-	if not os.path.isfile(db.mskFile[numModels-1]):
-		print "ERROR: Mask file: " + db.mskFile[numModels-1] + " not found."
-	# Won't check for existence of remaining files as they are optional.
+    # Check for existence of files/directories
+    if not os.path.exists(db.modelInDir[numModels-1]):
+        print "ERROR: Model input directory: " + db.modelInDir[numModels-1] + " not found."
+    if not os.path.exists(db.forceInDir[numModels-1]):
+        print "ERROR: Forcing input directory: " + db.forceInDir[numModels-1] + " not found."
+    if not os.path.isfile(db.geoFile[numModels-1]):
+        print "ERROR: Geofile: " + db.geoFile[numModels] + db.geoFile[numModels-1] + " not found."
+    print db.fullDomFile[numModels-1]
+    if not os.path.isfile(db.fullDomFile[numModels-1]):
+        print "ERROR: High resolution geofile: " + db.fullDomFile[numModels-1] + " not found."
+    if not os.path.isfile(db.mskFile[numModels-1]):
+        print "ERROR: Mask file: " + db.mskFile[numModels-1] + " not found."
+    # Won't check for existence of remaining files as they are optional.
 
-	# Save database, or updated database to pickle object to be read in next time.
-	with open(dbPath,'wb') as output:
-		pickle.dump(db, output, pickle.HIGHEST_PROTOCOL)
+    # Save database, or updated database to pickle object to be read in next time.
+    with open(dbPath,'wb') as output:
+        pickle.dump(db, output, pickle.HIGHEST_PROTOCOL)
 
-	# Use db entry to create a subdirectory to hold symbolic links to all necessary data to run 
-	# analysis.
-	modelDatabase.setupProject(db)
+    # Use db entry to create a subdirectory to hold symbolic links to all necessary data to run 
+    # analysis.
+    modelDatabase.setupProject(db)
 
 def removeModelProject(alias):
 	""" Remove model project, along with associated links,
