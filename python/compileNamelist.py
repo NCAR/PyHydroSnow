@@ -171,16 +171,19 @@ def editNamelist(pathIn,args,dbIn,rank):
     if len(dbIn.snowDB[indDbOrig]) != 0:
         searchStr = "snowDB <- NULL"
         replaceStr = "snowDB <- '" + dbIn.snowDB[indDbOrig] + "'"
+        print replaceStr
         
     # Edit the streamflow database location entry
     if len(dbIn.streamDB[indDbOrig]) != 0:
         searchStr = "streamDB <- NULL"
         replaceStr = "streamDB <- '" + dbIn.streamDB[indDbOrig] + "'"
+        print replaceStr
         
     # Edit the plotting directory 
     searchStr = "plotDir <- NULL"
     replaceStr = "plotDir <- '" + dbIn.topDir[indDbOrig] + "/" + \
     dbIn.alias[indDbOrig] + "/analysis_out/plotting'"
+    print replaceStr    
     
     # Establish analysis directory to store statistics/read files
     statDir = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + \
@@ -200,26 +203,32 @@ def editNamelist(pathIn,args,dbIn,rank):
         searchStr = "readModStart <- NULL"
         replaceStr = "readModStart <- as.POSIXct('" + begAStr2 + str1
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
 
         searchStr = "readModEnd <- NULL"
         replaceStr = "readModEnd <- as.POSIXct('" + endAStr2 + str1
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
 
         searchStr = "readSnodasStart <- NULL"
         replaceStr = "readSnodasStart <- as.POSIXct('" + begAStr1 + str2
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
 
         searchStr = "readSnodasEnd <- NULL"
         replaceStr = "readSnodasEnd <- as.POSIXct('" + endAStr1 + str2 
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
 
         searchStr = "analysisStartDate <- NULL"
         replaceStr = "analysisStartDate <- as.POSIXct('" + begAStr2 + str1
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
         
         searchStr = "analysisEndDate <- NULL"
         replaceStr = "analysisEndDate <- as.POSIXct('" + endAStr2 + str1
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
         
     # Edit baseline namelist options corresponding to arguments passed in.
     strTmp = ''
