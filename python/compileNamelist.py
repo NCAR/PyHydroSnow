@@ -94,20 +94,24 @@ def editNamelist(pathIn,args,dbIn,rank):
     searchStr = "hydFile <- NULL"
     replaceStr = "hydFile <- " + "'" + dbIn.fullDomFile[indDbOrig] + "'"
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
 
     # Edit the geo file entry.
     searchStr = "geoFile <- NULL"
     replaceStr = "geoFile <- " + "'" + dbIn.geoFile[indDbOrig] + "'"
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
 
     # Edit rout link file information if it exists
     if len(dbIn.routeLinkFile[indDbOrig]) != 0:
         searchStr = "routeLinkFile <- NULL"
         replaceStr = "routeLinkFile <- " + "'" + dbIn.routeLinkFile[indDbOrig] + "'"
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
         searchStr = "reachRting <- FALSE"
         replaceStr = "reachRting <- TRUE"
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
 
     # Edit resolution information
     searchStr = "resMod <- NULL"
