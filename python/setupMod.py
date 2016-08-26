@@ -512,7 +512,6 @@ def addModelProject():
         print "ERROR: Forcing input directory: " + db.forceInDir[numModels-1] + " not found."
     if not os.path.isfile(db.geoFile[numModels-1]):
         print "ERROR: Geofile: " + db.geoFile[numModels] + db.geoFile[numModels-1] + " not found."
-    print db.fullDomFile[numModels-1]
     if not os.path.isfile(db.fullDomFile[numModels-1]):
         print "ERROR: High resolution geofile: " + db.fullDomFile[numModels-1] + " not found."
     if not os.path.isfile(db.mskFile[numModels-1]):
