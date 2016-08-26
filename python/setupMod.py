@@ -148,21 +148,9 @@ class modelDatabase:
 
         # Make observations directory, symlink observation files in (if they were listed)
         obsDir1 = subDir1 + "/Observations"
-        strObsLnk = obsDir1 + "/strObs.Rdata"
-        snotelObsLnk = obsDir1 + "/snotelObs.Rdata"
-        amfObsLnk = obsDir1 + "/amfObs.Rdata"
-        metObsLnk = obsDir1 + "/metObs.Rdata"
         snodasLnk = obsDir1 + "/snodas"
         os.mkdir(obsDir1)
         # Only create links if file was entered into model project
-        if len(self.strObsFile[ind]) != 0:
-            os.symlink(self.strObsFile[ind],strObsLnk)
-        if len(self.snotelObsFile[ind]) != 0:
-            os.symlink(self.snotelObsFile[ind],snotelObsLnk)
-        if len(self.amfObsFile[ind]) != 0:
-            os.symlink(self.amfObsFile[ind],amfObsLnk)
-        if len(self.metObsFile[ind]) != 0:
-            os.symlink(self.metObsFile[ind],metObsLnk)
         if len(self.snodasPath[ind]) != 0:
             os.symlink(self.snodasPath[ind],snodasLnk)
 	
