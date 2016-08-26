@@ -96,7 +96,7 @@ def initNamelist(args,dbIn,rank,size):
     strTmp = "_"
     print str(rank)
     print str(args.begADate)
-    nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".R"
+    nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_" + str(args.begADate) + ".R"
     # Establish parent directory path where original namelist file will live.
     #nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_" + str(args.begADate) + "_" + \
     #                   str(args.endADate) + "_" = strTmp.join(args.modelProjects) + "_" + \
