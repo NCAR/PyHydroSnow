@@ -91,7 +91,7 @@ def main(argv):
 
     # Begin editing R namelist file
     try:
-        compileNamelist.editNamelist(namePath,args,db,rank)
+        compileNamelist.editNamelist(namePath,args,db,size,rank)
     except: 
         print "ERROR: Failure to compile R namelist file."
         os.unlink(nameLink)

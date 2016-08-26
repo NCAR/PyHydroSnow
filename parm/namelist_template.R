@@ -27,6 +27,9 @@ subSet <- NULL
 ## Temp directory to write intermediate files
 tmpDir <- NULL 
 
+# Specify MPI related variables passed in from Python
+size <- NULL
+rank <- NULL
 
 ################## Observations ###################
 

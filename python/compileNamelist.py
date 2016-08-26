@@ -12,7 +12,16 @@ from pyHydroEvalUtils import editLine as el
 from pyHydroEvalUtils import returnDate as rt
 import ioMgmntMod
 
-def editNamelist(pathIn,args,dbIn,rank):
+def editNamelist(pathIn,args,dbIn,size,rank):
+    # Place MPI rank/size information into the namelist file.
+    # This information is used to collecte/assemble data
+    searchStr = "size <- NULL"
+    replaceStr = "size <- " + str(size)
+    el(pathIn,searchStr,replaceStr)
+    searchStr = "rank <- NULL"
+    replaceStr = "rank <- " + str(rank)
+    el(pathIn,searchStr,replaceStr)
+    
     # Go through various options chosen by user and edit namelist file accordingly
     numModIn = len(args.modelProjects)
     numModDb = len(dbIn.alias)
