@@ -82,41 +82,41 @@ def checkDb(args,dbIn):
 			raise
 
 def initNamelist(args,dbIn,rank,size):
-	# Establish namelist link based off current process id
-	nLnk = "./parm/namelist_" + str(os.getpid()) + "_RANK" + str(rank) + ".R"
+    # Establish namelist link based off current process id
+    nLnk = "./parm/namelist_" + str(os.getpid()) + "_RANK" + str(rank) + ".R"
+    
+    # Establish index of 1st model project in the database.
+    numModIn = len(args.modelProjects)
+    numModDb = len(dbIn.alias)
 
-	# Establish index of 1st model project in the database.
-	numModIn = len(args.modelProjects)
-	numModDb = len(dbIn.alias)
+    for i in range(0,numModDb):
+        if dbIn.alias[i] == args.modelProjects[0]:
+            indDbOrig = i
 
-	for i in range(0,numModDb):
-		if dbIn.alias[i] == args.modelProjects[0]:
-			indDbOrig = i
+    strTmp = "_"
+    print rank
+    # Establish parent directory path where original namelist file will live.
+    nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_" + str(args.begADate) + "_" + \
+			      str(args.endADate) + "_" + strTmp.join(args.modelProjects) + "_" + \
+			      str(args.lsmRead) + "_" + str(args.rtRead) + "_" + str(args.gwRead) + "_" + \
+	    		      str(args.fxRead) + "_" + str(args.chRead) + "_" + str(args.forRead) + "_" + str(args.snRead) + "_" + \
+			      str(args.stat) + "_" + str(args.plot) + "_" + str(args.begPDate) + "_" + str(args.endPDate) + \
+                       "_RANK_" + str(rank) + ".R"
+    nameListPathOrig = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/namelists/" + nameListFileOrig
 
-	strTmp = "_"
-	# Establish parent directory path where original namelist file will live.
-	nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_" + str(args.begADate) + "_" + \
-			   str(args.endADate) + "_" + strTmp.join(args.modelProjects) + "_" + \
-			   str(args.lsmRead) + "_" + str(args.rtRead) + "_" + str(args.gwRead) + "_" + \
-	    		   str(args.fxRead) + "_" + str(args.chRead) + "_" + str(args.forRead) + "_" + str(args.snRead) + "_" + \
-			   str(args.stat) + "_" + str(args.plot) + "_" + str(args.begPDate) + "_" + str(args.endPDate) + \
-                    "_RANK_" + str(rank) + ".R"
-	nameListPathOrig = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/namelists/" + nameListFileOrig
+    # Copy template file over to directory
+    shutil.copyfile('./parm/namelist_template.R',nameListPathOrig)
 
-	# Copy template file over to directory
-	shutil.copyfile('./parm/namelist_template.R',nameListPathOrig)
-	
-	# Create symbolic link in corresponding model project namelist directories
-	for i in range(1, numModIn):
-		for j in range(0, numModDb):
-			if dbIn.alias[j] == args.modelProjects[i]:
-				nameLnkPath = dbIn.topDir[j] + "/" + dbIn.alias[j] + "/namelists/" + nameListFileOrig
-			 	os.symlink(nameListPathOrig,nameLnkPath)
-
-	# Create symbolic link in current directory for when analysis is to be ran
-	os.symlink(nameListPathOrig,nLnk)
-		
-	return nameListPathOrig, nLnk
+    # Create symbolic link in corresponding model project namelist directories
+    for i in range(1, numModIn):
+        for j in range(0, numModDb):
+            if dbIn.alias[j] == args.modelProjects[i]:
+                nameLnkPath = dbIn.topDir[j] + "/" + dbIn.alias[j] + "/namelists/" + nameListFileOrig
+                os.symlink(nameListPathOrig,nameLnkPath)
+    # Create symbolic link in current directory for when analysis is to be ra
+    os.symlink(nameListPathOrig,nLnk)
+    
+    return nameListPathOrig, nLnk
 
 def editLine(fileIn,searchExp,replaceExp):
 	# Edit line in text file, replacing search string with passed string.
