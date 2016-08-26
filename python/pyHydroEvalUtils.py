@@ -94,6 +94,7 @@ def initNamelist(args,dbIn,rank,size):
             indDbOrig = i
 
     strTmp = "_"
+    print str(rank)
     # Establish parent directory path where original namelist file will live.
     nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_" + str(args.begADate) + "_" + \
 			      str(args.endADate) + "_" + strTmp.join(args.modelProjects) + "_" + \
@@ -101,6 +102,7 @@ def initNamelist(args,dbIn,rank,size):
 	    		      str(args.fxRead) + "_" + str(args.chRead) + "_" + str(args.forRead) + "_" + str(args.snRead) + "_" + \
 			      str(args.stat) + "_" + str(args.plot) + "_" + str(args.begPDate) + "_" + str(args.endPDate) + \
                        "_RANK_" + str(rank) + ".R"
+    print nameListFileOrig
     nameListPathOrig = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/namelists/" + nameListFileOrig
 
     print nameListFileOrig
