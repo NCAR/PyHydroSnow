@@ -23,9 +23,6 @@ comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
 
-print size 
-print rank
-
 def main(argv):
     # Parse arguments passed in.
     parser = argparse.ArgumentParser(description='Main program to run analysis on WRF-Hydro')
@@ -86,6 +83,7 @@ def main(argv):
     # If multiple model projects have been chosen for cross-model validation, 
     # original namelist will be placed in first model project listed, with symbolic
     # links in remaining model projects.
+    print 'a'
     try:
         namePath, nameLink = pyHydroEvalUtils.initNamelist(args,db,rank,size)
     except:
