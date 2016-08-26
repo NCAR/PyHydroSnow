@@ -251,7 +251,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
-            "_SNOW_POINT_MODEL.Rdata"
+            "SNOW_POINT_MODEL.Rdata"
             
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
@@ -275,7 +275,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
-            "_SNOW_POINT_MODEL_SNODAS.Rdata"
+            "SNOW_POINT_MODEL_SNODAS.Rdata"
             
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
@@ -294,7 +294,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
-            "_SNOW_BASIN_MODEL.Rdata"
+            "SNOW_BASIN_MODEL.Rdata"
 
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
@@ -323,7 +323,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
-            "_SNOW_BASIN_MODEL_SNODAS.Rdata"
+            "SNOW_BASIN_MODEL_SNODAS.Rdata"
 
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
@@ -358,7 +358,7 @@ def editNamelist(pathIn,args,dbIn,rank):
     if args.snRun is not None:
         if int(args.snRun) == 1:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_STAT.Rdata"
+            "PT_SNOW_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -382,7 +382,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.snRun) == 2:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_STAT.Rdata"
+            "PT_SNOW_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -411,7 +411,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.snRun) == 3:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_SNODAS_STAT.Rdata"
+            "PT_SNOW_SNODAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -435,7 +435,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.snRun) == 4:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_SNODAS_STAT.Rdata"
+            "PT_SNOW_SNODAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -464,7 +464,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.snRun) == 5:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_BAS_STAT.Rdata"
+            "PT_SNOW_BAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -493,7 +493,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.snRun) == 6:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_BAS_STAT.Rdata"
+            "PT_SNOW_BAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -527,7 +527,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.snRun) == 7:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_SNODAS_BAS_STAT.Rdata"
+            "PT_SNOW_SNODAS_BAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -555,7 +555,7 @@ def editNamelist(pathIn,args,dbIn,rank):
                     sys.exit(1)
         elif int(args.snRun) == 8:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_PT_SNOW_SNODAS_BAS_STAT.Rdata"
+            "PT_SNOW_SNODAS_BAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -588,7 +588,7 @@ def editNamelist(pathIn,args,dbIn,rank):
                     sys.exit(1)
         elif int(args.snRun) == 9:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_SNOW_SNODAS_BAS_STAT.Rdata"
+            "SNOW_SNODAS_BAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -611,7 +611,7 @@ def editNamelist(pathIn,args,dbIn,rank):
                     sys.exit(1)
         elif int(args.snRun) == 10:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_SNOW_SNODAS_BAS_STAT.Rdata"
+            "SNOW_SNODAS_BAS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -639,7 +639,7 @@ def editNamelist(pathIn,args,dbIn,rank):
                     sys.exit(1)
         elif int(args.snRun) == 11:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_SNOW_SNODAS_BAS_STREAM_STAT.Rdata"
+            "SNOW_SNODAS_BAS_STREAM_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -672,7 +672,7 @@ def editNamelist(pathIn,args,dbIn,rank):
                     sys.exit(1)
         elif int(args.snRun) == 12:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_SNOW_SNODAS_BAS_STREAM_STAT.Rdata"
+            "SNOW_SNODAS_BAS_STREAM_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -712,7 +712,7 @@ def editNamelist(pathIn,args,dbIn,rank):
     if args.stRun is not None:
         if int(args.stRun) == 1:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_STREAM_PT_STAT.Rdata"
+            "STREAM_PT_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -720,7 +720,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.stRun) == 2:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_STREAM_ENS_STAT.Rdata"
+            "STREAM_ENS_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -728,7 +728,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.stRun) == 3:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_STREAM_PT_BC_STAT.Rdata"
+            "STREAM_PT_BC_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -736,7 +736,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.stRun) == 4:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_STREAM_ENS_BC_STAT.Rdata"
+            "STREAM_ENS_BC_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -744,7 +744,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.stRun) == 5:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_STREAM_PT_BASEBC_STAT.Rdata"
+            "STREAM_PT_BASEBC_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
@@ -752,7 +752,7 @@ def editNamelist(pathIn,args,dbIn,rank):
             
         elif int(args.stRun) == 6:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
-            "_STREAM_ENS_BASEBC_STAT.Rdata"
+            "STREAM_ENS_BASEBC_STAT.Rdata"
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
