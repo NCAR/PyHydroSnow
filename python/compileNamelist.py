@@ -12,7 +12,7 @@ from pyHydroEvalUtils import editLine as el
 from pyHydroEvalUtils import returnDate as rt
 import ioMgmntMod
 
-def editNamelist(pathIn,args,dbIn):
+def editNamelist(pathIn,args,dbIn,rank):
     # Go through various options chosen by user and edit namelist file accordingly
     numModIn = len(args.modelProjects)
     numModDb = len(dbIn.alias)
@@ -54,6 +54,11 @@ def editNamelist(pathIn,args,dbIn):
             pathListStr = pathListStr + "'" + modPaths[i] + "', "
             forcPathListStr = forcPathListStr + "'" + forcPaths[i] + "', "
             
+    print tagInds
+    print tags
+    print aliasTags
+    print modPaths
+    print forcPaths
     # Edit ensemble information if ensembles present
     ensListStr = "c("
     ensTagStr = "c("
@@ -82,7 +87,9 @@ def editNamelist(pathIn,args,dbIn):
         replaceStr = "ensembleTagList <- " + ensTagStr
         el(pathIn,searchStr,replaceStr)
 
-
+    print ensListStr
+    print ensTagStr
+    print numEns
     # Edit high resolution routing domain file.
     searchStr = "hydFile <- NULL"
     replaceStr = "hydFile <- " + "'" + dbIn.fullDomFile[indDbOrig] + "'"

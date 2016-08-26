@@ -81,7 +81,7 @@ def checkDb(args,dbIn):
 			print "       Please add to database using addMod.py"
 			raise
 
-def initNamelist(args,dbIn,rank,size):
+def initNamelist(args,dbIn,rank):
     # Establish namelist link based off current process id
     nLnk = "./parm/namelist_" + str(os.getpid()) + "_RANK" + str(rank) + ".R"
     
@@ -111,7 +111,7 @@ def initNamelist(args,dbIn,rank,size):
             if dbIn.alias[j] == args.modelProjects[i]:
                 nameLnkPath = dbIn.topDir[j] + "/" + dbIn.alias[j] + "/namelists/" + nameListFileOrig
                 os.symlink(nameListPathOrig,nameLnkPath)
-    # Create symbolic link in current directory for when analysis is to be ra
+    # Create symbolic link in current directory for when analysis is to be ran
     os.symlink(nameListPathOrig,nLnk)
     
     return nameListPathOrig, nLnk
