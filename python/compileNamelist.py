@@ -180,12 +180,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
     if len(dbIn.snowDB[indDbOrig]) != 0:
         searchStr = "snowDB <- NULL"
         replaceStr = "snowDB <- '" + dbIn.snowDB[indDbOrig] + "'"
+        el(pathIn,searchStr,replaceStr)
         print replaceStr
         
     # Edit the streamflow database location entry
     if len(dbIn.streamDB[indDbOrig]) != 0:
         searchStr = "streamDB <- NULL"
         replaceStr = "streamDB <- '" + dbIn.streamDB[indDbOrig] + "'"
+        el(pathIn,searchStr,replaceStr)
         print replaceStr
         
     # Edit the plotting directory 
