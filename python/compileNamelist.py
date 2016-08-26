@@ -117,17 +117,20 @@ def editNamelist(pathIn,args,dbIn,rank):
     searchStr = "resMod <- NULL"
     replaceStr = "resMod <- " + dbIn.geoRes[indDbOrig]
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
 
     # Edit the aggregation factor information
     searchStr = "aggfact <- NULL"
     replaceStr = "aggfact <- " + dbIn.agg[indDbOrig]
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
 
     # Edit mask file.
     if len(dbIn.mskFile[indDbOrig]) != 0:
         searchStr = "maskFile <- NULL"
         replaceStr = "maskFile <- " + "'" + dbIn.mskFile[indDbOrig] + "'" 
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
 
     # Edit basin subsetting option, if specified by user
     if args.subset:
@@ -138,26 +141,31 @@ def editNamelist(pathIn,args,dbIn,rank):
         replaceStr = "subSet <- read.table('" + dbIn.basinSubFile[indDbOrig] + \
         "', sep=\"\\t\", header=TRUE, colClasses=c(\"character\"))"
         el(pathIn,searchStr,replaceStr) 
+        print replaceStr
         
     # Edit the padding information for plotting.
     if args.pad:
         searchStr = "padSteps <- 0"
         replaceStr = "padSteps <- " + args.pad
         el(pathIn,searchStr,replaceStr)
+        print replaceStr
         
     # Edit tmp directory.
     searchStr = "tmpDir <- NULL"
     replaceStr = "tmpDir <- " + "'" + dbIn.topDir[indDbOrig] + \
     "/" + dbIn.alias[indDbOrig] + "/tmp" + "'"
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
     
     # Place model directories and tag listings into namelist file
     searchStr = "modPathList <- NULL"
     replaceStr = "modPathList <- " + pathListStr
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
     searchStr = "modTagList <- NULL"
     replaceStr = "modTagList <- " + tagStr
     el(pathIn,searchStr,replaceStr)
+    print replaceStr
 
     # Edit snow database location entry
     if len(dbIn.snowDB[indDbOrig]) != 0:
