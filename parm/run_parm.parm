@@ -1,0 +1,75 @@
+# This is the overview of the various options
+# for the snow verification system. It serves
+# as a reference guide to the user. 
+
+# Logan Karsten
+# National Center for Atmospheric Research
+# Research Applications Laboratory
+
+# Specify model projects to perform analysis on. If inter-comparing
+# multiple model runs (not ensembles), place multiple projects into
+# argument list.
+modelProjects = PROJECT1
+modelProjects = PROJECT1 PROJECT2
+
+# Note that ensembles should be specified when new model run
+# is created.
+
+# Beginning/end read/analysis date in YYYYMMDDHH format.
+begADate = 2014100100
+endADate = 2015100100
+
+# Specify snow read flag. This is to read in model/obs/analysis 
+# snow fields at either a point or region agreggated scale. 
+# Note that a database of snow observations is needed.
+snRead = 1 # Read model snow fields at points + point observations
+snRead = 2 # Read model snow fields + SNODAS at points + point observations
+snRead = 3 # Read model snow fields aggregated to regions + point observations
+           # that fall within the region.
+snRead = 4 # Read model snow fields + SNODAS aggregated to regions +
+           # + point observations that fall within the region.
+
+# Specify streamflow read flag. This is to read streamflow from either
+# frxst point files, or CHRTOUT files. If CHRTOUT, then a mapping to 
+# gauge points is needed. In addition, an streamflow observation database
+# is needed.
+stRead = 1 # Read streamflow from the frxst point file.
+stRead = 2 # Read streamflow from the CHRTOUT file.
+
+# Specify flag to run snow analysis/plotting. Reads from previous options 
+# will be expected and checked for. 
+snRun = 1  # Calculate statistics/timeseries at individual point locations
+           # for model vs. obs.
+snRun = 2  # Calculate statistics/timeseries at individual point locations +
+           # generate plots for model vs.  obs.
+snRun = 3  # Calculate statistics/timeseries at individual point locations 
+           # for model vs. SNODAS vs. Obs.
+snRun = 4  # Calculate statistics/timeseries at individual point locations 
+           # + generate plots for model vs. SNODAS vs. obs.
+snRun = 5  # Calculate statistics/timeseries for points aggregated to regions
+           # for model vs. obs.
+snRun = 6  # Calculate statistics/timeseries for points aggregated to regions
+           # for model vs. obs + plots.
+snRun = 7  # Calculate statistics/timeseries for points aggregated to regions
+           # for model vs. SNODAS vs. obs.
+snRun = 8  # Calculate statistics/timeseries for points aggregated to regions +
+           # plots for model vs. SNODAS vs. obs.
+snRun = 9  # Calculate statistics/timeseries at aggregated regions 
+           # for model vs. SNODAS.
+snRun = 10 # Calculate statistics/timeseries at aggregated regions for model
+           # vs. SNODAS + plots.
+snRun = 11 # Calculate statistics/timeseries at aggregated regions + 
+           # streamflow analysis for model vs. SNODAS.
+snRun = 12 # Calculate statistics/timeseries at aggregated regions + 
+           # streamflow analysis for model vs. SNODAS + plots.
+
+# Specify streamflow plotting.
+stRun = 1 # Individual model streamflow against observations.
+stRun = 2 # Ensemble streamflow plots with observations.
+stRun = 3 # Individual streamflow plots with bias correction.
+stRun = 4 # Ensemble streamflow plots with bias correction.
+stRun = 5 # Individual streamflow plots with bias and baseflow correction 
+          # against observations.
+stRun = 6 # Ensemble streamflow plots with bias and baseflow correction
+          # against observations.
+ 

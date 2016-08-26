@@ -1,0 +1,70 @@
+# setup_parm file to create a new model directory entry into the database
+# for analysis. 
+
+# Logan Karsten
+# National Center for Atmospheric Research
+# Research Applications Laboratory
+#
+# -----------------------------------------------------------------------
+# This is a Python config file used to create a new entry into the
+# analysis databse used by the main calling program. Once called,
+# A subdirectory within the parent output directory specified 
+# will be created, along with symbolic links to the necessary input
+# data need to run reads/analysis (model input, forcing, obs, etc).
+# -----------------------------------------------------------------------
+
+[top_level]
+# Specify top level directory containing all model project subdirectories.
+topOut = /d7/karsten/wrf_hydro_analysis
+
+[model_specification]
+# Specify directory containing model output relevant to analysis
+modelDir = /d7/karsten/URG_RETRO
+
+# Specify model tag and alias. Model tag will be used for plotting 
+# purposes. The alias will be used when calling main analysis program,
+# directing program to this model project.
+tag = retrospective
+alias = URG_RETRO 
+
+[ensemble_specification] 
+# Specify ensembles if present. If not, leave as []
+ensembleList = 
+ensembleTags = 
+
+[geo]
+# Specify LSM resolution in km
+geoRes = 1.0
+# Specify aggregation factor between high res routing grid and LSM grid.
+aggFactor = 10.0
+
+[forcing_specification]
+# Specify the directory containing model forcing data used for this specified
+# model run.
+forcingDir = /d4/karsten/PyHydroEval_test/forcing1
+
+[geo_specification]
+# specify LSM geofile used for model run
+geoFile = /d4/karsten/PyHydroEval_test/geo/geo_em.d02.nc
+routeLinkFile = 
+
+# Specify the high-resolution geospatial file used
+geoHydFile = /d4/karsten/PyHydroEval_test/geo/Fulldom_hires_netcdf_file.nc
+
+# Specify mask file to be used for this particular model/alias
+maskFile = /d7/karsten/URG_RETRO/urg_MASKS_NEWDOMAIN_TAGGED_POINTS.Rdata
+
+# Optional - specify text file subsetting links for reading/plotting/stats 
+statsLink2GageFile =
+plotLink2GageFile = 
+basinSubFile = /d7/karsten/URG_RETRO/ESP_SUB.txt 
+
+# Optional - specify observation/analysis datasets
+[observations_specification]
+snodasPath = /d4/karsten/rio_snodas_retro/wrf_hydro_grids
+streamDbPath = 
+snowDbPath = 
+
+[run_options]
+# Optional - specify number of cores to use for parallel. Default is 1.
+nCores = 1
