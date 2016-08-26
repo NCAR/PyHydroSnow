@@ -102,7 +102,6 @@ def initNamelist(args,dbIn,rank,size):
                        "_RANK_" + str(rank) + ".R"
     nameListPathOrig = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/namelists/" + nameListFileOrig
 
-    print nameListPathOrig
     # Copy template file over to directory
     shutil.copyfile('./parm/namelist_template.R',nameListPathOrig)
 

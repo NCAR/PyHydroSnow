@@ -83,7 +83,6 @@ def main(argv):
     # If multiple model projects have been chosen for cross-model validation, 
     # original namelist will be placed in first model project listed, with symbolic
     # links in remaining model projects.
-    print 'a'
     try:
         namePath, nameLink = pyHydroEvalUtils.initNamelist(args,db,rank,size)
     except:
@@ -91,28 +90,28 @@ def main(argv):
         sys.exit(1)
 
     # Begin editing R namelist file
-    try:
-        compileNamelist.editNamelist(namePath,args,db)
-    except: 
-        print "ERROR: Failure to compile R namelist file."
-        os.unlink(nameLink)
-        sys.exit(1)	
+    #try:
+    #    compileNamelist.editNamelist(namePath,args,db)
+    #except: 
+    #    print "ERROR: Failure to compile R namelist file."
+    #    os.unlink(nameLink)
+    #    sys.exit(1)	
 
 
-    cmd = "Rscript " + nameLink
-    subprocess.call(cmd,shell=True)	
+    #cmd = "Rscript " + nameLink
+    #subprocess.call(cmd,shell=True)	
 
     # Remove namelist link specific to processor ID
-    try:
-        os.unlink(nameLink)
-    except:
-        print "ERROR: Failure to remove link: " + nameLink
-        sys.exit(1)
+    #try:
+    #    os.unlink(nameLink)
+    #except:
+    #    print "ERROR: Failure to remove link: " + nameLink
+    #    sys.exit(1)
 
     # If Rplots.pdf file exists, remove it.
-    if os.path.isfile('./Rplots.pdf'):
-        cmd = 'rm -rf Rplots.pdf'
-        subprocess.call(cmd,shell=True)
+    #if os.path.isfile('./Rplots.pdf'):
+    #    cmd = 'rm -rf Rplots.pdf'
+    #    subprocess.call(cmd,shell=True)
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
