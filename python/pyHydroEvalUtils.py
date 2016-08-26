@@ -94,7 +94,6 @@ def initNamelist(args,dbIn,rank,size):
             indDbOrig = i
 
     strTmp = "_"
-    print rank
     # Establish parent directory path where original namelist file will live.
     nameListFileOrig = "namelist_" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_" + str(args.begADate) + "_" + \
 			      str(args.endADate) + "_" + strTmp.join(args.modelProjects) + "_" + \
@@ -104,6 +103,7 @@ def initNamelist(args,dbIn,rank,size):
                        "_RANK_" + str(rank) + ".R"
     nameListPathOrig = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/namelists/" + nameListFileOrig
 
+    print nameListFileOrig
     # Copy template file over to directory
     shutil.copyfile('./parm/namelist_template.R',nameListPathOrig)
 
