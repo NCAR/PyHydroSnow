@@ -87,7 +87,7 @@ def main(argv):
     # original namelist will be placed in first model project listed, with symbolic
     # links in remaining model projects.
     try:
-        namePath, nameLink = pyHydroEvalUtils.initNamelist(args,db)
+        namePath, nameLink = pyHydroEvalUtils.initNamelist(args,db,rank,size)
     except:
         print "ERROR: Failure to initialize R namelist file."
         sys.exit(1)

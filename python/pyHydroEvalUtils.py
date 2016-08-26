@@ -81,9 +81,9 @@ def checkDb(args,dbIn):
 			print "       Please add to database using addMod.py"
 			raise
 
-def initNamelist(args,dbIn):
+def initNamelist(args,dbIn,rank,size):
 	# Establish namelist link based off current process id
-	nLnk = "./parm/namelist_" + str(os.getpid()) + ".R"
+	nLnk = "./parm/namelist_" + str(os.getpid()) + "_RANK" + str(rank) + ".R"
 
 	# Establish index of 1st model project in the database.
 	numModIn = len(args.modelProjects)
@@ -99,7 +99,8 @@ def initNamelist(args,dbIn):
 			   str(args.endADate) + "_" + strTmp.join(args.modelProjects) + "_" + \
 			   str(args.lsmRead) + "_" + str(args.rtRead) + "_" + str(args.gwRead) + "_" + \
 	    		   str(args.fxRead) + "_" + str(args.chRead) + "_" + str(args.forRead) + "_" + str(args.snRead) + "_" + \
-			   str(args.stat) + "_" + str(args.plot) + "_" + str(args.begPDate) + "_" + str(args.endPDate) + ".R"
+			   str(args.stat) + "_" + str(args.plot) + "_" + str(args.begPDate) + "_" + str(args.endPDate) + \
+                    "_RANK_" + str(rank) + ".R"
 	nameListPathOrig = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/namelists/" + nameListFileOrig
 
 	# Copy template file over to directory
