@@ -16,6 +16,15 @@ import os
 import pyHydroEvalUtils
 import datetime
 import compileNamelist
+from mpi4py import MPI
+
+# Establish MPI objects
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+
+print size 
+print rank
 
 def main(argv):
     # Parse arguments passed in.
