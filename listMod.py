@@ -34,35 +34,35 @@ class modelDatabase:
         self.snowDB = []
         self.snodasPath = []
         self.nCores = []
-        def printInfo(self):
-            filePathDb = "./parm/modelMeta_db.pkl"
-            # Read data in from pickle file
-            with open(filePathDb,'rb') as input:
-                dbTmp = pickle.load(input)
-                lenTmp = len(dbTmp.tag)
-                for i in range(0,lenTmp):
-                    print "----------------------------------------------------"
-                    print "Model Project Number:                " + str(i+1)
-                    print "*Alias:                              " + dbTmp.alias[i]
-                    print "*Source Directory:                   " + dbTmp.modelInDir[i]
-                    print "*Output Analaysis Directory:         " + dbTmp.topDir[i] + "/" + dbTmp.alias[i]
-                    print "*Model Tag:                          " + dbTmp.tag[i]
-                    print "*Ensemble List:                      " + ', '.join(dbTmp.ensList[i])
-                    print "*Ensemble Tags:                      " + ', '.join(dbTmp.ensTag[i])
-                    print "*Model Forcing Source Directory:     " + dbTmp.forceInDir[i]
-                    print "*Input Geo File:                     " + dbTmp.geoFile[i]
-                    print "*Input LSM Resolution:               " + dbTmp.geoRes[i]
-                    print "*Routine Aggregation Factor:         " + dbTmp.agg[i]
-                    print "*Input FullDom File:                 " + dbTmp.fullDomFile[i]
-                    print "*Input Mask File:                    " + dbTmp.mskFile[i]
-                    print "*Streamflow Observations Database:   " + dbTmp.streamDB[i]
-                    print "*Snow Observations Database:         " + dbTmp.snowDB[i]
-                    print "*routeLinkFile File:                 " + dbTmp.routeLinkFile[i]
-                    print "*statsLink2Gage File:                " + dbTmp.statsLink2GageFile[i]
-                    print "*plotLink2Gage File:                 " + dbTmp.plotLink2GageFile[i]
-                    print "*Basin Subset File:                  " + dbTmp.basinSubFile[i]
-                    print "*SNODAS Directory:                   " + dbTmp.snodasPath[i]
-                    print "*Number of Cores:                    " + dbTmp.nCores[i]
+    def printInfo(self):
+        filePathDb = "./parm/modelMeta_db.pkl"
+        # Read data in from pickle file
+        with open(filePathDb,'rb') as input:
+            dbTmp = pickle.load(input)
+            lenTmp = len(dbTmp.tag)
+            for i in range(0,lenTmp):
+                print "----------------------------------------------------"
+                print "Model Project Number:                " + str(i+1)
+                print "*Alias:                              " + dbTmp.alias[i]
+                print "*Source Directory:                   " + dbTmp.modelInDir[i]
+                print "*Output Analaysis Directory:         " + dbTmp.topDir[i] + "/" + dbTmp.alias[i]
+                print "*Model Tag:                          " + dbTmp.tag[i]
+                print "*Ensemble List:                      " + ', '.join(dbTmp.ensList[i])
+                print "*Ensemble Tags:                      " + ', '.join(dbTmp.ensTag[i])
+                print "*Model Forcing Source Directory:     " + dbTmp.forceInDir[i]
+                print "*Input Geo File:                     " + dbTmp.geoFile[i]
+                print "*Input LSM Resolution:               " + dbTmp.geoRes[i]
+                print "*Routine Aggregation Factor:         " + dbTmp.agg[i]
+                print "*Input FullDom File:                 " + dbTmp.fullDomFile[i]
+                print "*Input Mask File:                    " + dbTmp.mskFile[i]
+                print "*Streamflow Observations Database:   " + dbTmp.streamDB[i]
+                print "*Snow Observations Database:         " + dbTmp.snowDB[i]
+                print "*routeLinkFile File:                 " + dbTmp.routeLinkFile[i]
+                print "*statsLink2Gage File:                " + dbTmp.statsLink2GageFile[i]
+                print "*plotLink2Gage File:                 " + dbTmp.plotLink2GageFile[i]
+                print "*Basin Subset File:                  " + dbTmp.basinSubFile[i]
+                print "*SNODAS Directory:                   " + dbTmp.snodasPath[i]
+                print "*Number of Cores:                    " + dbTmp.nCores[i]
 
 fileIn = "./parm/modelMeta_db.pkl"
 
