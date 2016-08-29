@@ -304,7 +304,7 @@ subSetPoints <- function(ptgeo.sno,subSet){
 mpiGageList <- function(size,rank,gageList){
     # Calculate total size of list. From there, split up portions
     # based on rank.
-    masterLength <- length(gageList)
+    masterLength <- length(gageList$site_no)
     localLength <- floor(masterLength/size)
     begInd <- localLength*rank + 1
     endInd <- localLength*(rank+1)
