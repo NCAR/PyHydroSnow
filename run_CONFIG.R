@@ -71,7 +71,8 @@ if (!is.null(subSet)){
                                 mskhyd.maxInds,
                                 mskhyd,minInds,
                                 mskhyd.nameList,
-                                stid2gageList)
+                                stid2gageList,
+                                subSet)
         mskgeo.nameList <- listSub[[1]]
         frxstPts <- listSub[[2]]
         basin2gageList <- listSub[[3]]
