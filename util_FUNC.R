@@ -326,11 +326,8 @@ mpiGageList <- function(size,rank,gageList){
         } else {
             rBegInd <- size*localLength + 1
             rEndInd <- masterLength
-            print(gageList)
             print(paste0('RBEG: ',rBegInd))
             print(paste0('REND: ',rEndInd))
-            print(gageList[begInd:endInd,])
-            print(gageList[rBegInd:rEndInd,])
             gageList <- merge(gageList[begInd:endInd,],gageList[rBegInd,rEndInd,])
         }
     }
