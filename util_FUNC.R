@@ -321,6 +321,7 @@ mpiGageList <- function(size,rank,gageList){
     } else {
         localLength <- floor(masterLength/size) 
         remainder <- masterLength - (localLength*size)
+        print(remainder)
         if (remainder == 0){
             gageList <- gageList[begInd:endInd,]
         } else {
