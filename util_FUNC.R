@@ -175,14 +175,11 @@ subSetBasins <- function(mskgeo.nameList,
 
     # First determine which subset names are of type forecast points.
     frxstPtsSub <- subSet$id[which(subSet$type == 2)]
-    print(frxstPtsSub)
     ind <- c()
     for (frxstPt in frxstPtsSub){
-        print(frxstPt)
         i <- which(mskgeo.nameList == frxstPt)
         ind <- append(ind,i)
     }
-    print(ind)
     # Subset lists/data frames
     mskgeo.nameList <- mskgeo.nameList[ind]
     frxstPts <- frxstPts[ind,]

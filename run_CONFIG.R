@@ -42,7 +42,6 @@ if ( !reachRting & exists("stid2gageList")){
     }
 }
 
-print(subSet)
 # If subsetting has been enabled, subset mask parameters here. This will vary
 # depending on whether points, regions, or gages have been identified 
 # for subsetting.
