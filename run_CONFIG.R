@@ -58,38 +58,38 @@ if (!is.null(subSet)){
         print('FRXST')
         subList <- subSet
         listSub <- subSetBasins(mskgeo.nameList,
-                                frxstPts,
-                                basin2gageList,
-                                gage2basinList,
-                                mskgeo.areaList,
-                                mskgeo.countInds,
-                                mskgeo.List,
-                                mskgeo.maxInds,
-                                mskgeo.minInds,
-                                mskhyd.areaList,
-                                mskhyd.countInds,
-                                mskhyd.List,
-                                mskhyd.maxInds,
-                                mskhyd,minInds,
-                                mskhyd.nameList,
-                                stid2gageList,
+                                #frxstPts,
+                                #basin2gageList,
+                                #gage2basinList,
+                                #mskgeo.areaList,
+                                #mskgeo.countInds,
+                                #mskgeo.List,
+                                #mskgeo.maxInds,
+                                #mskgeo.minInds,
+                                #mskhyd.areaList,
+                                #mskhyd.countInds,
+                                #mskhyd.List,
+                                #mskhyd.maxInds,
+                                #mskhyd,minInds,
+                                #mskhyd.nameList,
+                                #stid2gageList,
                                 subList)
-        mskgeo.nameList <- listSub[[1]]
-        frxstPts <- listSub[[2]]
-        basin2gageList <- listSub[[3]]
-        gage2basinList <- listSub[[4]]
-        mskgeo.areaList <- listSub[[5]]
-        mskgeo.countInds <- listSub[[6]]
-        mskgeo.List <- lisSub[[7]]
-        mskgeo.maxInds <- listSub[[8]]
-        mskgeo.minInds <- listSub[[9]]
-        mskhyd.areaList <- listSub[[10]]
-        mskhyd.countInds <- listSub[[11]]
-        mskhyd.List <- listSub[[12]]
-        mskhyd.maxInds <- listSub[[13]]
-        mskhyd.minInds <- listSub[[14]]
-        mskhyd.nameList <- listSub[[15]]
-        stid2gageList <- listSub[[16]]
+        #mskgeo.nameList <- listSub[[1]]
+        #frxstPts <- listSub[[2]]
+        #basin2gageList <- listSub[[3]]
+        #gage2basinList <- listSub[[4]]
+        #mskgeo.areaList <- listSub[[5]]
+        #mskgeo.countInds <- listSub[[6]]
+        #mskgeo.List <- lisSub[[7]]
+        #mskgeo.maxInds <- listSub[[8]]
+        #mskgeo.minInds <- listSub[[9]]
+        #mskhyd.areaList <- listSub[[10]]
+        #mskhyd.countInds <- listSub[[11]]
+        #mskhyd.List <- listSub[[12]]
+        #mskhyd.maxInds <- listSub[[13]]
+        #mskhyd.minInds <- listSub[[14]]
+        #mskhyd.nameList <- listSub[[15]]
+        #stid2gageList <- listSub[[16]]
 
         stop('TEST 1')
     }

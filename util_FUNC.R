@@ -156,55 +156,56 @@ basSnowMetrics <- function(sweVar,mskVar,basElev,runoff,res,runoffFlag) {
 
 # Subset forecast points and associated basin mask information
 subSetBasins <- function(mskgeo.nameList,
-                         frxstPts,
-                         basin2gageList,
-                         gage2basinList,
-                         mskgeo.areaList,
-                         mskgeo.countInds,
-                         mskgeo.List,
-                         mskgeo.maxInds,
-                         mskgeo.minInds,
-                         mskhyd.areaList,
-                         mskhyd.countInds,
-                         mskhyd.List,
-                         mskhyd.maxInds,
-                         mskhyd.minInds,
-                         mskhyd.nameList,
-                         stid2gageList,
+                         #frxstPts,
+                         #basin2gageList,
+                         #gage2basinList,
+                         #mskgeo.areaList,
+                         #mskgeo.countInds,
+                         #mskgeo.List,
+                         #mskgeo.maxInds,
+                         #mskgeo.minInds,
+                         #mskhyd.areaList,
+                         #mskhyd.countInds,
+                         #mskhyd.List,
+                         #mskhyd.maxInds,
+                         #mskhyd.minInds,
+                         #mskhyd.nameList,
+                         #stid2gageList,
                          subList) {
 
     print(subList)
     # First determine which subset names are of type forecast points.
-    fxstPtsSub <- which(unique(subList$type) == 2)
-    ind <- c()
-    for (frxstPt in frxstPtsSub){
-        i <- which(mskgeo.nameList == frxstPt)
-        ind <- append(ind,i)
-    }
+    #fxstPtsSub <- which(unique(subList$type) == 2)
+    #ind <- c()
+    #for (frxstPt in frxstPtsSub){
+    #    i <- which(mskgeo.nameList == frxstPt)
+    #    ind <- append(ind,i)
+    #}
     # Subset lists/data frames
-    mskgeo.nameList <- mskgeo.nameList[ind]
-    frxstPts <- frxstPts[ind,]
-    gage2basinList <- gage2basinList[ind]
-    basin2gageList <- basin2gageList[ind]
-    mskgeo.areaList <- mskgeo.areaList[ind]
-    mskgeo.countInds <- mskgeo.countInds$x[ind,]
-    mskgeo.List <- mskgeo.List[ind]
-    mskgeo.maxInds <- mskgeo.maxInds$x[ind,]
-    mskgeo.minInds <- mskgeo.minInds$x[ind,]
-    mskhyd.areaList <- mskhyd.areaList[ind]
-    mskhyd.countInds <- mskhyd.countInds$x[ind,]
-    mskhyd.List <- mskhyd.List[ind]
-    mskhyd.maxInds <- mskhyd.maxInds$x[ind,]
-    mskhyd.minInds <- mskhyd.minInds$x[ind,]
-    mskhyd.nameList <- mskhyd.nameList[ind]
-    stid2gageList <- stid2gageList[ind]
+    #mskgeo.nameList <- mskgeo.nameList[ind]
+    #frxstPts <- frxstPts[ind,]
+    #gage2basinList <- gage2basinList[ind]
+    #basin2gageList <- basin2gageList[ind]
+    #mskgeo.areaList <- mskgeo.areaList[ind]
+    #mskgeo.countInds <- mskgeo.countInds$x[ind,]
+    #mskgeo.List <- mskgeo.List[ind]
+    #mskgeo.maxInds <- mskgeo.maxInds$x[ind,]
+    #mskgeo.minInds <- mskgeo.minInds$x[ind,]
+    #mskhyd.areaList <- mskhyd.areaList[ind]
+    #mskhyd.countInds <- mskhyd.countInds$x[ind,]
+    #mskhyd.List <- mskhyd.List[ind]
+    #mskhyd.maxInds <- mskhyd.maxInds$x[ind,]
+    #mskhyd.minInds <- mskhyd.minInds$x[ind,]
+    #mskhyd.nameList <- mskhyd.nameList[ind]
+    #stid2gageList <- stid2gageList[ind]
 
-    print(mskgeo.nameList)
-    return(list(mskgeo.nameList,frxstPts,basin2gageList,gage2basinList,
-                mskgeo.areaList,mskgeo.countInds,mskgeo.List,mskgeo.maxInds,
-                mskgeo.minInds,mskhyd.areaList,mskhyd.countInds,
-                mskhyd.List,mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
-                stid2gageList))
+    return(list(mskgeo.nameList))
+    #print(mskgeo.nameList)
+    #return(list(mskgeo.nameList,frxstPts,basin2gageList,gage2basinList,
+    #            mskgeo.areaList,mskgeo.countInds,mskgeo.List,mskgeo.maxInds,
+    #            mskgeo.minInds,mskhyd.areaList,mskhyd.countInds,
+    #            mskhyd.List,mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
+    #            stid2gageList))
 }
 
 # Subset reach based NHD catchment points
