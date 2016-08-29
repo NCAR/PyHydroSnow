@@ -315,7 +315,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
     localLength <- floor(masterLength/size)
     begInd <- localLength*rank + 1
     endInd <- localLength*(rank+1)
-    print(masterLenth)
+    print(masterLength)
     print(localLength)
     print(begInd)
     print(endInd)
