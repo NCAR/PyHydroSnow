@@ -175,6 +175,7 @@ subSetBasins <- function(mskgeo.nameList,
 
     # First determine which subset names are of type forecast points.
     frxstPtsSub <- which(unique(subSet$type) == 2)
+    print(frxstPtsSub)
     ind <- c()
     for (frxstPt in frxstPtsSub){
         print(frxstPt)
