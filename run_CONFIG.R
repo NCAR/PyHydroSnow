@@ -50,7 +50,7 @@ stop('blah')
 if (!is.null(subSet)){
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
-        listSub <- subSetReachPts(subSet,gageList))
+        listSub <- subSetReachPts(subSet,gageList)
         gageList <- listSub[[1]]
     }
     # Subset FRXST points with associated basin mskgeo/mskhyd areas
