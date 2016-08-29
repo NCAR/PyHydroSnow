@@ -332,6 +332,9 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
         mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
         mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
         mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
+        print(mskgeo.nameList)
+        print(begInd)
+        print(endInd)
         mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
         print(mskgeo.nameList[begInd:endInd])
     } else {
