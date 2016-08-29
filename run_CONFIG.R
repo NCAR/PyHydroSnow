@@ -79,7 +79,7 @@ if (!is.null(subSet)){
         gage2basinList <- listSub[[4]]
         mskgeo.areaList <- listSub[[5]]
         mskgeo.countInds <- listSub[[6]]
-        mskgeo.List <- lisSub[[7]]
+        mskgeo.List <- listSub[[7]]
         mskgeo.maxInds <- listSub[[8]]
         mskgeo.minInds <- listSub[[9]]
         mskhyd.areaList <- listSub[[10]]
