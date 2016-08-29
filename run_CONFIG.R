@@ -25,7 +25,9 @@ if (reachRting == TRUE){
 	}
 }	
 
-ls()
+print('--------')
+x <- ls()
+print(x)
 # Compose list of gages to analyze/read
 if ( !reachRting & exists("stid2gageList")){
     # frxst points
