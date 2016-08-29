@@ -174,7 +174,7 @@ subSetBasins <- function(mskgeo.nameList,
                          subSet) {
 
     # First determine which subset names are of type forecast points.
-    frxstPtsSub <- which(unique(subSet$type) == 2)
+    frxstPtsSub <- subSet$id[which(subSet$type == 2)]
     print(frxstPtsSub)
     ind <- c()
     for (frxstPt in frxstPtsSub){
@@ -212,7 +212,7 @@ subSetBasins <- function(mskgeo.nameList,
 # Subset reach based NHD catchment points
 subSetReachPts <- function(subSet,gageList){
     # First determine which subset names are of type reach based
-    reachPtsSub = which(unique(subSet$type == 1))
+    reachPtsSub = subSet$id[which(subSet$type == 1)]
     ind <- c()
     for (reachPt in reachPtsSub){
         i <- which(gageList == reachPt)
@@ -239,7 +239,7 @@ subSetRegions <- function(mskgeo.nameList,
                           subSet){
 
     # First determine which subset names are of type region.
-    regionsSub <- which(unique(subSet$type == 3))
+    regionsSub <- subSet$id[which(subSet$type == 3)]
     ind <- c()
     for (region in regionSub){
         i <- which(mskgeo.nameList == region)
@@ -268,7 +268,7 @@ subSetRegions <- function(mskgeo.nameList,
 # Subset snow points
 subSetPoints <- function(ptgeo.sno,subSet){
     # First determine which subset names are of type point
-    ptsSub <- which(unique(subSet$type == 4))
+    ptsSub <- subSet$id[which(subSet$type == 4)]
     ind <- c()
     for (pt in ptsSub){
         i <- which(ptgeo.sno$id == pt)
