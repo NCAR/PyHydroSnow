@@ -88,7 +88,8 @@ if (!is.null(subSet)){
         mskhyd.minInds <- listSub[[14]]
         mskhyd.nameList <- listSub[[15]]
         stid2gageList <- listSub[[16]]
-        print(mskgeo.nameList)
+        # Reset gageList
+        gageList <- data.frame(st_id=names(stid2gageList), site_no=unlist(stid2gageList), stringsAsFactors=FALSE)
     }
     # Subset regions only, assuming no associated streamflow gages 
     # with these (eco-regions with no basin2gageList,gage2basinList,
@@ -134,6 +135,8 @@ print('lk')
 if (size > 1){
     print('mpi')
     # Split up gageList for reach-based routing
+    print('xxxx')
+    print(gageList)
     if (!is.null(gageList)){
         listMpi <- mpiGageList(size,rank,gageList)    
         gageList <- listMpi[1]
