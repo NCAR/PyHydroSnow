@@ -8,10 +8,10 @@ library(rwrfhydro)
 library(data.table)
 library(scales)
 
-#if (!is.null(maskFile)){
-#	load(maskFile)
-#}
-#source("util_FUNC.R")
+if (!is.null(maskFile)){
+	load(maskFile)
+}
+source("util_FUNC.R")
 
 # If reach routing was specified but no rtlinks object exists,
 # read it in from the routeLinksFile.
