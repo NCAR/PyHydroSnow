@@ -338,7 +338,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
         print(begInd)
         print(endInd)
         print('sdfasdf')
-        print(mskgeo.nameList[7])
+        print(mskgeo.nameList[begInd:endInd])
         #print(mskgeo.nameList[begInd:endInd])
         mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
         #print(mskgeo.nameList[begInd:endInd])
