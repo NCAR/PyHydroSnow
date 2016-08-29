@@ -374,6 +374,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
             mskgeo.nameList <- rbind(mskgeo.nameList[begInd:endInd],mskgeo.nameList[rBegInd:rEndInd])
         }
     }
+    print(mskgeo.nameList)
     # Return list
     return(list(frxstPts,basin2gageList,gage2basinList,
                 stid2gageList,mskgeo.areaList,mskgeo.countInds,
