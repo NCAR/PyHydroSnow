@@ -189,7 +189,7 @@ if (size > 1){
     }
 }
 
-print(mskgeo.areaList)
+#print(mskgeo.areaList)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
