@@ -333,7 +333,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
         mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
         mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
         print('logan')
-        print(mskgeo.nameList)
+        print(mskgeo.nameList[1])
         print('logan again')
         print(begInd)
         print(endInd)
