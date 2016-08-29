@@ -177,6 +177,7 @@ subSetBasins <- function(mskgeo.nameList,
     frxstPtsSub <- which(unique(subSet$type) == 2)
     ind <- c()
     for (frxstPt in frxstPtsSub){
+        print(frxstPt)
         i <- which(mskgeo.nameList == frxstPt)
         ind <- append(ind,i)
     }
