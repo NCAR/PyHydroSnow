@@ -189,7 +189,7 @@ if (size > 1){
     }
 }
 
-print(basin2gageList)
+print(mskgeo.countInds)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
