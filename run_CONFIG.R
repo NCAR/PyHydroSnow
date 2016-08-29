@@ -47,7 +47,7 @@ print(subSet)
 # depending on whether points, regions, or gages have been identified 
 # for subsetting.
 if (!is.null(subSet)){
-    print('alsdkfasd')
+    print(unique(subSet$type))
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
         print('REACH')
