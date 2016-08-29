@@ -461,10 +461,6 @@ mpiPts <- function(size,rank,ptgeo.sno){
     localLength <- floor(masterLength/size)
     begInd <- localLength*rank + 1
     endInd <- localLength*(rank+1)
-    print(masterLength)
-    print(localLength)
-    print(begInd)
-    print(endInd)
     if (rank != 0){
         localLength <- floor(masterLength/size)
         ptgeo.sno <- ptgeo.sno[begInd:endInd,]
