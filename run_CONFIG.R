@@ -136,14 +136,13 @@ if (size > 1){
         gageList <- listMpi[1]
     }
     # Split up forecast points and associated basin masks.
-    print(gageList)
     if (!is.null(frxstPts)){
         listMpi <- mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
                             stid2gageList,mskgeo.areaList,mskgeo.countInds,
                             mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
                             mskhyd.areaList,mskhyd.countInds,mskhyd.List,
                             mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
-                            mskgeo.nameList)    
+                            mskgeo.nameList,gageList)    
         frxstPts <- listMpi[1]
         basin2gageList <- listMpi[2]
         gage2basinList <- listMpi[3]
@@ -160,10 +159,7 @@ if (size > 1){
         mskhyd.minInds <- listMpi[14]
         mskhyd.nameList <- listMpi[15]
         mskgeo.nameList <- listMpi[16]  
-        # Reset gageList
-        print(stid2gageList)
-        gageList <- data.frame(st_id=names(stid2gageList), site_no=unlist(stid2gageList), stringsAsFactors=FALSE)  
-        print(mskgeo.nameList)
+        gageList <- listMpi[17]
     }
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
@@ -193,6 +189,7 @@ if (size > 1){
     }
 }
 
+print(gageList)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
