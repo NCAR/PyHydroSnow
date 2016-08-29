@@ -321,7 +321,6 @@ mpiGageList <- function(size,rank,gageList){
     } else {
         localLength <- floor(masterLength/size) 
         remainder <- masterLength - (localLength*size)
-        print(remainder)
         if (remainder == 0){
             gageList <- gageList[begInd:endInd,]
         } else {
@@ -330,8 +329,8 @@ mpiGageList <- function(size,rank,gageList){
             print(gageList)
             print(paste0('RBEG: ',rBegInd))
             print(paste0('REND: ',rEndInd))
-            print(gageList[begInd,endInd,])
-            print(gageList[rBegInd,rEndInd,])
+            print(gageList[begInd:endInd,])
+            print(gageList[rBegInd:rEndInd,])
             gageList <- merge(gageList[begInd:endInd,],gageList[rBegInd,rEndInd,])
         }
     }
