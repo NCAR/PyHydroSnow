@@ -333,7 +333,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
         mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
         mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
         mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
-        print(mskgeo.nameList)
+        print(mskgeo.nameList[begInd:endInd])
     } else {
         localLength <- floor(masterLength/size) 
         remainder <- masterLength - (localLength*size)
