@@ -49,11 +49,13 @@ if (!is.null(subSet)){
     print('alsdkfasd')
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
+        print('REACH')
         listSub <- subSetReachPts(subSet,gageList)
         gageList <- listSub[[1]]
     }
     # Subset FRXST points with associated basin mskgeo/mskhyd areas
     if (length(which(unique(subSet$type) == 2)) == 2){
+        print('FRXST')
         listSub <- subSetBasins(mskgeo.nameList,
                                 frxstPts,
                                 basin2gageList,
@@ -87,6 +89,8 @@ if (!is.null(subSet)){
         mskhyd.minInds <- listSub[[14]]
         mskhyd.nameList <- listSub[[15]]
         stid2gageList <- listSub[[16]]
+
+        stop('TEST 1')
     }
     # Subset regions only, assuming no associated streamflow gages 
     # with these (eco-regions with no basin2gageList,gage2basinList,
@@ -143,7 +147,8 @@ if (size > 1){
                             stid2gageList,mskgeo.areaList,mskgeo.countInds,
                             mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
                             mskhyd.areaList,mskhyd.countInds,mskhyd.List,
-                            mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList)    
+                            mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
+                            mskgeo.nameList)    
         frxstPts <- listMpi[1]
         basin2gageList <- listMpi[2]
         gage2basinList <- listMpi[3]
@@ -158,14 +163,16 @@ if (size > 1){
         mskhyd.List <- listMpi[12]
         mskhyd.maxInds <- listMpi[13]
         mskhyd.minInds <- listMpi[14]
-        mskhyd.nameList <- listMpi[15]    
+        mskhyd.nameList <- listMpi[15]
+        mskgeo.nameList <- listMpi[16]    
     }
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
         listMpi <- mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
                               mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
                               mskhyd.areaList,mskhyd.countInds,mskhyd.List,
-                              mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList)
+                              mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
+                              mskgeo.nameList)
     }
     mskgeo.areaList <- listMpi[1]
     mskgeo.countInds <- listMpi[2]
@@ -178,6 +185,7 @@ if (size > 1){
     mskhyd.maxInds <- listMpi[9]
     mskhyd.minInds <- listMpi[10]
     mskhyd.nameList <- listMpi[11]
+    mskgeo.nameList <- listMpi[12]
 
     # Split up points
     if (!is.null(ptgeo.sno)){
