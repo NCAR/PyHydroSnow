@@ -186,27 +186,15 @@ subSetBasins <- function(mskgeo.nameList,
     gage2basinList <- gage2basinList[ind]
     basin2gageList <- basin2gageList[ind]
     mskgeo.areaList <- mskgeo.areaList[ind]
-    mskgeo.countInds$x <- mskgeo.countInds$x[ind]
-    mskgeo.countInds$y <- mskgeo.countInds$y[ind]
-    mskgeo.countInds$id <- mskgeo.countInds$id[ind]
+    mskgeo.countInds <- mskgeo.countInds$x[ind,]
     mskgeo.List <- mskgeo.List[ind]
-    mskgeo.maxInds$x <- mskgeo.maxInds$x[ind]
-    mskgeo.maxInds$y <- mskgeo.maxInds$y[ind]
-    mskgeo.maxInds$id <- mskgeo.maxInds$id[ind]
-    mskgeo.minInds$x <- mskgeo.minInds$x[ind]
-    mskgeo.minInds$y <- mskgeo.minInds$y[ind]
-    mskgeo.minInds$id <- mskgeo.minInds$id[ind]
+    mskgeo.maxInds <- mskgeo.maxInds$x[ind,]
+    mskgeo.minInds <- mskgeo.minInds$x[ind,]
     mskhyd.areaList <- mskhyd.areaList[ind]
-    mskhyd.countInds$x <- mskhyd.countInds$x[ind]
-    mskhyd.countInds$y <- mskhyd.countInds$y[ind]
-    mskhyd.countInds$id <- mskhyd.countInds$id[ind]
+    mskhyd.countInds <- mskhyd.countInds$x[ind,]
     mskhyd.List <- mskhyd.List[ind]
-    mskhyd.maxInds$x <- mskhyd.maxInds$x[ind]
-    mskhyd.maxInds$y <- mskhyd.maxInds$y[ind]
-    mskhyd.maxInds$id <- mskhyd.maxInds$id[ind]
-    mskhyd.minInds$x <- mskhyd.minInds$x[ind]
-    mskhyd.minInds$y <- mskhyd.minInds$y[ind]
-    mskhyd.minInds$id <- mskhyd.minInds$id[ind]
+    mskhyd.maxInds <- mskhyd.maxInds$x[ind,]
+    mskhyd.minInds <- mskhyd.minInds$x[ind,]
     mskhyd.nameList <- mskhyd.nameList[ind]
     stid2gageList <- stid2gageList[ind]
 
@@ -227,7 +215,7 @@ subSetReachPts <- function(subSet,gageList){
         ind <- append(ind,i)    
     }
     # Subset the gageList
-    gageList <- gageList[ind]
+    gageList <- gageList[ind,]
     return(list(gageList))
 }
 
@@ -256,27 +244,15 @@ subSetRegions <- function(mskgeo.nameList,
     # Subset lists/data frames
     mskgeo.nameList <- mskgeo.nameList[ind]
     mskgeo.areaList <- mskgeo.areaList[ind]
-    mskgeo.countInds$x <- mskgeo.countInds$x[ind]
-    mskgeo.countInds$y <- mskgeo.countInds$y[ind]
-    mskgeo.countInds$id <- mskgeo.countInds$id[ind]
+    mskgeo.countInds <- mskgeo.countInds$x[ind,]
     mskgeo.List <- mskgeo.List[ind]
-    mskgeo.maxInds$x <- mskgeo.maxInds$x[ind]
-    mskgeo.maxInds$y <- mskgeo.maxInds$y[ind]
-    mskgeo.maxInds$id <- mskgeo.maxInds$id[ind]
-    mskgeo.minInds$x <- mskgeo.minInds$x[ind]
-    mskgeo.minInds$y <- mskgeo.minInds$y[ind]
-    mskgeo.minInds$id <- mskgeo.minInds$id[ind]
+    mskgeo.maxInds <- mskgeo.maxInds$x[ind,]
+    mskgeo.minInds <- mskgeo.minInds$x[ind,]
     mskhyd.areaList <- mskhyd.areaList[ind]
-    mskhyd.countInds$x <- mskhyd.countInds$x[ind]
-    mskhyd.countInds$y <- mskhyd.countInds$y[ind]
-    mskhyd.countInds$id <- mskhyd.countInds$id[ind]
+    mskhyd.countInds <- mskhyd.countInds$x[ind,]
     mskhyd.List <- mskhyd.List[ind]
-    mskhyd.maxInds$x <- mskhyd.maxInds$x[ind]
-    mskhyd.maxInds$y <- mskhyd.maxInds$y[ind]
-    mskhyd.maxInds$id <- mskhyd.maxInds$id[ind]
-    mskhyd.minInds$x <- mskhyd.minInds$x[ind]
-    mskhyd.minInds$y <- mskhyd.minInds$y[ind]
-    mskhyd.minInds$id <- mskhyd.minInds$id[ind]
+    mskhyd.maxInds <- mskhyd.maxInds$x[ind,]
+    mskhyd.minInds <- mskhyd.minInds$x[ind,]
     mskhyd.nameList <- mskhyd.nameList[ind]
     
     return(list(mskgeo.nameList,mskgeo.areaList,mskgeo.countInds,
@@ -295,9 +271,7 @@ subSetPoints <- function(ptgeo.sno,subSet){
         ind <- append(ind,i)
     }
     # Subset lists/data frames
-    ptgeo.sno$we <- ptgeo.sno$we[ind]
-    ptgeo.sno$sn <- ptgeo.sno$sn[ind]
-    ptgeo.sno$id <- ptgeo.sno$id[ind]
+    ptgeo.sno <- ptgeo.sno[ind,]
 }
 
 # Assign gageList points amongst different processors
@@ -348,6 +322,65 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
     # Calculate total size of list. From there, split up portions
     # based on rank
     masterLength <- length(frxstPts)
+    localLength <- floor(masterLength/size)
+    begInd <- localLength*rank + 1
+    endInd <- localLength*(rank+1)
+    if (rank != 0){
+        localLength <- floor(masterLength/size)
+        frxstPts <- frxstPts[begInd:endInd]
+        basin2gageList <- basin2gageList[begInd:endInd]
+        gage2basinList <- gage2basinList[begInd:endInd]
+        stid2gageList <- stid2gageList[begInd:endInd]
+        mskgeo.areaList <- mskgeo.areaList[begInd:endInd]
+        mskgeo.countInds <- mskgeo.countInds[begInd:endInd,]
+        mskgeo.List <- mskgeo.List[begInd:endInd,]
+        mskgeo.maxInds <- mskgeo.maxInds[begInd:endInd,]
+        mskgeo.minInds <- mskgeo.minInds[begInd:endInd,]
+        mskhyd.areaList <- mskhyd.areaList[begInd:endInd]
+        mskhyd.countInds <- mskhyd.countInds[begInd:endInd,]
+        mskhyd.List <- mskhyd.List[begInd:endInd]
+        mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
+        mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
+        mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+    } else {
+        localLength <- floor(masterLength/size) 
+        remainder <- masterLength - (localLength*size)
+        if (remainder == 0){
+            frxstPts <- frxstPts[begInd:endInd]
+            basin2gageList <- basin2gageList[begInd:endInd]
+            gage2basinList <- gage2basinList[begInd:endInd]
+            stid2gageList <- stid2gageList[begInd:endInd]
+            mskgeo.areaList <- mskgeo.areaList[begInd:endInd]
+            mskgeo.countInds <- mskgeo.countInds[begInd:endInd,]
+            mskgeo.List <- mskgeo.List[begInd:endInd,]
+            mskgeo.maxInds <- mskgeo.maxInds[begInd:endInd,]
+            mskgeo.minInds <- mskgeo.minInds[begInd:endInd,]
+            mskhyd.areaList <- mskhyd.areaList[begInd:endInd]
+            mskhyd.countInds <- mskhyd.countInds[begInd:endInd,]
+            mskhyd.List <- mskhyd.List[begInd:endInd]
+            mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
+            mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
+            mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+        } else {
+            rBegInd <- size*localLength + 1
+            rEndInd <- masterLength
+            frxstPts <- rbind(frxstPts[begInd:endInd],frxstPts[rBegInd:rEndInd])
+            basin2gageList <- rbind(basin2gageList[begInd:endInd],basin2gageList[rBegInd:rEndInd])
+            gage2basinList <- rbind(gage2basinList[begInd:endInd],gage2basinList[rBegInd:rEndInd])
+            stid2gageList <- rbind(stid2gageList[begInd:endInd],stid2gageList[rBegInd:rEndInd])
+            mskgeo.areaList <- rbind(mskgeo.areaList[begInd:endInd],mskgeo.areaList[rBegInd:rEndInd])
+            mskgeo.countInds <- rbind(mskgeo.countInds[begInd:endInd,],mskgeo.countInds[rBegInd:rEndInd,])
+            mskgeo.List <- rbind(mskgeo.List[begInd:endInd],mskgeo.List[rBegInd:rEndInd])
+            mskgeo.maxInds <- rbind(msgeo.maxInds[begInd:endInd,],mskgeo.maxInds[rBegInd:rEndInd,])
+            mskgeo.minInds <- rbind(mskgeo.minInds[begInd:endInd,],mskgeo.minInds[rBegInd:rEndInd,])
+            mskhyd.areaList <- rbind(mskhyd.areaList[begInd:endInd],mskhyd.areaList[rBegInd:rEndInd])
+            mskhyd.countInds <- rbind(mskhyd.countInds[begInd:endInd,],mskhyd.countInds[rBegInd:rEndInd,])
+            mskhyd.List <- rbind(mskhyd.List[begInd:endInd],mskhyd.List[rBegInd:rEndInd])
+            mskhyd.maxInds <- rbind(mskhyd.maxInds[begInd:endInd],mskhyd.maxInds[rBegInd:rEndInd,])
+            mskhyd.minInds <- rbind(mskhyd.minInds[begInd:endInd],mskhyd.minInds[rBegInd:rEndInd,])
+            mskhyd.nameList <- rbind(mskhyd.nameList[begInd:endInd],mskhyd.nameList[rBegInd:rEndInd])
+        }
+    }
     # Return list
     return(list(frxstPts,basin2gageList,gage2basinList,
                 stid2gageList,mskgeo.areaList,mskgeo.countInds,
@@ -362,6 +395,56 @@ mpiRegions <- function(size,rank,mskgeo.areaList,mskgeo.countInds,
                        mskhyd.areaList,mskhyd.countInds,mskhyd.List,
                        mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
 
+    # Calculate total size of list. From there, split up portions
+    # based on rank.
+    masterLength <- length(mskgeo.List)
+    localLength <- floor(masterLength/size)
+    begInd <- localLength*rank + 1
+    endInd <- localLength*(rank+1)
+    if (rank != 0){
+        localLength <- floor(masterLength/size)
+        mskgeo.areaList <- mskgeo.areaList[begInd:endInd]
+        mskgeo.countInds <- mskgeo.countInds[begInd:endInd,]
+        mskgeo.List <- mskgeo.List[begInd:endInd,]
+        mskgeo.maxInds <- mskgeo.maxInds[begInd:endInd,]
+        mskgeo.minInds <- mskgeo.minInds[begInd:endInd,]
+        mskhyd.areaList <- mskhyd.areaList[begInd:endInd]
+        mskhyd.countInds <- mskhyd.countInds[begInd:endInd,]
+        mskhyd.List <- mskhyd.List[begInd:endInd]
+        mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
+        mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
+        mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+    } else {
+        localLength <- floor(masterLength/size) 
+        remainder <- masterLength - (localLength*size)
+        if (remainder == 0){
+            mskgeo.areaList <- mskgeo.areaList[begInd:endInd]
+            mskgeo.countInds <- mskgeo.countInds[begInd:endInd,]
+            mskgeo.List <- mskgeo.List[begInd:endInd,]
+            mskgeo.maxInds <- mskgeo.maxInds[begInd:endInd,]
+            mskgeo.minInds <- mskgeo.minInds[begInd:endInd,]
+            mskhyd.areaList <- mskhyd.areaList[begInd:endInd]
+            mskhyd.countInds <- mskhyd.countInds[begInd:endInd,]
+            mskhyd.List <- mskhyd.List[begInd:endInd]
+            mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
+            mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
+            mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+        } else {
+            rBegInd <- size*localLength + 1
+            rEndInd <- masterLength
+            mskgeo.areaList <- rbind(mskgeo.areaList[begInd:endInd],mskgeo.areaList[rBegInd:rEndInd])
+            mskgeo.countInds <- rbind(mskgeo.countInds[begInd:endInd,],mskgeo.countInds[rBegInd:rEndInd,])
+            mskgeo.List <- rbind(mskgeo.List[begInd:endInd],mskgeo.List[rBegInd:rEndInd])
+            mskgeo.maxInds <- rbind(msgeo.maxInds[begInd:endInd,],mskgeo.maxInds[rBegInd:rEndInd,])
+            mskgeo.minInds <- rbind(mskgeo.minInds[begInd:endInd,],mskgeo.minInds[rBegInd:rEndInd,])
+            mskhyd.areaList <- rbind(mskhyd.areaList[begInd:endInd],mskhyd.areaList[rBegInd:rEndInd])
+            mskhyd.countInds <- rbind(mskhyd.countInds[begInd:endInd,],mskhyd.countInds[rBegInd:rEndInd,])
+            mskhyd.List <- rbind(mskhyd.List[begInd:endInd],mskhyd.List[rBegInd:rEndInd])
+            mskhyd.maxInds <- rbind(mskhyd.maxInds[begInd:endInd],mskhyd.maxInds[rBegInd:rEndInd,])
+            mskhyd.minInds <- rbind(mskhyd.minInds[begInd:endInd],mskhyd.minInds[rBegInd:rEndInd,])
+            mskhyd.nameList <- rbind(mskhyd.nameList[begInd:endInd],mskhyd.nameList[rBegInd:rEndInd])
+        }
+    }
     # Return List
     return(list(mskgeo.areaList,mskgeo.countInds,mskgeo.List,
                 mskgeo.maxInds,mskgeo.minInds,mskhyd.areaList,
@@ -371,7 +454,12 @@ mpiRegions <- function(size,rank,mskgeo.areaList,mskgeo.countInds,
 
 # Assign different points amongst different processors
 mpiPts <- function(size,rank,ptgeo.sno){
-
+    # Calculate total size of list. From there, split up portions
+    # based on rank.
+    masterLength <- length(ptgeo.sno$st_id)
+    localLength <- floor(masterLength/size)
+    begInd <- localLength*rank + 1
+    endInd <- localLength*(rank+1)
     # Return List
     return(list(ptgeo.sno))
 }
