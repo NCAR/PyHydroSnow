@@ -171,11 +171,11 @@ subSetBasins <- function(mskgeo.nameList,
                          mskhyd.minInds,
                          mskhyd.nameList,
                          stid2gageList,
-                         subSet){
+                         subList){
 
-    print(subSet)
+    print(subList)
     # First determine which subset names are of type forecast points.
-    fxstPtsSub = which(unique(subSet$type) == 2)
+    fxstPtsSub = which(unique(subList$type) == 2)
     ind <- c()
     for (frxstPt in frxstPtsSub){
         i <- which(mskgeo.nameList == frxstPt)
