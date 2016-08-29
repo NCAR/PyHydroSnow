@@ -164,6 +164,7 @@ if (size > 1){
     print(mskgeo.areaList)
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
+        print('BLAH')
         listMpi <- mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
                               mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
                               mskhyd.areaList,mskhyd.countInds,mskhyd.List,
