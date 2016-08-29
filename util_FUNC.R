@@ -301,7 +301,7 @@ subSetPoints <- function(ptgeo.sno,subSet){
 }
 
 # Assign gageList points amongst different processors
-mpiGageList <- function(size,rank,gageListIn){
+mpiGageList <- function(size,rank,gageList){
     # Calculate total size of list. From there, split up portions
     # based on rank.
     masterLength <- length(gageList$site_no)
@@ -317,14 +317,12 @@ mpiGageList <- function(size,rank,gageListIn){
     print(paste0('END: ',endInd))
     if (rank != 0){
         localLength <- floor(masterLength/size)
-        gageList$st_id <- gageListIn$st_id[begInd:endInd]
-        gageList$site_no <- gageListIn$site_no[begInd:endInd]
+        gageList <- gageList[begInd:endInd,]
     } else {
         localLength <- floor(masterLength/size) 
         remainder <- masterLength - (localLength*size)
         if (remainder == 0){
-            gageList$st_id <- gageListIn$st_id[begInd:endInd]
-            gageList$site_no <- gageListIn$site_no[begInd:endInd]        
+            gageList <- gageList[begInd:endInd,]
         } else {
             rBegInd <- size*localLength + 1
             rEndInd <- masterLength
