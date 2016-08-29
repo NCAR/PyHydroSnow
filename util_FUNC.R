@@ -331,7 +331,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
         mskhyd.List <- mskhyd.List[begInd:endInd]
         mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
         mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
-        mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+        mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
         mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
     } else {
         localLength <- floor(masterLength/size) 
@@ -351,7 +351,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
             mskhyd.List <- mskhyd.List[begInd:endInd]
             mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
             mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
-            mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+            mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
             mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
         } else {
             rBegInd <- size*localLength + 1
@@ -408,7 +408,7 @@ mpiRegions <- function(size,rank,mskgeo.areaList,mskgeo.countInds,
         mskhyd.List <- mskhyd.List[begInd:endInd]
         mskhyd.maxInds <- mskhyd.maxInds[begInd:endInd,]
         mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
-        mskhyd.nameList <- mskhyd.naeList[begInd:endInd]
+        mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
         mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
     } else {
         localLength <- floor(masterLength/size) 
