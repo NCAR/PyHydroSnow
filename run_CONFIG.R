@@ -71,7 +71,7 @@ if (!is.null(subSet)){
                                 mskhyd.List,
                                 mskhyd.maxInds,
                                 #mskhyd,minInds,
-                                #mskhyd.nameList,
+                                mskhyd.nameList,
                                 stid2gageList,
                                 subList)
         #mskgeo.nameList <- listSub[[1]]

@@ -169,7 +169,7 @@ subSetBasins <- function(mskgeo.nameList,
                          mskhyd.List,
                          mskhyd.maxInds,
                          #mskhyd.minInds,
-                         #mskhyd.nameList,
+                         mskhyd.nameList,
                          stid2gageList,
                          subList) {
 
