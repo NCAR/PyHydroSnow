@@ -47,8 +47,6 @@ print(subSet)
 # depending on whether points, regions, or gages have been identified 
 # for subsetting.
 if (!is.null(subSet)){
-    print('XXXXX')
-    print(length(which(unique(subSet$type) == 2)))
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
         print('REACH')
@@ -56,7 +54,7 @@ if (!is.null(subSet)){
         gageList <- listSub[[1]]
     }
     # Subset FRXST points with associated basin mskgeo/mskhyd areas
-    if (length(which(unique(subSet$type) == 2)) == 2){
+    if (length(which(unique(subSet$type) == 2)) == 1){
         print('FRXST')
         listSub <- subSetBasins(mskgeo.nameList,
                                 frxstPts,
@@ -97,7 +95,7 @@ if (!is.null(subSet)){
     # Subset regions only, assuming no associated streamflow gages 
     # with these (eco-regions with no basin2gageList,gage2basinList,
     # or stid2gageList)
-    if (length(which(unique(subSet$type) == 3)) == 3){
+    if (length(which(unique(subSet$type) == 3)) == 1){
         listSub <- subSetRegions(mskgeo.nameList,
                                  mskgeo.areaList,
                                  mskgeo.countInds,
@@ -125,7 +123,7 @@ if (!is.null(subSet)){
         mskhyd.nameList <- listSub[[12]]
     }
     # Subset snow points.
-    if (length(which(unique(subSet$type) == 4)) == 4){
+    if (length(which(unique(subSet$type) == 4)) == 1){
         listSub <- subSetPoints(ptgeo.sno,subSet)
         ptgeo.sno <- listSub[[1]]
     }
