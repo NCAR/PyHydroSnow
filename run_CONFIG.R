@@ -186,8 +186,6 @@ if (size > 1){
     }
 }
 
-print(gageList)
-stop('blah')
 # Read in snow data from model + database of observations
 if (readPointSnow){
     # Points only
