@@ -191,7 +191,7 @@ if (size > 1){
     }
 }
 
-print(mskgeo.maxInds)
+print(mskgeo.nameList)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
