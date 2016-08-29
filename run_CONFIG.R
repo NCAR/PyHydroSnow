@@ -136,6 +136,7 @@ if (size > 1){
         listMpi <- mpiGageList(size,rank,gageList)    
         gageList <- listMpi[1]
     }
+    stop('mpi2')
     # Split up forecast points and associated basin masks.
     if (!is.null(frxstPts)){
         listMpi <- mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,

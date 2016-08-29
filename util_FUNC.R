@@ -308,6 +308,14 @@ mpiGageList <- function(size,rank,gageList){
     localLength <- floor(masterLength/size)
     begInd <- localLength*rank + 1
     endInd <- localLength*(rank+1)
+    print('--------')
+    print(rank)
+    print(size)
+    print(masterLength)
+    print(localLength)
+    print(begInd)
+    print(endInd)
+    stop('test')
     if (rank != 0){
         localLength <- floor(masterLength/size)
         gageList <- gageList[begInd:endInd]
