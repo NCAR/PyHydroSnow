@@ -59,8 +59,8 @@ if (!is.null(subSet)){
         subList <- subSet
         listSub <- subSetBasins(mskgeo.nameList,
                                 frxstPts,
-                                #basin2gageList,
-                                #gage2basinList,
+                                basin2gageList,
+                                gage2basinList,
                                 #mskgeo.areaList,
                                 #mskgeo.countInds,
                                 #mskgeo.List,
