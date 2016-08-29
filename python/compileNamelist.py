@@ -63,11 +63,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             pathListStr = pathListStr + "'" + modPaths[i] + "', "
             forcPathListStr = forcPathListStr + "'" + forcPaths[i] + "', "
             
-    print tagInds
-    print tags
-    print aliasTags
-    print modPaths
-    print forcPaths
     # Edit ensemble information if ensembles present
     ensListStr = "c("
     ensTagStr = "c("
@@ -96,50 +91,40 @@ def editNamelist(pathIn,args,dbIn,size,rank):
         replaceStr = "ensembleTagList <- " + ensTagStr
         el(pathIn,searchStr,replaceStr)
 
-    print ensListStr
-    print ensTagStr
-    print numEns
     # Edit high resolution routing domain file.
     searchStr = "hydFile <- NULL"
     replaceStr = "hydFile <- " + "'" + dbIn.fullDomFile[indDbOrig] + "'"
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
 
     # Edit the geo file entry.
     searchStr = "geoFile <- NULL"
     replaceStr = "geoFile <- " + "'" + dbIn.geoFile[indDbOrig] + "'"
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
 
     # Edit rout link file information if it exists
     if len(dbIn.routeLinkFile[indDbOrig]) != 0:
         searchStr = "routeLinkFile <- NULL"
         replaceStr = "routeLinkFile <- " + "'" + dbIn.routeLinkFile[indDbOrig] + "'"
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
         searchStr = "reachRting <- FALSE"
         replaceStr = "reachRting <- TRUE"
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
 
     # Edit resolution information
     searchStr = "resMod <- NULL"
     replaceStr = "resMod <- " + dbIn.geoRes[indDbOrig]
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
 
     # Edit the aggregation factor information
     searchStr = "aggfact <- NULL"
     replaceStr = "aggfact <- " + dbIn.agg[indDbOrig]
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
 
     # Edit mask file.
     if len(dbIn.mskFile[indDbOrig]) != 0:
         searchStr = "maskFile <- NULL"
         replaceStr = "maskFile <- " + "'" + dbIn.mskFile[indDbOrig] + "'" 
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
 
     # Edit basin subsetting option, if specified by user
     if args.subset:
@@ -150,51 +135,43 @@ def editNamelist(pathIn,args,dbIn,size,rank):
         replaceStr = "subSet <- read.table('" + dbIn.basinSubFile[indDbOrig] + \
         "', sep=\",\", header=TRUE, colClasses=c(\"integer\",\"character\"))"
         el(pathIn,searchStr,replaceStr) 
-        print replaceStr
         
     # Edit the padding information for plotting.
     if args.pad:
         searchStr = "padSteps <- 0"
         replaceStr = "padSteps <- " + args.pad
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
         
     # Edit tmp directory.
     searchStr = "tmpDir <- NULL"
     replaceStr = "tmpDir <- " + "'" + dbIn.topDir[indDbOrig] + \
     "/" + dbIn.alias[indDbOrig] + "/tmp" + "'"
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
     
     # Place model directories and tag listings into namelist file
     searchStr = "modPathList <- NULL"
     replaceStr = "modPathList <- " + pathListStr
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
     searchStr = "modTagList <- NULL"
     replaceStr = "modTagList <- " + tagStr
     el(pathIn,searchStr,replaceStr)
-    print replaceStr
 
     # Edit snow database location entry
     if len(dbIn.snowDB[indDbOrig]) != 0:
         searchStr = "snowDB <- NULL"
         replaceStr = "snowDB <- '" + dbIn.snowDB[indDbOrig] + "'"
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
         
     # Edit the streamflow database location entry
     if len(dbIn.streamDB[indDbOrig]) != 0:
         searchStr = "streamDB <- NULL"
         replaceStr = "streamDB <- '" + dbIn.streamDB[indDbOrig] + "'"
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
         
     # Edit the plotting directory 
     searchStr = "plotDir <- NULL"
     replaceStr = "plotDir <- '" + dbIn.topDir[indDbOrig] + "/" + \
     dbIn.alias[indDbOrig] + "/analysis_out/plotting'"
-    print replaceStr    
     
     # Establish analysis directory to store statistics/read files
     statDir = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + \
@@ -214,32 +191,26 @@ def editNamelist(pathIn,args,dbIn,size,rank):
         searchStr = "readModStart <- NULL"
         replaceStr = "readModStart <- as.POSIXct('" + begAStr2 + str1
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
 
         searchStr = "readModEnd <- NULL"
         replaceStr = "readModEnd <- as.POSIXct('" + endAStr2 + str1
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
 
         searchStr = "readSnodasStart <- NULL"
         replaceStr = "readSnodasStart <- as.POSIXct('" + begAStr1 + str2
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
 
         searchStr = "readSnodasEnd <- NULL"
         replaceStr = "readSnodasEnd <- as.POSIXct('" + endAStr1 + str2 
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
 
         searchStr = "analysisStartDate <- NULL"
         replaceStr = "analysisStartDate <- as.POSIXct('" + begAStr2 + str1
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
         
         searchStr = "analysisEndDate <- NULL"
         replaceStr = "analysisEndDate <- as.POSIXct('" + endAStr2 + str1
         el(pathIn,searchStr,replaceStr)
-        print replaceStr
         
     # Edit baseline namelist options corresponding to arguments passed in.
     strTmp = ''
@@ -259,7 +230,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "readPointSnow <- FALSE"
             replaceStr = "readPointSnow <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
             "SNOW_POINT_MODEL.Rdata"
@@ -267,23 +237,19 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.snRead) == 2:
             searchStr = "readPointSnow <- FALSE"
             replaceStr = "readPointSnow <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "readSnodas <- FALSE"
             replaceStr = "readSnodas <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "snodasPathList <- NULL"
             replaceStr = "snodasPathList <- '" + dbIn.snodasPath[indDbOrig] + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
             "SNOW_POINT_MODEL_SNODAS.Rdata"
@@ -291,18 +257,15 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.snRead) == 3:
             searchStr = "readPointSnow <- FALSE"
             replaceStr = "readPointSnow <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "readBasinSnow <- FALSE"
             replaceStr = "readBasinSnow <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
             "SNOW_BASIN_MODEL.Rdata"
@@ -310,28 +273,23 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.snRead) == 4:
             searchStr = "readPointSnow <- FALSE"
             replaceStr = "readPointSnow <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "readBasinSnow <- FALSE"
             replaceStr = "readBasinSnow <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "readSnodas <- FALSE"
             replaceStr = "readSnodas <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "snodasPathListSnow <- NULL"
             replaceStr = "snodasPathListSnow <- '" + dbIn.snodasPath[indDbOrig] + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + \
             "SNOW_BASIN_MODEL_SNODAS.Rdata"
@@ -339,32 +297,27 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "modReadFilePathSnow <- NULL"
             replaceStr = "modReadFilePathSnow <- '" + modFileOut + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
     if args.stRead is not None:
         if int(args.stRead) == 1:
             searchStr = "readStreamFrxst <- FALSE"
             replaceStr = "readStreamFrxst <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + "_FRXST.Rdata"
             searchStr = "modReadFilePathStream <- NULL"
             replaceStr = "modReadFilePathStream <- '" + modFileOut + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.stRead) == 2:
             searchStr = "readStreamChrtout <- FALSE"
             replaceStr = "readStreamChrtout <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             modFileOut = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + "_CHRTOUT.Rdata"
             searchStr = "modReadFilePathStream <- NULL"
             replaceStr = "modReadFilePathStream <- '" + modFileOut + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
     if args.snRun is not None:
         if int(args.snRun) == 1:
@@ -373,12 +326,10 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_POINT_MODEL.Rdata"']:
                 try:
@@ -397,17 +348,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "plotFlag <- FALSE"
             replaceStr = "plotFlag <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_POINT_MODEL.Rdata"']:
                 try:
@@ -426,12 +374,10 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_POINT_MODEL_SNODAS.Rdata"']:
                 try:
@@ -450,17 +396,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "plotFlag <- FALSE"
             replaceStr = "plotFlag <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_POINT_MODEL_SNODAS.Rdata"']:
                 try:
@@ -479,17 +422,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL.Rdata"']:
                 try:
@@ -508,22 +448,18 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "plotFlag <- FALSE"
             replaceStr = "plotFlag <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL.Rdata"']:
                 try:
@@ -542,17 +478,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL_SNODAS.Rdata"']:
                 try:
@@ -570,22 +503,18 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "plotFlag <- FALSE"
             replaceStr = "plotFlag <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "pointSnowAnalysis <- FALSE"
             replaceStr = "pointSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL_SNODAS.Rdata"']:
                 try:
@@ -603,12 +532,10 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL_SNODAS.Rdata"']:
                 try:
@@ -626,17 +553,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "plotFlag <- FALSE"
             replaceStr = "plotFlag <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL_SNODAS.Rdata"']:
                 try:
@@ -654,12 +578,10 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL_SNODAS.Rdata"']:
                 try:
@@ -687,17 +609,14 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "plotFlag <- FALSE"
             replaceStr = "plotFlag <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             searchStr = "regionSnowAnalysis <- FALSE"
             replaceStr = "regionSnowAnalysis <- TRUE"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
             for checkStr in ['"_SNOW_BASIN_MODEL_SNODAS.Rdata"']:
                 try:
@@ -727,7 +646,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.stRun) == 2:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
@@ -735,7 +653,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.stRun) == 3:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
@@ -743,7 +660,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.stRun) == 4:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
@@ -751,7 +667,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.stRun) == 5:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
@@ -759,7 +674,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
         elif int(args.stRun) == 6:
             analysisOutFile = statDir + begAStr1 + "_" + endAStr1 + "_" + strTmp + \
@@ -767,5 +681,4 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             searchStr = "analysisOutPath <- NULL"
             replaceStr = "analysisOutPath <- '" + analysisOutFile + "'"
             el(pathIn,searchStr,replaceStr)
-            print replaceStr
             
