@@ -314,7 +314,7 @@ mpiGageList <- function(size,rank,gageList){
     print(paste0('TOTAL: ',masterLength))
     print(paste0('LOCAL: ',localLength))
     print(paste0('BEG: ',begInd))
-    print(paste0('END: 'endInd))
+    print(paste0('END: ',endInd))
     stop('test')
     if (rank != 0){
         localLength <- floor(masterLength/size)
