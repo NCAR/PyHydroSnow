@@ -131,12 +131,13 @@ if (!is.null(subSet)){
 # not call function to break up basins/regions/points. 
 if (size > 1){
     # Split up gageList for reach-based routing
-    if (!is.null(gageList)){
+    if (!is.null(gageList) & is.null(frxstPts)){
         listMpi <- mpiGageList(size,rank,gageList)    
         gageList <- listMpi[1]
     }
     # Split up forecast points and associated basin masks.
     if (!is.null(frxstPts)){
+        print(mskgeo.nameList)
         listMpi <- mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
                             stid2gageList,mskgeo.areaList,mskgeo.countInds,
                             mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
