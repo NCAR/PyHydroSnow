@@ -25,9 +25,6 @@ if (reachRting == TRUE){
 	}
 }	
 
-print('--------')
-x <- ls()
-print(x)
 # Compose list of gages to analyze/read
 if ( !reachRting & exists("stid2gageList")){
     # frxst points
@@ -45,12 +42,11 @@ if ( !reachRting & exists("stid2gageList")){
     }
 }
 
-print(gageList)
-stop('blah')
 # If subsetting has been enabled, subset mask parameters here. This will vary
 # depending on whether points, regions, or gages have been identified 
 # for subsetting.
 if (!is.null(subSet)){
+    print('alsdkfasd')
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
         listSub <- subSetReachPts(subSet,gageList)
@@ -129,10 +125,12 @@ if (!is.null(subSet)){
     }
 }
  
+print('lk')
 # Break geospatial meta-data to the different processors based on the
 # MPI size/rank information passed in. If ran on single processor, do 
 # not call function to break up basins/regions/points. 
 if (size > 1){
+    print('mpi')
     # Split up gageList for reach-based routing
     if (!is.null(gageList)){
         listMpi <- mpiGageList(size,rank,gageList)    
@@ -187,6 +185,8 @@ if (size > 1){
     }
 }
 
+print(gageList)
+stop('blah')
 # Read in snow data from model + database of observations
 if (readPointSnow){
     # Points only
