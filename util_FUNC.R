@@ -170,8 +170,7 @@ subSetBasins <- function(mskgeo.nameList,
                          mskhyd.maxInds,
                          mskhyd.minInds,
                          mskhyd.nameList,
-                         stid2gageList,
-                         ){
+                         stid2gageList){
 
     print(subSet)
     # First determine which subset names are of type forecast points.
