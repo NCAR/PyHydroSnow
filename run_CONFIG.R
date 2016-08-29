@@ -161,7 +161,6 @@ if (size > 1){
         mskgeo.nameList <- listMpi[[16]]  
         gageList <- listMpi[[17]]
     }
-    print(mskgeo.areaList)
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
         listMpi <- mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
@@ -191,6 +190,7 @@ if (size > 1){
     }
 }
 
+print(ptgeo.sno)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
