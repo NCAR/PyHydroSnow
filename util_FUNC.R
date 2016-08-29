@@ -312,7 +312,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
     # Calculate total size of list. From there, split up portions
     # based on rank
     print(frxstPts)
-    masterLength <- length(frxstPts)
+    masterLength <- length(frxstPts$id)
     localLength <- floor(masterLength/size)
     begInd <- localLength*rank + 1
     endInd <- localLength*(rank+1)
