@@ -133,7 +133,7 @@ if (size > 1){
     # Split up gageList for reach-based routing
     if (!is.null(gageList) & is.null(frxstPts)){
         listMpi <- mpiGageList(size,rank,gageList)    
-        gageList <- listMpi[1]
+        gageList <- listMpi[[1]]
     }
     # Split up forecast points and associated basin masks.
     if (!is.null(frxstPts)){
@@ -143,26 +143,23 @@ if (size > 1){
                             mskhyd.areaList,mskhyd.countInds,mskhyd.List,
                             mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
                             mskgeo.nameList,gageList)    
-        frxstPts <- listMpi[1]
-        basin2gageList <- listMpi[2]
-        gage2basinList <- listMpi[3]
-        stid2gageList <- listMpi[4]
-        mskgeo.areaList <- listMpi[5]
-        mskgeo.countInds <- listMpi[6]
-        mskgeo.List <- listMpi[7]
-        mskgeo.maxInds <- listMpi[8]
-        mskgeo.minInds <- listMpi[9]
-        mskhyd.areaList <- listMpi[10]
-        mskhyd.countInds <- listMpi[11]
-        mskhyd.List <- listMpi[12]
-        mskhyd.maxInds <- listMpi[13]
-        mskhyd.minInds <- listMpi[14]
-        mskhyd.nameList <- listMpi[15]
-        mskgeo.nameList <- listMpi[16]  
-        gageList <- listMpi[17]
-        if (rank == 1){
-            print(listMpi)        
-        }
+        frxstPts <- listMpi[[1]]
+        basin2gageList <- listMpi[[2]]
+        gage2basinList <- listMpi[[3]]
+        stid2gageList <- listMpi[[4]]
+        mskgeo.areaList <- listMpi[[5]]
+        mskgeo.countInds <- listMpi[[6]]
+        mskgeo.List <- listMpi[[7]]
+        mskgeo.maxInds <- listMpi[[8]]
+        mskgeo.minInds <- listMpi[[9]]
+        mskhyd.areaList <- listMpi[[10]]
+        mskhyd.countInds <- listMpi[[11]]
+        mskhyd.List <- listMpi[[12]]
+        mskhyd.maxInds <- listMpi[[13]]
+        mskhyd.minInds <- listMpi[[14]]
+        mskhyd.nameList <- listMpi[[15]]
+        mskgeo.nameList <- listMpi[[16]]  
+        gageList <- listMpi[[17]]
     }
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
@@ -172,27 +169,27 @@ if (size > 1){
                               mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
                               mskgeo.nameList)
     }
-    mskgeo.areaList <- listMpi[1]
-    mskgeo.countInds <- listMpi[2]
-    mskgeo.List <- listMpi[3]
-    mskgeo.maxInds <- listMpi[4]
-    mskgeo.minInds <- listMpi[5]
-    mskhyd.areaList <- listMpi[6]
-    mskhyd.countInds <- listMpi[7]
-    mskhyd.List <- listMpi[8]
-    mskhyd.maxInds <- listMpi[9]
-    mskhyd.minInds <- listMpi[10]
-    mskhyd.nameList <- listMpi[11]
-    mskgeo.nameList <- listMpi[12]
+    mskgeo.areaList <- listMpi[[1]]
+    mskgeo.countInds <- listMpi[[2]]
+    mskgeo.List <- listMpi[[3]]
+    mskgeo.maxInds <- listMpi[[4]]
+    mskgeo.minInds <- listMpi[[5]]
+    mskhyd.areaList <- listMpi[[6]]
+    mskhyd.countInds <- listMpi[[7]]
+    mskhyd.List <- listMpi[[8]]
+    mskhyd.maxInds <- listMpi[[9]]
+    mskhyd.minInds <- listMpi[[10]]
+    mskhyd.nameList <- listMpi[[11]]
+    mskgeo.nameList <- listMpi[[12]]
 
     # Split up points
     if (!is.null(ptgeo.sno)){
         listMpi <- mpiPts(size,rank,ptgeo.sno)
-        ptgeo.sno <- listMpi[1]
+        ptgeo.sno <- listMpi[[1]]
     }
 }
 
-#print(mskgeo.areaList)
+print(frxstPts)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
