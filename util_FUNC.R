@@ -180,6 +180,7 @@ subSetBasins <- function(mskgeo.nameList,
         i <- which(mskgeo.nameList == frxstPt)
         ind <- append(ind,i)
     }
+    print(ind)
     # Subset lists/data frames
     mskgeo.nameList <- mskgeo.nameList[ind]
     frxstPts <- frxstPts[ind,]
