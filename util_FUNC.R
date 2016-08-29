@@ -156,7 +156,7 @@ basSnowMetrics <- function(sweVar,mskVar,basElev,runoff,res,runoffFlag) {
 
 # Subset forecast points and associated basin mask information
 subSetBasins <- function(mskgeo.nameList,
-                         #frxstPts,
+                         frxstPts,
                          #basin2gageList,
                          #gage2basinList,
                          #mskgeo.areaList,
