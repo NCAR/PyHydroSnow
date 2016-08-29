@@ -47,7 +47,8 @@ print(subSet)
 # depending on whether points, regions, or gages have been identified 
 # for subsetting.
 if (!is.null(subSet)){
-    print(unique(subSet$type))
+    print('XXXXX')
+    print(length(which(unique(subSet$type) == 2)))
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
         print('REACH')
