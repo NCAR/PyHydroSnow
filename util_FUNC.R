@@ -333,7 +333,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
         mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
         mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
         mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
-        gageList <- gageList[begInd:endInd]
+        gageList <- gageList[begInd:endInd,]
     } else {
         localLength <- floor(masterLength/size) 
         remainder <- masterLength - (localLength*size)
@@ -354,7 +354,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
             mskhyd.minInds <- mskhyd.minInds[begInd:endInd,]
             mskhyd.nameList <- mskhyd.nameList[begInd:endInd]
             mskgeo.nameList <- mskgeo.nameList[begInd:endInd]
-            gageList <- gageList[begInd:endInd]
+            gageList <- gageList[begInd:endInd,]
         } else {
             rBegInd <- size*localLength + 1
             rEndInd <- masterLength
@@ -374,7 +374,7 @@ mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
             mskhyd.minInds <- rbind(mskhyd.minInds[begInd:endInd],mskhyd.minInds[rBegInd:rEndInd,])
             mskhyd.nameList <- rbind(mskhyd.nameList[begInd:endInd],mskhyd.nameList[rBegInd:rEndInd])
             mskgeo.nameList <- rbind(mskgeo.nameList[begInd:endInd],mskgeo.nameList[rBegInd:rEndInd])
-            gageList <- rbind(gageList[begInd:endInd],gageList[rBegInd,rEndInd])
+            gageList <- rbind(gageList[begInd:endInd,],gageList[rBegInd,rEndInd,])
         }
     }
     # Return list
