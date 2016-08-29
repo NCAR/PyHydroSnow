@@ -54,9 +54,9 @@ if (!is.null(subSet)){
         gageList <- listSub[[1]]
     }
     # Subset FRXST points with associated basin mskgeo/mskhyd areas
-    print(subSet)
     if (length(which(unique(subSet$type) == 2)) == 1){
         print('FRXST')
+        subList <- subSet
         listSub <- subSetBasins(mskgeo.nameList,
                                 frxstPts,
                                 basin2gageList,
@@ -73,7 +73,7 @@ if (!is.null(subSet)){
                                 mskhyd,minInds,
                                 mskhyd.nameList,
                                 stid2gageList,
-                                subSet)
+                                subList)
         mskgeo.nameList <- listSub[[1]]
         frxstPts <- listSub[[2]]
         basin2gageList <- listSub[[3]]
