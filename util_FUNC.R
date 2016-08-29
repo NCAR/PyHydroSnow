@@ -457,7 +457,7 @@ mpiRegions <- function(size,rank,mskgeo.areaList,mskgeo.countInds,
 mpiPts <- function(size,rank,ptgeo.sno){
     # Calculate total size of list. From there, split up portions
     # based on rank.
-    masterLength <- length(ptgeo.sno$st_id)
+    masterLength <- length(ptgeo.sno$id)
     localLength <- floor(masterLength/size)
     begInd <- localLength*rank + 1
     endInd <- localLength*(rank+1)
@@ -465,6 +465,18 @@ mpiPts <- function(size,rank,ptgeo.sno){
     print(localLength)
     print(begInd)
     print(endInd)
+    if (rank != 0){
+        localLength <- floor(masterLength/size)
+        ptgeo.sno <- ptgeo.sno[begInd:endInd,]
+    } else {
+        localLength <- floor(masterLength/size)
+        remainder <- masterLength - (localLength*size)
+        if (remainder == 0){
+            ptgeo.sno <- ptgeo.sno[begInd:endInd,]               
+        } else {
+            ptgeo.sno <- rbind(ptgeo.sno[begInd:endInd,],ptgeo.sno[rBegInd:endInd,])
+        }
+    }
     # Return List
     return(list(ptgeo.sno))
 }

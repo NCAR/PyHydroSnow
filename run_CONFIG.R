@@ -190,7 +190,7 @@ if (size > 1){
     }
 }
 
-#print(ptgeo.sno)
+print(ptgeo.sno)
 stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
