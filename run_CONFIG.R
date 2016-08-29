@@ -160,8 +160,8 @@ if (size > 1){
         mskhyd.nameList <- listMpi[[15]]
         mskgeo.nameList <- listMpi[[16]]  
         gageList <- listMpi[[17]]
-        print(listMpi[[5]])
     }
+    print(mskgeo.areaList)
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
         listMpi <- mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
