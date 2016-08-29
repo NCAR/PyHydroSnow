@@ -48,13 +48,11 @@ if ( !reachRting & exists("stid2gageList")){
 if (!is.null(subSet)){
     # Subset reach-based gages
     if (length(which(unique(subSet$type) == 1)) == 1){
-        print('REACH')
         listSub <- subSetReachPts(subSet,gageList)
         gageList <- listSub[[1]]
     }
     # Subset FRXST points with associated basin mskgeo/mskhyd areas
     if (length(which(unique(subSet$type) == 2)) == 1){
-        print('FRXST')
         listSub <- subSetBasins(mskgeo.nameList,
                                 frxstPts,
                                 basin2gageList,
@@ -128,15 +126,11 @@ if (!is.null(subSet)){
     }
 }
  
-print('lk')
 # Break geospatial meta-data to the different processors based on the
 # MPI size/rank information passed in. If ran on single processor, do 
 # not call function to break up basins/regions/points. 
 if (size > 1){
-    print('mpi')
     # Split up gageList for reach-based routing
-    print('xxxx')
-    print(gageList)
     if (!is.null(gageList)){
         listMpi <- mpiGageList(size,rank,gageList)    
         gageList <- listMpi[1]
@@ -165,7 +159,9 @@ if (size > 1){
         mskhyd.maxInds <- listMpi[13]
         mskhyd.minInds <- listMpi[14]
         mskhyd.nameList <- listMpi[15]
-        mskgeo.nameList <- listMpi[16]    
+        mskgeo.nameList <- listMpi[16]  
+        # Reset gageList
+        gageList <- data.frame(st_id=names(stid2gageList), site_no=unlist(stid2gageList), stringsAsFactors=FALSE)  
     }
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
@@ -195,6 +191,9 @@ if (size > 1){
     }
 }
 
+print(mskgeo.nameList)
+print(gageList)
+stop('YAY')
 # Read in snow data from model + database of observations
 if (readPointSnow){
     # Points only
