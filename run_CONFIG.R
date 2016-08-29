@@ -164,25 +164,25 @@ if (size > 1){
     print(mskgeo.areaList)
     # Split up regions
     if (!is.null(mskgeo.List) & is.null(frxstPts)){
-        print('BLAH')
         listMpi <- mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
                               mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
                               mskhyd.areaList,mskhyd.countInds,mskhyd.List,
                               mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
                               mskgeo.nameList)
+    
+        mskgeo.areaList <- listMpi[[1]]
+        mskgeo.countInds <- listMpi[[2]]
+        mskgeo.List <- listMpi[[3]]
+        mskgeo.maxInds <- listMpi[[4]]
+        mskgeo.minInds <- listMpi[[5]]
+        mskhyd.areaList <- listMpi[[6]]
+        mskhyd.countInds <- listMpi[[7]]
+        mskhyd.List <- listMpi[[8]]
+        mskhyd.maxInds <- listMpi[[9]]
+        mskhyd.minInds <- listMpi[[10]]
+        mskhyd.nameList <- listMpi[[11]]
+        mskgeo.nameList <- listMpi[[12]]
     }
-    mskgeo.areaList <- listMpi[[1]]
-    mskgeo.countInds <- listMpi[[2]]
-    mskgeo.List <- listMpi[[3]]
-    mskgeo.maxInds <- listMpi[[4]]
-    mskgeo.minInds <- listMpi[[5]]
-    mskhyd.areaList <- listMpi[[6]]
-    mskhyd.countInds <- listMpi[[7]]
-    mskhyd.List <- listMpi[[8]]
-    mskhyd.maxInds <- listMpi[[9]]
-    mskhyd.minInds <- listMpi[[10]]
-    mskhyd.nameList <- listMpi[[11]]
-    mskgeo.nameList <- listMpi[[12]]
 
     # Split up points
     if (!is.null(ptgeo.sno)){
