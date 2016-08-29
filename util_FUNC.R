@@ -155,23 +155,23 @@ basSnowMetrics <- function(sweVar,mskVar,basElev,runoff,res,runoffFlag) {
 }
 
 # Subset forecast points and associated basin mask information
-subSetBasins(mskgeo.nameList,
-             frxstPts,
-             basin2gageList,
-             gage2basinList,
-             mskgeo.areaList,
-             mskgeo.countInds,
-             mskgeo.List,
-             mskgeo.maxInds,
-             mskgeo.minInds,
-             mskhyd.areaList,
-             mskhyd.countInds,
-             mskhyd.List,
-             mskhyd.maxInds,
-             mskhyd.minInds,
-             mskhyd.nameList,
-             stid2gageList,
-             subSet){
+subSetBasins <- function(mskgeo.nameList,
+                         frxstPts,
+                         basin2gageList,
+                         gage2basinList,
+                         mskgeo.areaList,
+                         mskgeo.countInds,
+                         mskgeo.List,
+                         mskgeo.maxInds,
+                         mskgeo.minInds,
+                         mskhyd.areaList,
+                         mskhyd.countInds,
+                         mskhyd.List,
+                         mskhyd.maxInds,
+                         mskhyd.minInds,
+                         mskhyd.nameList,
+                         stid2gageList,
+                         subSet){
 
     # First determine which subset names are of type forecast points.
     fxstPtsSub = which(unique(subSet$type) == 2)
@@ -218,7 +218,7 @@ subSetBasins(mskgeo.nameList,
 }
 
 # Subset reach based NHD catchment points
-subSetReachPts(subSet,gageList){
+subSetReachPts <- function(subSet,gageList){
     # First determine which subset names are of type reach based
     reachPtsSub = which(unique(subSet$type == 1))
     ind <- c()
@@ -232,24 +232,19 @@ subSetReachPts(subSet,gageList){
 }
 
 # Subset regions only (shapefile derived regions, etc)
-    # Subset snow points.
-    if (length(which(unique(subSet$type) == 4)) == 4){
-        listSub <- subSetPoints(ptgeo.sno,subSet)
-        ptgeo.sno <- listSub[[1]]
-    }
-subSetRegions(mskgeo.nameList,
-              mskgeo.areaList,
-              mskgeo.countInds,
-              mskgeo.List,
-              mskgeo.maxInds,
-              mskgeo.minInds,
-              mskhyd.areaList,
-              mskhyd.countInds,
-              mskhyd.List,
-              mskhyd.maxInds,
-              mskhyd.minInds,
-              mskhyd.nameList,
-              subSet){
+subSetRegions <- function(mskgeo.nameList,
+                          mskgeo.areaList,
+                          mskgeo.countInds,
+                          mskgeo.List,
+                          mskgeo.maxInds,
+                          mskgeo.minInds,
+                          mskhyd.areaList,
+                          mskhyd.countInds,
+                          mskhyd.List,
+                          mskhyd.maxInds,
+                          mskhyd.minInds,
+                          mskhyd.nameList,
+                          subSet){
 
     # First determine which subset names are of type region.
     regionsSub <- which(unique(subSet$type == 3))
@@ -291,7 +286,7 @@ subSetRegions(mskgeo.nameList,
 }
 
 # Subset snow points
-subSetPoints(ptgeo.sno,subSet){
+subSetPoints <- function(ptgeo.sno,subSet){
     # First determine which subset names are of type point
     ptsSub <- which(unique(subSet$type == 4))
     ind <- c()
@@ -306,7 +301,7 @@ subSetPoints(ptgeo.sno,subSet){
 }
 
 # Assign gageList points amongst different processors
-mpiGageList(size,rank,gageList){
+mpiGageList <- function(size,rank,gageList){
     # Calculate total size of list. From there, split up portions
     # based on rank.
     masterLength <- length(gageList)
@@ -332,11 +327,11 @@ mpiGageList(size,rank,gageList){
 }
 
 # Assign frxst points amongst different processors
-mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
-         stid2gageList,mskgeo.areaList,mskgeo.countInds,
-         mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
-         mskhyd.areaList,mskhyd.countInds,mskhyd.List,
-         mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
+mpiFrxst <- function(size,rank,frxstPts,basin2gageList,gage2basinList,
+                     stid2gageList,mskgeo.areaList,mskgeo.countInds,
+                     mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+                     mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+                     mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
 
     # Calculate total size of list. From there, split up portions
     # based on rank
@@ -350,10 +345,10 @@ mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
 }
 
 # Assign different regions amongst different processors
-mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
-           mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
-           mskhyd.areaList,mskhyd.countInds,mskhyd.List,
-           mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
+mpiRegions <- function(size,rank,mskgeo.areaList,mskgeo.countInds,
+                       mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+                       mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+                       mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
 
     # Return List
     return(list(mskgeo.areaList,mskgeo.countInds,mskgeo.List,
@@ -363,7 +358,7 @@ mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
 }
 
 # Assign different points amongst different processors
-mpiPts(size,rank,ptgeo.sno){
+mpiPts <- function(size,rank,ptgeo.sno){
 
     # Return List
     return(list(ptgeo.sno))
