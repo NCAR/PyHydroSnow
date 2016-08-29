@@ -148,7 +148,7 @@ def editNamelist(pathIn,args,dbIn,size,rank):
             sys.exit(1)
         searchStr = "subSet <- NULL"
         replaceStr = "subSet <- read.table('" + dbIn.basinSubFile[indDbOrig] + \
-        "', sep=\"\\t\", header=TRUE, colClasses=c(\"character\"))"
+        "', sep=\",\", header=TRUE, colClasses=c(\"integer\",\"character\"))"
         el(pathIn,searchStr,replaceStr) 
         print replaceStr
         

@@ -8,10 +8,10 @@ library(rwrfhydro)
 library(data.table)
 library(scales)
 
-if (!is.null(maskFile)){
-	load(maskFile)
-}
-source("util_FUNC.R")
+#if (!is.null(maskFile)){
+#	load(maskFile)
+#}
+#source("util_FUNC.R")
 
 # If reach routing was specified but no rtlinks object exists,
 # read it in from the routeLinksFile.
@@ -25,60 +25,163 @@ if (reachRting == TRUE){
 	}
 }	
 
-# If subsetting of basins has been enabled, subset basins/frxst points
-# immediately before anything else is done.
-if (exists("subSet") & exists("frxstPts") & !is.null(subSet)){
-  listSubBasin <- subsetBasins(basinSub,
-			       mskgeo.nameList, 
- 		             frxstPts, 
-			       basin2gageList, 
-			       gage2basinList,
-                        mskgeo.areaList, 
-			       mskgeo.countInds, 
-			       mskgeo.List, 
-			       mskgeo.maxInds,
-                        mskgeo.minInds, 
-			       mskhyd.areaList, 
-			       mskhyd.countInds,
-                        mskhyd.List, 
-			       mskhyd.maxInds, 
-			       mskhyd.minInds,
-                        mskhyd.nameList,
-			       stid2gageList)
-  mskgeo.nameList <- listSubBasin[[1]]
-  frxstPts <- listSubBasin[[2]]
-  basin2gageList <- listSubBasin[[3]]
-  gage2basinList <- listSubBasin[[4]]
-  mskgeo.areaList <- listSubBasin[[5]]
-  mskgeo.countInds <- listSubBasin[[6]]
-  mskgeo.List <- listSubBasin[[7]]
-  mskgeo.maxInds <- listSubBasin[[8]]
-  mskgeo.minInds <- listSubBasin[[9]]
-  mskhyd.areaList <- listSubBasin[[10]]
-  mskhyd.countInds <- listSubBasin[[11]]
-  mskhyd.List <- listSubBasin[[12]]
-  mskhyd.maxInds <- listSubBasin[[13]]
-  mskhyd.minInds <- listSubBasin[[14]]
-  mskhyd.nameList <- listSubBasin[[15]]
-  stid2gageList <- listSubBasin[[16]]
+# Compose list of gages to analyze/read
+if ( !reachRting & exists("stid2gageList")){
+    # frxst points
+    if (is.list(stid2gageList)){
+        gageList <- data.frame(st_id=names(stid2gageList), site_no=unlist(stid2gageList), stringsAsFactors=FALSE)
+    } else {
+        gageList <- stid2gageList            
+    }
+} else if (reachRting) {
+# Reach-based routing - NHD (NWM)
+    if (exists("statsLink2Gage") & !is.null(statsLink2Gage)) {
+        gageList <- statsLink2gage[,c("link","site_no")]                
+    } else {
+        gageList <- subset(rtLinks[,c("link","site_no")], !(rtLinks$site_no == ''))            
+    }
 }
 
-if (exists("subSet") & !exists("frxstPts") & !exists("mskhyd.nameList") & exists("mskgeo.nameList") & !is.null(subSet)){
-  listSubBasin <- subsetRegions(subSet,
-                                mskgeo.nameList,
+print(gageList)
+stop('blah')
+# If subsetting has been enabled, subset mask parameters here. This will vary
+# depending on whether points, regions, or gages have been identified 
+# for subsetting.
+if (!is.null(subSet)){
+    # Subset reach-based gages
+    if (length(which(unique(subSet$type) == 1)) == 1){
+        listSub <- subSetReachPts(subSet,gageList))
+        gageList <- listSub[[1]]
+    }
+    # Subset FRXST points with associated basin mskgeo/mskhyd areas
+    if (length(which(unique(subSet$type) == 2)) == 2){
+        listSub <- subSetBasins(mskgeo.nameList,
+                                frxstPts,
                                 basin2gageList,
+                                gage2basinList,
                                 mskgeo.areaList,
                                 mskgeo.countInds,
                                 mskgeo.List,
                                 mskgeo.maxInds,
-                                mskgeo.minInds)
-  mskgeo.nameList <- listSubBasin[[1]]
-  basin2gageList <- listSubBasin[[2]]
-  mskgeo.areaList <- listSubBasin[[3]]
-  mskgeo.countInds <- listSubBasin[[4]]
-  mskgeo.List <- listSubBasin[[5]]
-  mskgeo.maxInds <- listSubBasin[[6]]
-  mskgeo.minInds <- listSubBasin[[7]]
+                                mskgeo.minInds,
+                                mskhyd.areaList,
+                                mskhyd.countInds,
+                                mskhyd.List,
+                                mskhyd.maxInds,
+                                mskhyd,minInds,
+                                mskhyd.nameList,
+                                stid2gageList,
+                                subSet)
+        mskgeo.nameList <- listSub[[1]]
+        frxstPts <- listSub[[2]]
+        basin2gageList <- listSub[[3]]
+        gage2basinList <- listSub[[4]]
+        mskgeo.areaList <- listSub[[5]]
+        mskgeo.countInds <- listSub[[6]]
+        mskgeo.List <- lisSub[[7]]
+        mskgeo.maxInds <- listSub[[8]]
+        mskgeo.minInds <- listSub[[9]]
+        mskhyd.areaList <- listSub[[10]]
+        mskhyd.countInds <- listSub[[11]]
+        mskhyd.List <- listSub[[12]]
+        mskhyd.maxInds <- listSub[[13]]
+        mskhyd.minInds <- listSub[[14]]
+        mskhyd.nameList <- listSub[[15]]
+        stid2gageList <- listSub[[16]]
+    }
+    # Subset regions only, assuming no associated streamflow gages 
+    # with these (eco-regions with no basin2gageList,gage2basinList,
+    # or stid2gageList)
+    if (length(which(unique(subSet$type) == 3)) == 3){
+        listSub <- subSetRegions(mskgeo.nameList,
+                                 mskgeo.areaList,
+                                 mskgeo.countInds,
+                                 mskgeo.List,
+                                 mskgeo.maxInds,
+                                 mskgeo.minInds,
+                                 mskhyd.areaList,
+                                 mskhyd.countInds,
+                                 mskhyd.List,
+                                 mskhyd.maxInds,
+                                 mskhyd.minInds,
+                                 mskhyd.nameList,
+                                 subSet)
+        mskgeo.nameList <- listSub[[1]]
+        mskgeo.areaList <- listSub[[2]]
+        mskgeo.countInds <- listSub[[3]]
+        mskgeo.List <- listSub[[4]]
+        mskgeo.maxInds <- listSub[[5]]
+        mskgeo.minInds <- listSub[[6]]
+        mskhyd.areaList <- listSub[[7]]
+        mskhyd.countInds <- listSub[[8]]
+        mskhyd.List <- listSub[[9]]
+        mskhyd.maxInds <- listSub[[10]]
+        mskhyd.minInds <- listSub[[11]]
+        mskhyd.nameList <- listSub[[12]]
+    }
+    # Subset snow points.
+    if (length(which(unique(subSet$type) == 4)) == 4){
+        listSub <- subSetPoints(ptgeo.sno,subSet)
+        ptgeo.sno <- listSub[[1]]
+    }
+}
+ 
+# Break geospatial meta-data to the different processors based on the
+# MPI size/rank information passed in. If ran on single processor, do 
+# not call function to break up basins/regions/points. 
+if (size > 1){
+    # Split up gageList for reach-based routing
+    if (!is.null(gageList)){
+        listMpi <- mpiGageList(size,rank,gageList)    
+        gageList <- listMpi[1]
+    }
+    # Split up forecast points and associated basin masks.
+    if (!is.null(frxstPts)){
+        listMpi <- mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
+                            stid2gageList,mskgeo.areaList,mskgeo.countInds,
+                            mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+                            mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+                            mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList)    
+        frxstPts <- listMpi[1]
+        basin2gageList <- listMpi[2]
+        gage2basinList <- listMpi[3]
+        stid2gageList <- listMpi[4]
+        mskgeo.areaList <- listMpi[5]
+        mskgeo.countInds <- listMpi[6]
+        mskgeo.List <- listMpi[7]
+        mskgeo.maxInds <- listMpi[8]
+        mskgeo.minInds <- listMpi[9]
+        mskhyd.areaList <- listMpi[10]
+        mskhyd.countInds <- listMpi[11]
+        mskhyd.List <- listMpi[12]
+        mskhyd.maxInds <- listMpi[13]
+        mskhyd.minInds <- listMpi[14]
+        mskhyd.nameList <- listMpi[15]    
+    }
+    # Split up regions
+    if (!is.null(mskgeo.List) & is.null(frxstPts)){
+        listMpi <- mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
+                              mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+                              mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+                              mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList)
+    }
+    mskgeo.areaList <- listMpi[1]
+    mskgeo.countInds <- listMpi[2]
+    mskgeo.List <- listMpi[3]
+    mskgeo.maxInds <- listMpi[4]
+    mskgeo.minInds <- listMpi[5]
+    mskhyd.areaList <- listMpi[6]
+    mskhyd.countInds <- listMpi[7]
+    mskhyd.List <- listMpi[8]
+    mskhyd.maxInds <- listMpi[9]
+    mskhyd.minInds <- listMpi[10]
+    mskhyd.nameList <- listMpi[11]
+
+    # Split up points
+    if (!is.null(ptgeo.sno)){
+        listMpi <- mpiPts(size,rank,ptgeo.sno)
+        ptgeo.sno <- listMpi[1]
+    }
 }
 
 # Read in snow data from model + database of observations
@@ -168,7 +271,6 @@ if (hydroPlot){
     }
 }
 
-# Read in 
 # Read in basin Snow/SNODAS
 if (readSnodas & readBasinSnodas) {
         # Load necessary mask data to perform analysis

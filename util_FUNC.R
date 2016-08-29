@@ -154,64 +154,218 @@ basSnowMetrics <- function(sweVar,mskVar,basElev,runoff,res,runoffFlag) {
   return(outList)
 }
 
-# Subset basin mask information and update data frames/lists appropriately.
-subsetBasins <- function(basinSub,mskgeo.nameList,frxstPts,basin2gageList,gage2basinList,
-                         mskgeo.areaList, mskgeo.countInds, mskgeo.List, mskgeo.maxInds,
-     			 mskgeo.minInds, mskhyd.areaList, mskhyd.countInds,
-     			 mskhyd.List, mskhyd.maxInds, mskhyd.minInds, 
-     			 mskhyd.nameList,stid2gageList){
+# Subset forecast points and associated basin mask information
+subSetBasins(mskgeo.nameList,
+             frxstPts,
+             basin2gageList,
+             gage2basinList,
+             mskgeo.areaList,
+             mskgeo.countInds,
+             mskgeo.List,
+             mskgeo.maxInds,
+             mskgeo.minInds,
+             mskhyd.areaList,
+             mskhyd.countInds,
+             mskhyd.List,
+             mskhyd.maxInds,
+             mskhyd.minInds,
+             mskhyd.nameList,
+             stid2gageList,
+             subSet){
 
-  ind <- c()
-  for (basin in basinSub$basin){
-    i <- which(mskgeo.nameList == basin)
-    ind <- append(ind,i)
-  }
+    # First determine which subset names are of type forecast points.
+    fxstPtsSub = which(unique(subSet$type) == 2)
+    ind <- c()
+    for (frxstPt in frxstPtsSub){
+        i <- which(mskgeo.nameList == frxstPt)
+        ind <- append(ind,i)
+    }
+    # Subset lists/data frames
+    mskgeo.nameList <- mskgeo.nameList[ind]
+    frxstPts <- frxstPts[ind,]
+    gage2basinList <- gage2basinList[ind]
+    basin2gageList <- basin2gageList[ind]
+    mskgeo.areaList <- mskgeo.areaList[ind]
+    mskgeo.countInds$x <- mskgeo.countInds$x[ind]
+    mskgeo.countInds$y <- mskgeo.countInds$y[ind]
+    mskgeo.countInds$id <- mskgeo.countInds$id[ind]
+    mskgeo.List <- mskgeo.List[ind]
+    mskgeo.maxInds$x <- mskgeo.maxInds$x[ind]
+    mskgeo.maxInds$y <- mskgeo.maxInds$y[ind]
+    mskgeo.maxInds$id <- mskgeo.maxInds$id[ind]
+    mskgeo.minInds$x <- mskgeo.minInds$x[ind]
+    mskgeo.minInds$y <- mskgeo.minInds$y[ind]
+    mskgeo.minInds$id <- mskgeo.minInds$id[ind]
+    mskhyd.areaList <- mskhyd.areaList[ind]
+    mskhyd.countInds$x <- mskhyd.countInds$x[ind]
+    mskhyd.countInds$y <- mskhyd.countInds$y[ind]
+    mskhyd.countInds$id <- mskhyd.countInds$id[ind]
+    mskhyd.List <- mskhyd.List[ind]
+    mskhyd.maxInds$x <- mskhyd.maxInds$x[ind]
+    mskhyd.maxInds$y <- mskhyd.maxInds$y[ind]
+    mskhyd.maxInds$id <- mskhyd.maxInds$id[ind]
+    mskhyd.minInds$x <- mskhyd.minInds$x[ind]
+    mskhyd.minInds$y <- mskhyd.minInds$y[ind]
+    mskhyd.minInds$id <- mskhyd.minInds$id[ind]
+    mskhyd.nameList <- mskhyd.nameList[ind]
+    stid2gageList <- stid2gageList[ind]
 
-  # Subset lists/data frames
-  mskgeo.nameList <- mskgeo.nameList[ind]
-  frxstPts <- frxstPts[ind,]
-  gage2basinList <- gage2basinList[ind]
-  basin2gageList <- basin2gageList[ind]
-  mskgeo.areaList <- mskgeo.areaList[ind]
-  mskgeo.countInds <- mskgeo.countInds[ind,]
-  mskgeo.List <- mskgeo.List[ind]
-  mskgeo.maxInds <- mskgeo.maxInds[ind,]
-  mskgeo.minInds <- mskgeo.minInds[ind,]
-  mskhyd.areaList <- mskhyd.areaList[ind]
-  mskhyd.countInds <- mskhyd.countInds[ind,]
-  mskhyd.List <- mskhyd.List[ind]
-  mskhyd.maxInds <- mskhyd.maxInds[ind,]
-  mskhyd.minInds <- mskhyd.minInds[ind,]
-  mskhyd.nameList <- mskhyd.nameList[ind]
-  stid2gageList <- stid2gageList[ind]
-
-  return(list(mskgeo.nameList,frxstPts,basin2gageList,gage2basinList,
-              mskgeo.areaList,mskgeo.countInds,mskgeo.List,mskgeo.maxInds,
-              mskgeo.minInds,mskhyd.areaList,mskhyd.countInds,
-              mskhyd.List,mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
-              stid2gageList))           
+    return(list(mskgeo.nameList,frxstPts,basin2gageList,gage2basinList,
+                mskgeo.areaList,mskgeo.countInds,mskgeo.List,mskgeo.maxInds,
+                mskgeo.minInds,mskhyd.areaList,mskhyd.countInds,
+                mskhyd.List,mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList,
+                stid2gageList))
 }
 
-subsetRegions <- function(basinSub,mskgeo.nameList,basin2gageList,
-                         mskgeo.areaList, mskgeo.countInds, mskgeo.List, mskgeo.maxInds,
-                         mskgeo.minInds){
+# Subset reach based NHD catchment points
+subSetReachPts(subSet,gageList){
+    # First determine which subset names are of type reach based
+    reachPtsSub = which(unique(subSet$type == 1))
+    ind <- c()
+    for (reachPt in reachPtsSub){
+        i <- which(gageList == reachPt)
+        ind <- append(ind,i)    
+    }
+    # Subset the gageList
+    gageList <- gageList[ind]
+    return(list(gageList))
+}
 
-  ind <- c()
-  for (basin in basinSub$basin){
-    i <- which(mskgeo.nameList == basin)
-    ind <- append(ind,i)
-  }
+# Subset regions only (shapefile derived regions, etc)
+    # Subset snow points.
+    if (length(which(unique(subSet$type) == 4)) == 4){
+        listSub <- subSetPoints(ptgeo.sno,subSet)
+        ptgeo.sno <- listSub[[1]]
+    }
+subSetRegions(mskgeo.nameList,
+              mskgeo.areaList,
+              mskgeo.countInds,
+              mskgeo.List,
+              mskgeo.maxInds,
+              mskgeo.minInds,
+              mskhyd.areaList,
+              mskhyd.countInds,
+              mskhyd.List,
+              mskhyd.maxInds,
+              mskhyd.minInds,
+              mskhyd.nameList,
+              subSet){
 
-  # Subset lists/data frames
-  mskgeo.nameList <- mskgeo.nameList[ind]
-  basin2gageList <- basin2gageList[ind]
-  mskgeo.areaList <- mskgeo.areaList[ind]
-  mskgeo.countInds <- mskgeo.countInds[ind,]
-  mskgeo.List <- mskgeo.List[ind]
-  mskgeo.maxInds <- mskgeo.maxInds[ind,]
-  mskgeo.minInds <- mskgeo.minInds[ind,]
+    # First determine which subset names are of type region.
+    regionsSub <- which(unique(subSet$type == 3))
+    ind <- c()
+    for (region in regionSub){
+        i <- which(mskgeo.nameList == region)
+        ind <- append(ind,i)   
+    }
+    # Subset lists/data frames
+    mskgeo.nameList <- mskgeo.nameList[ind]
+    mskgeo.areaList <- mskgeo.areaList[ind]
+    mskgeo.countInds$x <- mskgeo.countInds$x[ind]
+    mskgeo.countInds$y <- mskgeo.countInds$y[ind]
+    mskgeo.countInds$id <- mskgeo.countInds$id[ind]
+    mskgeo.List <- mskgeo.List[ind]
+    mskgeo.maxInds$x <- mskgeo.maxInds$x[ind]
+    mskgeo.maxInds$y <- mskgeo.maxInds$y[ind]
+    mskgeo.maxInds$id <- mskgeo.maxInds$id[ind]
+    mskgeo.minInds$x <- mskgeo.minInds$x[ind]
+    mskgeo.minInds$y <- mskgeo.minInds$y[ind]
+    mskgeo.minInds$id <- mskgeo.minInds$id[ind]
+    mskhyd.areaList <- mskhyd.areaList[ind]
+    mskhyd.countInds$x <- mskhyd.countInds$x[ind]
+    mskhyd.countInds$y <- mskhyd.countInds$y[ind]
+    mskhyd.countInds$id <- mskhyd.countInds$id[ind]
+    mskhyd.List <- mskhyd.List[ind]
+    mskhyd.maxInds$x <- mskhyd.maxInds$x[ind]
+    mskhyd.maxInds$y <- mskhyd.maxInds$y[ind]
+    mskhyd.maxInds$id <- mskhyd.maxInds$id[ind]
+    mskhyd.minInds$x <- mskhyd.minInds$x[ind]
+    mskhyd.minInds$y <- mskhyd.minInds$y[ind]
+    mskhyd.minInds$id <- mskhyd.minInds$id[ind]
+    mskhyd.nameList <- mskhyd.nameList[ind]
+    
+    return(list(mskgeo.nameList,mskgeo.areaList,mskgeo.countInds,
+                mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+                mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+                mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList))
+}
 
-  return(list(mskgeo.nameList,basin2gageList,
-              mskgeo.areaList,mskgeo.countInds,mskgeo.List,mskgeo.maxInds,
-              mskgeo.minInds))
-} 
+# Subset snow points
+subSetPoints(ptgeo.sno,subSet){
+    # First determine which subset names are of type point
+    ptsSub <- which(unique(subSet$type == 4))
+    ind <- c()
+    for (pt in ptsSub){
+        i <- which(ptgeo.sno$id == pt)
+        ind <- append(ind,i)
+    }
+    # Subset lists/data frames
+    ptgeo.sno$we <- ptgeo.sno$we[ind]
+    ptgeo.sno$sn <- ptgeo.sno$sn[ind]
+    ptgeo.sno$id <- ptgeo.sno$id[ind]
+}
+
+# Assign gageList points amongst different processors
+mpiGageList(size,rank,gageList){
+    # Calculate total size of list. From there, split up portions
+    # based on rank.
+    masterLength <- length(gageList)
+    localLength <- floor(masterLength/size)
+    begInd <- localLength*rank + 1
+    endInd <- localLength*(rank+1)
+    if (rank != 0){
+        localLength <- floor(masterLength/size)
+        gageList <- gageList[begInd:endInd]
+    } else {
+        localLength <- floor(masterLength/size) 
+        remainder <- masterLength - (localLength*size)
+        if (remainder == 0){
+            gageList <- gageList[begInd:endInd]        
+        } else {
+            rBegInd <- 
+            rEndInd <- masterLength
+        }
+    }
+
+    # Return list
+    return(list(gageList))
+}
+
+# Assign frxst points amongst different processors
+mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
+         stid2gageList,mskgeo.areaList,mskgeo.countInds,
+         mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+         mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+         mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
+
+    # Calculate total size of list. From there, split up portions
+    # based on rank
+    masterLength <- length(frxstPts)
+    # Return list
+    return(list(frxstPts,basin2gageList,gage2basinList,
+                stid2gageList,mskgeo.areaList,mskgeo.countInds,
+                mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+                mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+                mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList))
+}
+
+# Assign different regions amongst different processors
+mpiRegions(size,rank,mskgeo.areaList,mskgeo.countInds,
+           mskgeo.List,mskgeo.maxInds,mskgeo.minInds,
+           mskhyd.areaList,mskhyd.countInds,mskhyd.List,
+           mskhyd.maxInds,mskhyd.minInds,mskhyd.nameList){
+
+    # Return List
+    return(list(mskgeo.areaList,mskgeo.countInds,mskgeo.List,
+                mskgeo.maxInds,mskgeo.minInds,mskhyd.areaList,
+                mskhyd.countInds,mskhyd.List,mskhyd.maxInds,
+                mskhyd.minInds,mskhyd.nameList))
+}
+
+# Assign different points amongst different processors
+mpiPts(size,rank,ptgeo.sno){
+
+    # Return List
+    return(list(ptgeo.sno))
+}
+
