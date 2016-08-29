@@ -160,7 +160,7 @@ if (size > 1){
         mskhyd.nameList <- listMpi[15]
         mskgeo.nameList <- listMpi[16]  
         # Reset gageList
-        print(mskgeo.List)
+        print(stid2gageList)
         gageList <- data.frame(st_id=names(stid2gageList), site_no=unlist(stid2gageList), stringsAsFactors=FALSE)  
         print(mskgeo.nameList)
     }
