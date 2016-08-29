@@ -88,7 +88,7 @@ if (!is.null(subSet)){
         mskhyd.minInds <- listSub[[14]]
         mskhyd.nameList <- listSub[[15]]
         stid2gageList <- listSub[[16]]
-        print(mskgeo.List)
+        print(mskgeo.nameList)
     }
     # Subset regions only, assuming no associated streamflow gages 
     # with these (eco-regions with no basin2gageList,gage2basinList,
