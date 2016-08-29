@@ -173,6 +173,7 @@ subSetBasins <- function(mskgeo.nameList,
                          stid2gageList,
                          subSet){
 
+    subSet <- subSet
     # First determine which subset names are of type forecast points.
     fxstPtsSub = which(unique(subSet$type) == 2)
     ind <- c()
