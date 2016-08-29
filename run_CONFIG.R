@@ -69,8 +69,8 @@ if (!is.null(subSet)){
                                 mskhyd.areaList,
                                 mskhyd.countInds,
                                 mskhyd.List,
-                                #mskhyd.maxInds,
-                                #mskhyd,minInds,
+                                mskhyd.maxInds,
+                                mskhyd,minInds,
                                 #mskhyd.nameList,
                                 #stid2gageList,
                                 subList)
