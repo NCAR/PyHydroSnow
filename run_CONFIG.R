@@ -136,6 +136,7 @@ if (size > 1){
         gageList <- listMpi[1]
     }
     # Split up forecast points and associated basin masks.
+    print(gageList)
     if (!is.null(frxstPts)){
         listMpi <- mpiFrxst(size,rank,frxstPts,basin2gageList,gage2basinList,
                             stid2gageList,mskgeo.areaList,mskgeo.countInds,
