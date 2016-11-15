@@ -17,12 +17,14 @@ import pyHydroEvalUtils
 import snowDbMod
 import datetime
 import compileNamelist
-from mpi4py import MPI
+#from mpi4py import MPI
 
 # Establish MPI objects
-comm = MPI.COMM_WORLD
-size = comm.Get_size()
-rank = comm.Get_rank()
+#comm = MPI.COMM_WORLD
+#size = comm.Get_size()
+#rank = comm.Get_rank()
+size = 1
+rank = 0
 
 def main(argv):
     # Parse arguments passed in.
