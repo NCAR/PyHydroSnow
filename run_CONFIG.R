@@ -42,6 +42,17 @@ if ( !reachRting & exists("stid2gageList")){
     }
 }
 
+# Expand model path list to account for ensembles
+if (readEnsemble) {
+	numEns <- length(ensembleList)
+	# Expand modPathList to number of ensembles
+	modPathList <- expandModPathList(numEns,ensembleList,length(modPathList),modPathList)
+	modTagList <- expandModTagList(numEns,length(modPathList),modTagList)
+	ensTagList <- expandEnsTagList(numEns,length(modPathList),modPathList,ensembleList)
+} else {
+	numEns <- 1
+}
+
 # If subsetting has been enabled, subset mask parameters here. This will vary
 # depending on whether points, regions, or gages have been identified 
 # for subsetting.
@@ -201,7 +212,8 @@ if (readPointSnow){
             source("read_SNOW_POINTS_Database.R")
         } else if (readSnodas){
             # Model + SNODAS at observation points
-            source("read_SNOW_SNODAS_POINTS_Database.R")        
+            source("read_SNOW_POINTS_Database.R")
+            source("read_SNODAS_POINTS.R")        
         } 
     # Points + Basins
     } else if (readBasinSnow){

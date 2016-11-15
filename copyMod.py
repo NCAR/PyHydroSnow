@@ -37,9 +37,9 @@ def main(argv):
     parser.add_argument('--statsLink2gage', nargs='?', help='New model project statsLink2gage file.')
     parser.add_argument('--plotLink2gage', nargs='?', help='New model project plotLink2gage file.')
     parser.add_argument('--basSub',nargs='?', help='New model project basin subset file.')
+    parser.add_argument('--snowNetSub',nargs='?', help='New snow network subset file.')
     parser.add_argument('--snPath', nargs='?', help='New SNODAS directory.')
     parser.add_argument('--streamDB',nargs='?', help='New streamflow database.')
-    parser.add_argument('--snowDB',nargs='?', help='New snow observations database')
     parser.add_argument('--nCores', nargs='?', help='New model project number of cores to use.')
     
     args = parser.parse_args()

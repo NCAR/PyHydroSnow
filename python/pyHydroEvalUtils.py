@@ -52,7 +52,11 @@ def checkArgs(parser):
     if parser.pad:
         if (int(parser.pad) < 1):
             print "ERROR: Padding value must be greater than 0."
-            raise 
+            raise
+    if parser.snowNet:
+        if (int(parser.snowNet) < 1):
+            print "ERROR: Invalid snownet Flag."
+            raise
 
 def returnDate(dIn):
 	# Convert a date string in YYYYMMDDHH format to a datetime object

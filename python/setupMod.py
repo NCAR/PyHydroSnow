@@ -28,8 +28,11 @@ class modelDatabase:
         self.statsLink2GageFile = []
         self.plotLink2GageFile = []
         self.basinSubFile = []
+        self.snowNetSubFile = []
         self.streamDB = []
-        self.snowDB = []
+        self.snowDbHost = []
+        self.snowDbUser = []
+        self.snowDbPwd = []
         self.snodasPath = []
         self.nCores = []
     def readData(self,parser,readFlag):
@@ -56,8 +59,11 @@ class modelDatabase:
                     self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
                     self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
                     self.basinSubFile.append(dbTmp.basinSubFile[i])
+                    self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
                     self.streamDB.append(dbTmp.streamDB[i])
-                    self.snowDB.append(dbTmp.snowDB[i])
+                    self.snowDbHost.append(dbTmp.snowDbHost[i])
+                    self.snowDbUser.append(dbTmp.snowDbUser[i])
+                    self.snowDbPwd.append(dbTmp.snowDbPwd[i])
                     self.snodasPath.append(dbTmp.snodasPath[i])
                     self.nCores.append(dbTmp.nCores[i])
 
@@ -81,8 +87,11 @@ class modelDatabase:
         statsLinkFileTmp = parser.get('geo_specification','statsLink2GageFile')
         plotLinkFileTmp = parser.get('geo_specification','plotLink2GageFile')
         basinSubFileTmp = parser.get('geo_specification','basinSubFile')
+        snowNetSubFileTmp = parser.get('geo_specification','snowNetSubFile')
         streamDbTmp = parser.get('observations_specification','streamDbPath')
-        snowDbTmp = parser.get('observations_specification','snowDbPath')
+        snowDbHostTmp = parser.get('observations_specification','snowDbHost')
+        snowDbUserTmp = parser.get('observations_specification','snowDbUser')
+        snowDbPwdTmp = parser.get('observations_specification','snowDbPwd')
         snodasPathTmp = parser.get('observations_specification','snodasPath')
         nCoresTmp = parser.get('run_options','nCores')
 
@@ -112,8 +121,11 @@ class modelDatabase:
         self.statsLink2GageFile.append(statsLinkFileTmp)
         self.plotLink2GageFile.append(plotLinkFileTmp)
         self.basinSubFile.append(basinSubFileTmp)
+        self.snowNetSubFile.append(snowNetSubFileTmp)
         self.streamDB.append(streamDbTmp)
-        self.snowDB.append(snowDbTmp)
+        self.snowDbHost.append(snowDbHostTmp)
+        self.snowDbUser.append(snowDbUserTmp)
+        self.snowDbPwd.append(snowDbPwdTmp)
         self.snodasPath.append(snodasPathTmp)
         self.nCores.append(nCoresTmp)
 
@@ -209,8 +221,11 @@ class modelDatabase:
         statsLink2GageFileTmp = []
         plotLink2GageFileTmp = []
         basinSubFileTmp = []
+        snowNetSubFileTmp = []
         streamDbTmp = []
-        snowDbTmp = []
+        snowDbHostTmp = []
+        snowDbUserTmp = []
+        snowDbPwdTmp = []
         snodasPathTmp = []
         nCoresTmp = []
 
@@ -234,8 +249,11 @@ class modelDatabase:
                 self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
                 self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
                 self.basinSubFile.append(dbTmp.basinSubFile[i])
+                self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
                 self.streamDB.append(dbTmp.streamDB[i])
-                self.snowDB.append(dbTmp.snowDB[i])
+                self.snowDbHost.append(dbTmp.snowDbHost[i])
+                self.snowDbUser.append(dbTmp.snowDbUser[i])
+                self.snowDbPwd.append(dbTmp.snowDbPwd[i])
                 self.snodasPath.append(dbTmp.snodasPath[i])
                 self.nCores.append(dbTmp.nCores[i])
 
@@ -260,8 +278,11 @@ class modelDatabase:
                 statsLink2GageFileTmp.append(self.statsLink2GageFile[i])
                 plotLink2GageFileTmp.append(self.plotLink2GageFile[i])
                 basinSubFileTmp.append(self.basinSubFile[i])
+                snowNetSubFileTmp.append(self.snowNetSubFile[i])
                 streamDbTmp.append(self.streamDB[i])
-                snowDbTmp.append(self.snowDB[i])
+                snowDbHostTmp.append(self.snowDbHost[i])
+                snowDbUserTmp.append(self.snowDbUser[i])
+                snowDbPwdTmp.append(self.snowDbPwd[i])
                 snodasPathTmp.append(self.snodasPath[i])
                 nCoresTmp.append(self.nCores[i])
             else: # Found project to delete
@@ -285,8 +306,11 @@ class modelDatabase:
         self.statsLink2GageFile = []
         self.plotLink2GageFile = []
         self.basinSubFile = []
+        self.snowNetSubFile = []
         self.streamDB = []
-        self.snowDB = []
+        self.snowDbHost = []
+        self.snowDbUser = []
+        self.snowDbPwd = []
         self.snodasPath = []
         self.nCores = []
 
@@ -307,8 +331,11 @@ class modelDatabase:
             self.statsLink2GageFile.append(statsLink2GageFileTmp[i])
             self.plotLink2GageFile.append(plotLink2GageFileTmp[i])
             self.basinSubFile.append(basinSubFileTmp[i])
+            self.snowNetSubFile.append(snowNetSubFileTmp[i])
             self.streamDB.append(streamDbTmp[i])
-            self.snowDB.append(snowDbTmp[i])
+            self.snowDbHost.append(snowDbHostTmp[i])
+            self.snowDbUser.append(snowDbUserTmp[i])
+            self.snowDbPwd.append(snowDbPwdTmp[i])
             self.snodasPath.append(snodasPathTmp[i])
             self.nCores.append(nCoresTmp[i])
 
@@ -337,8 +364,11 @@ class modelDatabase:
                 self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
                 self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
                 self.basinSubFile.append(dbTmp.basinSubFile[i])
+                self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
                 self.streamDB.append(dbTmp.streamDB[i])
-                self.snowDB.append(dbTmp.snowDB[i])
+                self.snowDbHost.append(dbTmp.snowDbHost[i])
+                self.snowDbUser.append(dbTmp.snowDbUser[i])
+                self.snowDbPwd.append(dbTmp.snowDbPwd[i])
                 self.snodasPath.append(dbTmp.snodasPath[i])
                 self.nCores.append(dbTmp.nCores[i])
 
@@ -411,6 +441,11 @@ class modelDatabase:
             self.mskFile.append(args.mskFile)
         else:
             self.mskFile.append(self.mskFile[aliasInd])
+            
+        if args.snowNetSub:
+            self.snowNetSubFile.append(args.snowNetSub)
+        else:
+            self.snowNetSubFile.append(self.snowNetSubFile[aliasInd])
 
         if args.geoFile:
             self.geoFile.append(args.geoFile)
@@ -462,11 +497,6 @@ class modelDatabase:
         else:
             self.streamDB.append(self.streamDB[aliasInd])
             
-        if args.snowDB:
-            self.snowDB.append(args.snowDB)
-        else:
-            self.snowDB.append(self.snowDB[aliasInd])
-        
         if args.nCores:
             self.nCores.append(args.nCores)
         else:

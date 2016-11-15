@@ -58,12 +58,15 @@ maskFile = /d7/karsten/URG_RETRO/urg_MASKS_NEWDOMAIN_TAGGED_POINTS.Rdata
 statsLink2GageFile =
 plotLink2GageFile = 
 basinSubFile = /d7/karsten/URG_RETRO/ESP_SUB.txt 
+snowNetSubFile = /d7/karsten/URG_RETRO/SNOW_NET_SUB.txt
 
 # Optional - specify observation/analysis datasets
 [observations_specification]
 snodasPath = /d4/karsten/rio_snodas_retro/wrf_hydro_grids
 streamDbPath = 
-snowDbPath = 
+snowDbHost = hydro-c1-web.rap.ucar.edu
+snowDbUser = logan
+snowDbPwd = DHood$1948
 
 [run_options]
 # Optional - specify number of cores to use for parallel. Default is 1.

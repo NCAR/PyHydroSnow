@@ -14,6 +14,7 @@ import subprocess
 import argparse
 import os
 import pyHydroEvalUtils
+import snowDbMod
 import datetime
 import compileNamelist
 from mpi4py import MPI
@@ -35,7 +36,8 @@ def main(argv):
     parser.add_argument('--snRun',nargs='?', help='Snow analysis flag (1-6)')
     parser.add_argument('--stRun',nargs='?', help='Streamflow analysis flag (1-6)')
     parser.add_argument('--subset',nargs='?', help='Flag to turn on subsetting within reading or plotting')
-    parser.add_argument('--pad',nargs='?', help='Padding value to pad beginning of streamflow plots with observations')      
+    parser.add_argument('--pad',nargs='?', help='Padding value to pad beginning of streamflow plots with observations')
+    parser.add_argument('--snowNet',nargs='?', help='Flag to turn on snow observation network subsetting by network name')      
       
     args = parser.parse_args()
 
@@ -97,6 +99,13 @@ def main(argv):
         os.unlink(nameLink)
         sys.exit(1)	
 
+    # If observations from Database needed, extract here
+    try:
+        snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
+    except:
+        print "ERROR: Failure to extract snow observations from web database."
+        os.unlink(nameLink)
+        sys.exit(1)
 
     cmd = "Rscript " + nameLink
     subprocess.call(cmd,shell=True)	
