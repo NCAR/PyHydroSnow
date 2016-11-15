@@ -99,6 +99,7 @@ def main(argv):
         os.unlink(nameLink)
         sys.exit(1)	
 
+    print 'EXTRACTING SNOW OBSERVATIONS'
     # If observations from Database needed, extract here
     try:
         snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
@@ -107,20 +108,20 @@ def main(argv):
         os.unlink(nameLink)
         sys.exit(1)
 
-    cmd = "Rscript " + nameLink
-    subprocess.call(cmd,shell=True)	
+    #cmd = "Rscript " + nameLink
+    #subprocess.call(cmd,shell=True)	
 
     # Remove namelist link specific to processor ID
-    try:
-        os.unlink(nameLink)
-    except:
-        print "ERROR: Failure to remove link: " + nameLink
-        sys.exit(1)
+    #try:
+    #    os.unlink(nameLink)
+    #except:
+    #    print "ERROR: Failure to remove link: " + nameLink
+    #    sys.exit(1)
 
     # If Rplots.pdf file exists, remove it.
-    if os.path.isfile('./Rplots.pdf'):
-        cmd = 'rm -rf Rplots.pdf'
-        subprocess.call(cmd,shell=True)
+    #if os.path.isfile('./Rplots.pdf'):
+    #    cmd = 'rm -rf Rplots.pdf'
+    #    subprocess.call(cmd,shell=True)
 
 if __name__ == "__main__":
 	main(sys.argv[1:])

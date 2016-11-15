@@ -30,16 +30,19 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         else:
             snowNetStr = "NETALL"
             
+        print snowNetStr
         if args.subset == 1:
             subStr = "BASSUB"
         else:
             subStr = "SUBALL"
+        print subStr            
             
         # Establish paths
         fileOut = db.topDir + "/" = db.alias[indDbOrig] + "/analysis_out/" + \
                   "read_datasets/SNOW_DB_OBS_" + args.begADate + "_" + \
                   args.endADate + "_" + snowNetStr + "_" + subStr + ".nc"
                   
+        print fileOut
         # Initialize connection with SQL
         try:
             dbSnow = MySQLdb.connect(db.snowDbHost[indDbOrig],db.snowDbUser[indDbOrig],\
@@ -47,6 +50,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         except:
             print "ERROR: Unable to connect to NWM Snow Database."
             raise
+        print 'CONNECTED TO DB'
 
         # Establish datetime strings to be used in command syntax            
         bDateStr = begADateObj.strftime('%Y-%m-%d %H') + ':00:00'
@@ -56,9 +60,11 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         cmd = "select * from NWM_SWE where date_obs>'" + bDateStr + "' and " + \
               "date_obs<'" + eDateStr
               
+        print cmd
         # Create cursor object to execute SQL command
         conn = dbSnow.dbSnow.cursor()
         
+        print 'ESTABLISHED CONNECTIVITY OBJECT'
         # Execute command to pull SWE observations
         try:
             conn.execute(cmd)
@@ -67,6 +73,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
             print "ERROR: Unable to pull SWE observations for analysis period."
             raise
         
+        print 'EXECUTED SQL COMMAND'
         # Proceed to pull snow depth observations
         cmd = "select * from NWM_SD where date_obs>'" + bDateStr + "' and " + \
               "date_obs<'" + eDateStr
@@ -78,10 +85,12 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
             print "ERROR: Unable to pull Snow Depth observations for analysis period."
             raise
             
+        print 'EXTRACTED SNOW OBS FROM FETCH'
         # Proceed to pull metadata entries. This information will be used to 
         # extract networks, etc.
         cmd = "select * from NWM_snow_meta"
         
+        print cmd
         try:
             conn.execute(cmd)
             resultMeta = conn.fetchall()
@@ -89,12 +98,13 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
             print "ERROR: Unable to extract snow metadata table information"
             raise
             
+        print 'EXTRACTED METADATA INFORMATION'
         # Close the SQL connection
         conn.close()
         
         # Create output NetCDF file for R to read in during analysis for processing
         # into basins, etc.
-        snowObsNC(args,db,resultSWE,resultSD,resultMeta,snowSubFile)
+        #snowObsNC(args,db,resultSWE,resultSD,resultMeta,snowSubFile)
         
 def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Function to output extracted snow observations to NetCDF file. This
