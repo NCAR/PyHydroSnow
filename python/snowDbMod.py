@@ -123,7 +123,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     
     print epoch
     # Establish data lengths
-    siteLen = len(resultsMeta)
+    siteLen = len(resultMeta)
     numSweObs = len(resultSWE)
     numSdObs = len(resultSD)
 
