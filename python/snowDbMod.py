@@ -65,7 +65,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
               
         print cmd
         # Create cursor object to execute SQL command
-        conn = dbSnow.dbSnow.cursor()
+        conn = dbSnow.cursor()
         
         print 'ESTABLISHED CONNECTIVITY OBJECT'
         # Execute command to pull SWE observations
