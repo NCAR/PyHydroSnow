@@ -181,7 +181,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
         if resultSWE[i][0] in uniquesOut:
             uniqueSWEOut.append(resultSWE[i][0])
             sweOut.append(resultSWE[i][1])
-            sweDateOut.append((resultSWE[i][2]-epoch).total_seconds()/3600.0)
+            sweDateOut.append(int((resultSWE[i][2]-epoch).total_seconds()/3600.0))
         
     print str(len(sweOut))
     # Snow Depth next
@@ -189,7 +189,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
         if resultSD[i][0] in uniquesOut:
             uniqueSDOut.append(resultSD[i][0])
             sdOut.append(resultSD[i][1])
-            sdDateOut.append((resultSD[i][2]-epoch).total_seconds()/3600.0)
+            sdDateOut.append(int((resultSD[i][2]-epoch).total_seconds()/3600.0))
             
     print str(len(sdOut))
     # Create output NetCDF file.
