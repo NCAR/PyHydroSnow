@@ -61,7 +61,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         
         # Pull all SWE observations from time period.
         cmd = "select * from NWM_SWE where date_obs>'" + bDateStr + "' and " + \
-              "date_obs<'" + eDateStr
+              "date_obs<'" + eDateStr + "'"
               
         print cmd
         # Create cursor object to execute SQL command
@@ -79,7 +79,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         print 'EXECUTED SQL COMMAND'
         # Proceed to pull snow depth observations
         cmd = "select * from NWM_SD where date_obs>'" + bDateStr + "' and " + \
-              "date_obs<'" + eDateStr
+              "date_obs<'" + eDateStr + "'"
         
         try:
             conn.execute(cmd)
