@@ -107,7 +107,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         
         # Create output NetCDF file for R to read in during analysis for processing
         # into basins, etc.
-        snowObsNC(args,db,resultSWE,resultSD,resultMeta,snowSubFile)
+        snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile)
         
 def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Function to output extracted snow observations to NetCDF file. This
