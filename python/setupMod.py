@@ -182,8 +182,8 @@ class modelDatabase:
         if len(self.plotLink2GageFile[ind]) != 0:  
             os.symlink(self.plotLink2GageFile[ind],plotLink2GagesFile)
             basSubLnk = geoDir1 + "/basin_sub_file.txt"
-        if len(self.basinSubFile[ind]) != 0:
-            os.symlink(self.basinSubFile[ind],basSubLnk)
+        #if len(self.basinSubFile[ind]) != 0:
+        #    os.symlink(self.basinSubFile[ind],basSubLnk)
 
         # Link forcing directory
         forcDir1 = subDir1 + "/forcing"
