@@ -103,12 +103,13 @@ def main(argv):
 
     print 'EXTRACTING SNOW OBSERVATIONS'
     # If observations from Database needed, extract here
-    try:
-        snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
-    except:
-        print "ERROR: Failure to extract snow observations from web database."
-        os.unlink(nameLink)
-        sys.exit(1)
+    snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
+    #try:
+    #    snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
+    #except:
+    #    print "ERROR: Failure to extract snow observations from web database."
+    #    os.unlink(nameLink)
+    #    sys.exit(1)
 
     #cmd = "Rscript " + nameLink
     #subprocess.call(cmd,shell=True)	
