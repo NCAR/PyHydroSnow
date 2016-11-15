@@ -220,6 +220,15 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     sdObsDates = 'Hours since 1870-01-01 00:00:00'
     
     # Place date into output file
+    print str(len(uniquesOut))
+    print str(len(latsOut))
+    print str(len(lonsOut))
+    print str(len(sweOut))
+    print str(len(uniqueSWEOut))
+    print str(len(sweDateOut))
+    print str(len(sdOut))
+    print str(len(uniqueSDOut))
+    print str(len(sdDateOut))
     obsIds[:] = uniquesOut
     latVar[:] = latsOut
     lonVar[:] = lonsOut
