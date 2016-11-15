@@ -43,6 +43,9 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
                   args.endADate + "_" + snowNetStr + "_" + subStr + ".nc"
                   
         print fileOut
+        print db.snowDbHost[indDbOrig]
+        print db.snowDbUser[indDbOrig]
+        print db.snowDbPwd[indDbOrig]
         # Initialize connection with SQL
         try:
             dbSnow = MySQLdb.connect(db.snowDbHost[indDbOrig],db.snowDbUser[indDbOrig],\
