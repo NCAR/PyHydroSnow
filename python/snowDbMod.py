@@ -107,7 +107,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         
         # Create output NetCDF file for R to read in during analysis for processing
         # into basins, etc.
-        #snowObsNC(args,db,resultSWE,resultSD,resultMeta,snowSubFile)
+        snowObsNC(args,db,resultSWE,resultSD,resultMeta,snowSubFile)
         
 def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Function to output extracted snow observations to NetCDF file. This
@@ -121,11 +121,16 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Establish EPOCH datetime object
     epoch = datetime.datetime.utcfromtimestamp(0)
     
+    print epoch
     # Establish data lengths
     siteLen = len(resultsMeta)
     numSweObs = len(resultSWE)
     numSdObs = len(resultSD)
 
+    print str(siteLen)
+    print str(numSweObs)
+    print str(numSdObs)
+    
     # Initialize empty array to hold ID values
     uniquesOut = []
     idsOut = []
@@ -174,7 +179,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
         if resultSWE[i][0] in uniquesOut:
             uniqueSWEOut.append(resultSWE[i][0])
             sweOut.append(resultSWE[i][1])
-            sweDateOut.append((resultsSWE[i][2]-epoch).total_seconds()/3600.0)
+            sweDateOut.append((resultSWE[i][2]-epoch).total_seconds()/3600.0)
         
     # Snow Depth next
     for i in range(0,numSdObs):
