@@ -38,7 +38,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         print subStr            
             
         # Establish paths
-        fileOut = db.topDir + "/" + db.alias[indDbOrig] + "/analysis_out/" + \
+        fileOut = db.topDir[indDbOrig] + "/" + db.alias[indDbOrig] + "/analysis_out/" + \
                   "read_datasets/SNOW_DB_OBS_" + args.begADate + "_" + \
                   args.endADate + "_" + snowNetStr + "_" + subStr + ".nc"
                   
