@@ -156,18 +156,6 @@ def editNamelist(pathIn,args,dbIn,size,rank):
     replaceStr = "modTagList <- " + tagStr
     el(pathIn,searchStr,replaceStr)
 
-    # Edit snow database location entry
-    if len(dbIn.snowDB[indDbOrig]) != 0:
-        searchStr = "snowDB <- NULL"
-        replaceStr = "snowDB <- '" + dbIn.snowDB[indDbOrig] + "'"
-        el(pathIn,searchStr,replaceStr)
-        
-    # Edit the streamflow database location entry
-    if len(dbIn.streamDB[indDbOrig]) != 0:
-        searchStr = "streamDB <- NULL"
-        replaceStr = "streamDB <- '" + dbIn.streamDB[indDbOrig] + "'"
-        el(pathIn,searchStr,replaceStr)
-        
     # Edit the plotting directory 
     searchStr = "plotDir <- NULL"
     replaceStr = "plotDir <- '" + dbIn.topDir[indDbOrig] + "/" + \

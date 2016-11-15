@@ -33,11 +33,6 @@ rank <- NULL
 
 ################## Observations ###################
 
-## Path to streamflow observations database
-streamDB <- NULL
-
-## Path to snow observations database
-snowDB <- NULL
  
 ################ Model Output Reads ###############
 
