@@ -164,6 +164,8 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     latsOut = list(set(latsOut))
     lonsOut = list(set(lonsOut))
     
+    print str(len(uniquesOut))
+    
     uniqueSWEOut = []
     uniqueSDOut = []
     sweOut = []
@@ -181,6 +183,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
             sweOut.append(resultSWE[i][1])
             sweDateOut.append((resultSWE[i][2]-epoch).total_seconds()/3600.0)
         
+    print str(len(sweOut))
     # Snow Depth next
     for i in range(0,numSdObs):
         if resultSD[i][0] in uniquesOut:
@@ -188,6 +191,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
             sdOut.append(resultSD[i][1])
             sdDateOut.append((resultSD[i][2]-epoch).total_seconds()/3600.0)
             
+    print str(len(sdOut))
     # Create output NetCDF file.
     idOut = Dataset(fileOut,'w')
     
