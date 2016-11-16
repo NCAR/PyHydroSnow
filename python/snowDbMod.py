@@ -159,9 +159,9 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
             lonsOut.append(resultMeta[i][4])
     
     # Ensure no duplicate unique IDs are present
-    uniquesOut = list(set(uniquesOut))
-    networksOut = list(set(networksOut))
-    idsOut = list(set(idsOut))
+    #uniquesOut = list(set(uniquesOut))
+    #networksOut = list(set(networksOut))
+    #idsOut = list(set(idsOut))
     #latsOut = list(set(latsOut))
     #lonsOut = list(set(lonsOut))
     
@@ -209,8 +209,8 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     
     # Variables
     obsIds = idOut.createVariable('ptUniqueIds','i4',('numStations'),zlib=True,complevel=2)
-    #latVar = idOut.createVariable('ptLatitude','f4',('numStations'),zlib=True,complevel=2)
-    #lonVar = idOut.createVariable('ptLongitude','f4',('numStations'),zlib=True,complevel=2)
+    latVar = idOut.createVariable('ptLatitude','f4',('numStations'),zlib=True,complevel=2)
+    lonVar = idOut.createVariable('ptLongitude','f4',('numStations'),zlib=True,complevel=2)
     sweObs = idOut.createVariable('sweObs','f4',('numSweObs'),zlib=True,complevel=2)
     sweObs.units = 'mm'
     sweObsIds = idOut.createVariable('sweObsIds','i4',('numSweObs'),zlib=True,complevel=2)    
@@ -224,8 +224,8 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     
     # Place date into output file
     print str(len(uniquesOut))
-    #print str(len(latsOut))
-    #print str(len(lonsOut))
+    print str(len(latsOut))
+    print str(len(lonsOut))
     print str(len(sweOut))
     print str(len(uniqueSWEOut))
     print str(len(sweDateOut))
@@ -233,8 +233,8 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     print str(len(uniqueSDOut))
     print str(len(sdDateOut))
     obsIds[:] = uniquesOut
-    #latVar[:] = latsOut
-    #lonVar[:] = lonsOut
+    latVar[:] = latsOut
+    lonVar[:] = lonsOut
     print '---------'
     print uniqueSWEOut
     if len(sweOut) == 0:
