@@ -234,12 +234,18 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     #lonVar[:] = lonsOut
     print '---------'
     print uniqueSWEOut
-    sweObs[:] = np.array(sweOut,dtype=np.float32)
-    sweObsIds[:] = np.array(uniqueSWEOut, dtype=np.int32)
-    sweObsDates[:] = np.array(sweDateOut, dtype=np.int32)
-    sdObs[:] = np.array(sdOut,dtype=np.float32)
-    sdObsIds[:] = np.array(uniqueSDOut,dtype=np.int32)
-    sdObsDates[:] = np.array(sdDateOut,dtype=np.int32)
+    if len(sweOut) == 0:
+        print 'WARNING: 0 SWE Observations Extracted From Database.'
+    else:
+        sweObs[:] = np.array(sweOut,dtype=np.float32)
+        sweObsIds[:] = np.array(uniqueSWEOut, dtype=np.int32)
+        sweObsDates[:] = np.array(sweDateOut, dtype=np.int32)
+    if len(sdOut) == 0:
+        print 'WARNING: 0 SD Observations Extracted From Database.'
+    else:
+        sdObs[:] = np.array(sdOut,dtype=np.float32)
+        sdObsIds[:] = np.array(uniqueSDOut,dtype=np.int32)
+        sdObsDates[:] = np.array(sdDateOut,dtype=np.int32)
     
     # Close output file
     idOut.close()
