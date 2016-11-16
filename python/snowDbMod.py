@@ -234,10 +234,10 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     #lonVar[:] = lonsOut
     sweObs[:] = sweOut
     sweObsIds[:] = uniqueSWEOut
-    sweObsDates[:] = sweDateOut
+    sweObsDates[:] = int(sweDateOut)
     sdObs[:] = sdOut
     sdObsIds[:] = uniqueSDOut
-    sdObsDates[:] = sdDateOut
+    sdObsDates[:] = int(sdDateOut)
     
     # Close output file
     idOut.close()
