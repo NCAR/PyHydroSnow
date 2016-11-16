@@ -141,6 +141,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     if len(snowSubFile) != 0:
         networks = pd.read_csv(snowSubFile)
         for i in range(0,siteLen):
+            print 'I1 = ' + str(i)
             for j in range(0,len(networks.network)):
                 metaSplit = [x.strip() for x in resultMeta[i][1].split(',')]
                 if networks.network[j] in metaSplit:
@@ -178,6 +179,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Loop through and create output arrays
     # SWE first
     for i in range(0,numSweObs):
+        print 'I2 = ' + str(i)
         if resultSWE[i][0] in uniquesOut:
             uniqueSWEOut.append(resultSWE[i][0])
             sweOut.append(resultSWE[i][1])
@@ -186,6 +188,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     print str(len(sweOut))
     # Snow Depth next
     for i in range(0,numSdObs):
+        print 'I3 = ' + str(i)
         if resultSD[i][0] in uniquesOut:
             uniqueSDOut.append(resultSD[i][0])
             sdOut.append(resultSD[i][1])
