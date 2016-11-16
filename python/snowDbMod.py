@@ -217,7 +217,7 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     sdObs.units = 'mm'    
     sdObsIds = idOut.createVariable('sdObsIds','i4',('numSdObs'),zlib=True,complevel=2)    
     sdObsDates = idOut.createVariable('sdObsDates','i4',('numSdObs'),zlib=True,complevel=2)
-    sdObsDates = 'Hours since 1870-01-01 00:00:00'
+    sdObsDates.units = 'Hours since 1870-01-01 00:00:00'
     
     # Place date into output file
     print str(len(uniquesOut))
