@@ -232,6 +232,8 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     obsIds[:] = uniquesOut
     #latVar[:] = latsOut
     #lonVar[:] = lonsOut
+    print '---------'
+    print sdDateOut[0]
     sweObs[:] = np.array(sweOut,dtype=np.float32)
     sweObsIds[:] = np.array(uniqueSWEOut, dtype=np.int32)
     sweObsDates[:] = np.array(sweDateOut, dtype=np.int32)
