@@ -114,6 +114,10 @@ if (basinFlag == 1){
       xCoord <- geoCoords$ew[point]
       yCoord <- geoCoords$sn[point]
 
+      if ((point == 1) && (basin == 1)){
+        print(paste0('XCOORD = ',xCoord))
+        print(paste0('YCOORD = ',yCoord))
+      }
       if(is.na(xCoord)) next
       if(is.na(yCoord)) next # These are points outside the modeling domain
 
@@ -122,6 +126,11 @@ if (basinFlag == 1){
       minY <- mskgeo.minInds$y[basin]
       maxY <- mskgeo.maxInds$y[basin]
 
+      print('XXXXXXXXX')
+      print(minX)
+      print(maxX)
+      print(minY)
+      print(maxY)
       # Check to see if within bounding box of region.
       if ((xCoord >= minX) && (xCoord <= maxX) &&
           (yCoord >= minY) && (yCoord <= maxY)){
