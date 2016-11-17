@@ -132,8 +132,6 @@ if (basinFlag == 1){
 
         # Putting threshold of 0.75 for fraction of pixel cell covered by 
         # region for it to be classified.
-	print(localX)
-	print(localY)
         if (mskgeo.List[[basin]][localX,localY] > 0.75){
           metaOut$region <- bName				
         }
