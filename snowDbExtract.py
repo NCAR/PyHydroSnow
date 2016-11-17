@@ -19,10 +19,8 @@ import argparse
 import pyHydroEvalUtils
 import snowDbMod
 
-print 'TEST'
 def main(argv):
     # Parse arguments passed in.
-    print 'test1'
     parser = argparse.ArgumentParser(description='Main program to extract snow observations from database')
     parser.add_argument('outTag', metavar='alias', type=str, nargs='+',
 	     		        help='Tag to put onto output file')
@@ -34,10 +32,8 @@ def main(argv):
     parser.add_argument('--stnList',nargs='?', help='List of Observation Stations for Reading')
     parser.add_argument('--mskFile',nargs='?', help='R mask file for cutouts of regions to process')
 
-    print 'alsdkfj'
     args = parser.parse_args()
     
-    print len(args)
     if len(args) < 4:
         print "ERROR: Insufficient arguments passed to program"
         sys.exit(1)
