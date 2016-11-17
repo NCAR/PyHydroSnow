@@ -30,6 +30,7 @@ def main(argv):
     parser.add_argument('--stnList',nargs='?', help='List of Observation Stations for Reading')
     parser.add_argument('--mskFile',nargs='?', help='R mask file for cutouts of regions to process')
 
+    print 'alsdkfj'
     args = parser.parse_args()
     
     print len(args)
