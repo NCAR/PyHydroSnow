@@ -150,7 +150,7 @@ for (point in 1:numSweObs){
 	sweOut$POSIXct[point] <- as.POSIXct(sweObsDate[point]*3600.0,origin="1970-01-01",tz="UTC") 
 	if (basinFlag == 1){
 		indTmp <- which(metaOut$uniqueId == sweObsIds[point])
-		sweOut$region[point] <- metaOut$regions[ind]
+		sweOut$region[point] <- metaOut$regions[indTmp]
 	}
 }
 
@@ -161,7 +161,7 @@ for (point in 1:numSdObs){
 	sdOut$POSIXct[point] <- as.POSIXct(sdObsDate[point]*3600.0,origin="1970-01-01",tz="UTC")
 	if (basinFlag == 1){
 		indTmp <- which(metaOut$uniqueId == sdObsIds[point])
-		sdOut$region[point] <- metaOut$regions[ind]
+		sdOut$region[point] <- metaOut$regions[indTmp]
 	}
 }
 
