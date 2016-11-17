@@ -105,40 +105,39 @@ print('LOOPING THROUGH BASINS')
 # and assign value to each unique station based on lat/lon
 # information.
 if (basinFlag == 1){
-	for (basin in 1:length(mskgeo.nameList){
-		bName <- mskgeo.nameList[[basin]]
+  for (basin in 1:length(mskgeo.nameList)){
+    bName <- mskgeo.nameList[[basin]]
 
-		print(bName)
-		# Loop through points and determine if they fall within this region.
-		for (point in 1:length(uniqueStationsAll)){
-			xCoord <- geoCoords$ew[point]
-			yCoord <- geoCoords$sn[point]
+    print(bName)
+    # Loop through points and determine if they fall within this region.
+    for (point in 1:length(uniqueStationsAll)){
+      xCoord <- geoCoords$ew[point]
+      yCoord <- geoCoords$sn[point]
 
-			if(is.na(xCoord)) next
-			if(is.na(yCoord)) next # These are points outside the modeling domain
+      if(is.na(xCoord)) next
+      if(is.na(yCoord)) next # These are points outside the modeling domain
 
-			minX <- mskgeo.minInds$x[basin]
-			maxX <- mskgeo.maxInds$x[basin]
-			minY <- mskgeo.minInds$y[basin]
-			maxY <- mskgeo.maxInds$y[basin]
+      minX <- mskgeo.minInds$x[basin]
+      maxX <- mskgeo.maxInds$x[basin]
+      minY <- mskgeo.minInds$y[basin]
+      maxY <- mskgeo.maxInds$y[basin]
 
-			# Check to see if within bounding box of region.
-			if ((xCoord >= minX) && (xCoord <= maxX) &&
-                    	    (yCoord >= minY) && (yCoord <= maxY)){
+      # Check to see if within bounding box of region.
+      if ((xCoord >= minX) && (xCoord <= maxX) &&
+          (yCoord >= minY) && (yCoord <= maxY)){
 		
-				# Next, calculate local bounding box coordinates.
-				localX <- xCoord - minX
-				localY <- yCoord - minY
+        # Next, calculate local bounding box coordinates.
+        localX <- xCoord - minX
+        localY <- yCoord - minY
 
-				# Putting threshold of 0.75 for fraction of pixel cell covered by 
-				# region for it to be classified.
-				if (mskgeo.List[[basin]][localX,localY] > 0.75){
-					metaOut$region <- bName				
-				}
-			}
-
-		}
-	}
+        # Putting threshold of 0.75 for fraction of pixel cell covered by 
+        # region for it to be classified.
+        if (mskgeo.List[[basin]][localX,localY] > 0.75){
+          metaOut$region <- bName				
+        }
+      }
+    }
+  }
 }
 
 print('PLACING OBS INTO DATAFRAME')
