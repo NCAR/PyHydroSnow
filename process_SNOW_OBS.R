@@ -147,15 +147,16 @@ print('PLACING OBS INTO DATAFRAME')
 for (point in 1:numSweObs){
 	if(numSweObs == 0) next
 	sweOut$obs_mm[point] <- sweObs[point]
+	sweOut$uniqueId[point] <- sweObsIds[point]
 	sweOut$POSIXct[point] <- as.POSIXct(sweObsDate[point]*3600.0,origin="1970-01-01",tz="UTC") 
 	if (basinFlag == 1){
-		print('-----------')
-		print(sweObsIds[point])
-		print('-----------')
+		#print('-----------')
+		#print(sweObsIds[point])
+		#print('-----------')
 		indTmp <- which(metaOut$uniqueId == sweObsIds[point])
-		print(indTmp)
+		#print(indTmp)
 		sweOut$region[point] <- metaOut$region[indTmp]
-		print('b')
+		#print('b')
 	}
 }
 
@@ -163,13 +164,14 @@ for (point in 1:numSweObs){
 for (point in 1:numSdObs){
 	if(numSdObs == 0) next
 	sdOut$obs_mm[point] <- sdObs[point]
+	sdOut$uniqueId[point] <- sdObsIds[point]
 	sdOut$POSIXct[point] <- as.POSIXct(sdObsDate[point]*3600.0,origin="1970-01-01",tz="UTC")
 	if (basinFlag == 1){
 		indTmp <- which(metaOut$uniqueId == sdObsIds[point])
-		print('--------------')
-		print(sdObsIds[point])
-		print('--------------')
-		print(indTmp)
+		#print('--------------')
+		#print(sdObsIds[point])
+		#print('--------------')
+		#print(indTmp)
 		sdOut$region[point] <- metaOut$region[indTmp]
 	}
 }
