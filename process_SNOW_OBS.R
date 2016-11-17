@@ -45,6 +45,10 @@ if (basinFlag == 1){
 # Open input NetCDF file containing extracted observations.
 id <- nc_open(inFile)
 
+# Extract number of observations
+numSdObs <- ncatt_get(id,'sdObs','numObs')
+numSweObs <- ncatt_get(id,'sweObs','numObs')
+
 # Pull data
 # All stations that were found for entire record for given
 # desired networks.
@@ -52,21 +56,20 @@ uniqueStationsAll <- ncvar_get(id,'ptUniqueIds')
 uniqueStationsLat <- ncvar_get(id,'ptLatitude')
 uniqueStationsLon <- ncvar_get(id,'ptLongitude')
 # SWE/Depth observations for desired period.
-print('a')
-sweObs <- ncvar_get(id,'sweObs')
-print('b')
-sdObs <- ncvar_get(id,'sdObs')
-# SWE/Depth observation dates (hours since 1970-01-01 00:00:00)
-print('c')
-sweObsDate <- ncvar_get(id,'sweObsDates')
-print('d')
-sdObsDate <- ncvar_get(id,'sdObsDates')
-# Associated unique ID from database for each observation.
-print('e')
-sweObsIds <- ncvar_get(id,'sweObsIds')
-print('f')
-sdObsIds <- ncvar_get(id,'sdObsIds')
-print('g')
+if (numSweObs != 0){
+  sweObs <- ncvar_get(id,'sweObs')
+  # SWE/Depth observation dates (hours since 1970-01-01 00:00:00)
+  sweObsDate <- ncvar_get(id,'sweObsDates')
+  # Associated unique ID from database for each observation.
+  sweObsIds <- ncvar_get(id,'sweObsIds')
+}
+if (numSdObs != 0){
+  sdObs <- ncvar_get(id,'sdObs')
+  # SWE/Depth observation dates (hours since 1970-01-01 00:00:00)
+  sdObsDate <- ncvar_get(id,'sdObsDates')
+  # Associated unique ID from database for each observation.
+  sdObsIds <- ncvar_get(id,'sdObsIds')
+}
 
 # Calculate x/y coordinates on modeling domain using point lat/lon
 # coordinates and geogrid file.
@@ -74,8 +77,8 @@ geoCoords <- GetGeogrid(data.frame(lat=uniqueStationsLat,lon=uniqueStationsLon),
 
 print(geoCoords$ew[1])
 # Create output dataframe
-sweOut <- data.frame(matrix(NA,nrow=length(sweObs),ncol=4))
-sdOut <- data.frame(matrix(NA,nrow=length(sdObs),ncol=4))
+sweOut <- data.frame(matrix(NA,nrow=numSweObs,ncol=4))
+sdOut <- data.frame(matrix(NA,nrow=numSdObs,ncol=4))
 metaOut <- data.frame(matrix(NA,nrow=length(uniqueStationsAll),ncol=4))
 
 names(metaOut) <- c("uniqueId","latitude","longitude","region")
@@ -133,8 +136,8 @@ print('PLACING OBS INTO DATAFRAME')
 # Loop through observations pulled and place into output dataframe. In additin,
 # find region it falls within based on metadata frame
 # SWE First
-for (point in 1:length(sweObs)){
-	if(length(sweObs) == 0) next
+for (point in 1:numSweObs){
+	if(numSweObs == 0) next
 	sweOut$obs_mm[point] <- sweObs[point]
 	sweOut$POSIXct[point] <- as.POSIXct(sweObsDate[point]*3600.0,origin="1970-01-01",tz="UTC") 
 	if (basinFlag == 1){
@@ -144,8 +147,8 @@ for (point in 1:length(sweObs)){
 }
 
 # Depth next
-for (point in 1:length(sdObs)){
-	if(length(sdObs) == 0) next
+for (point in 1:numSdObs){
+	if(numSdObs == 0) next
 	sdOut$obs_mm[point] <- sdObs[point]
 	sdOut$POSIXct[point] <- as.POSIXct(sdObsDate[point]*3600.0,origin="1970-01-01",tz="UTC")
 	if (basinFlag == 1){

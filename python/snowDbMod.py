@@ -106,6 +106,11 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         # Close the SQL connection
         conn.close()
         
+        # If no ovservations were pulled, raise error.
+        if len(resultSWE) == 0 and len(resultSD) == 0:
+            print "ERROR: No observations extracted from database.
+            raise
+            
         # Create output NetCDF file for R to read in during analysis for processing
         # into basins, etc.
         fileNC = snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile)
@@ -228,11 +233,13 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     lonVar = idOut.createVariable('ptLongitude','f4',('numStations'),zlib=True,complevel=2)
     sweObs = idOut.createVariable('sweObs','f4',('numSweObs'),zlib=True,complevel=2)
     sweObs.units = 'mm'
+    sweObs.numObs = len(sweOut)
     sweObsIds = idOut.createVariable('sweObsIds','i4',('numSweObs'),zlib=True,complevel=2)    
     sweObsDates = idOut.createVariable('sweObsDates','i4',('numSweObs'),zlib=True,complevel=2)
     sweObsDates.units = 'Hours since 1970-01-01 00:00:00'    
     sdObs = idOut.createVariable('sdObs','f4',('numSdObs'),zlib=True,complevel=2)
-    sdObs.units = 'mm'    
+    sdObs.units = 'mm'
+    sdObs.numObs = len(sdOut)    
     sdObsIds = idOut.createVariable('sdObsIds','i4',('numSdObs'),zlib=True,complevel=2)    
     sdObsDates = idOut.createVariable('sdObsDates','i4',('numSdObs'),zlib=True,complevel=2)
     sdObsDates.units = 'Hours since 1870-01-01 00:00:00'
