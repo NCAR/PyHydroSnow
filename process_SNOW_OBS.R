@@ -49,7 +49,7 @@ id <- nc_open(inFile)
 # All stations that were found for entire record for given
 # desired networks.
 uniqueStationsAll <- ncvar_get(id,'ptUniqueIds')
-uniqueStationsLat <- ncvar_get(id.'ptLatitude')
+uniqueStationsLat <- ncvar_get(id,'ptLatitude')
 uniqueStationsLon <- ncvar_get(id,'ptLongitude')
 # SWE/Depth observations for desired period.
 sweObs <- ncvar_get(id,'sweObs')
