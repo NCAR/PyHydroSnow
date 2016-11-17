@@ -52,14 +52,21 @@ uniqueStationsAll <- ncvar_get(id,'ptUniqueIds')
 uniqueStationsLat <- ncvar_get(id,'ptLatitude')
 uniqueStationsLon <- ncvar_get(id,'ptLongitude')
 # SWE/Depth observations for desired period.
+print('a')
 sweObs <- ncvar_get(id,'sweObs')
+print('b')
 sdObs <- ncvar_get(id,'sdObs')
 # SWE/Depth observation dates (hours since 1970-01-01 00:00:00)
+print('c')
 sweObsDate <- ncvar_get(id,'sweObsDates')
+print('d')
 sdObsDate <- ncvar_get(id,'sdObsDates')
 # Associated unique ID from database for each observation.
+print('e')
 sweObsIds <- ncvar_get(id,'sweObsIds')
+print('f')
 sdObsIds <- ncvar_get(id,'sdObsIds')
+print('g')
 
 # Calculate x/y coordinates on modeling domain using point lat/lon
 # coordinates and geogrid file.
