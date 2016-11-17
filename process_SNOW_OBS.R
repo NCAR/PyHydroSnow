@@ -152,8 +152,8 @@ for (point in 1:numSweObs){
 		print('-----------')
 		print(sweObsIds[point])
 		print('-----------')
-		print(metaOut$uniqueId)
 		indTmp <- which(metaOut$uniqueId == sweObsIds[point])
+		print(indTmp)
 		sweOut$region[point] <- metaOut$regions[indTmp]
 	}
 }
