@@ -89,11 +89,13 @@ names(sdOut) <- c("uniqueId","obs_mm","POSIXct","region")
 sweOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
 sdOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
 
+print('PLACING METADATA INTO DF')
 # Place unique stations into output meta data frame.
 metaOut$uniqueId <- uniqueStationsAll
 metaOut$latitude <- uniqueStationsLat
 metaOut$longitude <- uniqueStationsLon
 
+print('LOOPING THROUGH BASINS')
 # If basin subsetting, loop through from mask file 
 # and assign value to each unique station based on lat/lon
 # information.
