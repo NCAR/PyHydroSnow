@@ -127,8 +127,8 @@ if (basinFlag == 1){
           (yCoord >= minY) && (yCoord <= maxY)){
 		
         # Next, calculate local bounding box coordinates.
-        localX <- xCoord - minX
-        localY <- yCoord - minY
+        localX <- xCoord - minX + 1
+        localY <- yCoord - minY + 1
 
         # Putting threshold of 0.75 for fraction of pixel cell covered by 
         # region for it to be classified.
