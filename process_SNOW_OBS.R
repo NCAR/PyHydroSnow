@@ -75,7 +75,7 @@ if (numSdObs != 0){
 
 # Calculate x/y coordinates on modeling domain using point lat/lon
 # coordinates and geogrid file.
-geoCoords <- GetGeogrid(data.frame(lat=uniqueStationsLat,lon=uniqueStationsLon),geoFile)
+geoCoords <- GetGeogridIndex(data.frame(lat=uniqueStationsLat,lon=uniqueStationsLon),geoFile)
 
 print(geoCoords$ew[1])
 # Create output dataframe
