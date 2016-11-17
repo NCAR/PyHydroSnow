@@ -108,7 +108,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         
         # If no ovservations were pulled, raise error.
         if len(resultSWE) == 0 and len(resultSD) == 0:
-            print "ERROR: No observations extracted from database.
+            print "ERROR: No observations extracted from database."
             raise
             
         # Create output NetCDF file for R to read in during analysis for processing
