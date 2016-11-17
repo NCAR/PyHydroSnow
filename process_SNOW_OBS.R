@@ -94,7 +94,6 @@ if (numSdObs != 0){
   sdOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
 }
 
-print sweOut$POSIXct
 print('PLACING METADATA INTO DF')
 # Place unique stations into output meta data frame.
 metaOut$uniqueId <- uniqueStationsAll
