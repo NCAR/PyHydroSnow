@@ -58,6 +58,44 @@ def checkArgs(parser):
             print "ERROR: Invalid snownet Flag."
             raise
 
+def checkSNArgs(parser):
+    # Check arguments for the snow database extraction program.
+    if parser.begRDate:
+        if len(parser.begRDate) != 10:
+            print "ERROR: begRDate not proper length."
+            raise
+        if not parser.endRDate:
+            print "ERROR: Associated endADate required."
+            raise
+    if parser.endRDate:
+        if len(parser.endRDate) != 10:
+            print "ERROR: endRDate not proper length."
+            raise
+        if not parser.begRDate:
+            print "ERROR: Associated begADate required."
+            raise
+    if not parser.outDir or len(parser.outDir):
+        print "ERROR: No output directory specified."
+        raise
+    if parser.netList and parser.stnList:
+        print "ERROR: Please choose either station subsetting or network subsetting."
+        raise
+    if not parser.geoFile or len(parser.geoFile) == 0:
+        print "ERROR; Please provide a geogrid file to the program."
+        raise
+    if parser.netList:
+        if len(parser.netList) == 0:
+            print "ERROR: Zero length network subsetting list passed to program."
+            raise
+    if parser.stnList:
+        if len(parser.stnList) == 0:
+            print "ERROR: Zero length station subsetting list passed to program."
+            raise
+    if parser.mskFile:
+        if len(parser.mskFile) == 0:
+            print "ERROR: Zero length mask file passed to program."
+            raise
+            
 def returnDate(dIn):
 	# Convert a date string in YYYYMMDDHH format to a datetime object
 	dIn = str(dIn)

@@ -12,115 +12,100 @@ import os
 import datetime
 import subprocess
 
-def extractObs(args,db,size,rank,begADateObj,endADateObj):
-    # Calculate database index where desired projects live.
-    numModIn = len(args.modelProjects)
-    numModDb = len(db.alias)
-    for i in range(0,numModDb):
-        if db.alias[i] == args.modelProjects[0]:
-            indDbOrig = i
-            
-    # Pull snow network subsetting file out
-    snowSubFile = db.snowNetSubFile[indDbOrig]
-    
-    # Only process if master processor
-    if rank == 0:
-        # Compose strings for output file path
-        if args.snowNet == 1:
-            snowNetStr = "NETSUB"
-        else:
-            snowNetStr = "NETALL"
-            
-        if args.subset == 1:
-            subStr = "BASSUB"
-        else:
-            subStr = "SUBALL"
-            
-        # Establish paths
-        fileOut = db.topDir[indDbOrig] + "/" + db.alias[indDbOrig] + "/analysis_out/" + \
-                  "read_datasets/SNOW_DB_OBS_" + args.begADate + "_" + \
-                  args.endADate + "_" + snowNetStr + "_" + subStr + ".nc"
-                  
-        # Initialize connection with SQL
-        try:
-            dbSnow = MySQLdb.connect(db.snowDbHost[indDbOrig],db.snowDbUser[indDbOrig],\
-                                     db.snowDbPwd[indDbOrig],'NWM_snow_obs')
-        except:
-            print "ERROR: Unable to connect to NWM Snow Database."
-            raise
-        print 'CONNECTED TO DB'
-
-        # Establish datetime strings to be used in command syntax            
-        bDateStr = begADateObj.strftime('%Y-%m-%d %H') + ':00:00'
-        eDateStr = endADateObj.strftime('%Y-%m-%d %H') + ':00:00'
-        
-        # Pull all SWE observations from time period.
-        cmd = "select * from NWM_SWE where date_obs>'" + bDateStr + "' and " + \
-              "date_obs<'" + eDateStr + "'"
+def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',maskFile=''):
+    # Establish paths
+    fileOut = outDir + "/" + "SNOW_DB_OBS_" + begRDateObj.strftime('%Y%m%d%H') + \
+              "_" + endRDateObj.strftime('%Y%m%d%H') + '.nc'
               
-        # Create cursor object to execute SQL command
-        conn = dbSnow.cursor()
-        
-        print 'ESTABLISHED CONNECTIVITY OBJECT'
-        # Execute command to pull SWE observations
-        try:
-            conn.execute(cmd)
-            resultSWE = conn.fetchall()
-        except:
-            print "ERROR: Unable to pull SWE observations for analysis period."
-            raise
-        
-        print 'EXECUTED SQL COMMAND'
-        # Proceed to pull snow depth observations
-        cmd = "select * from NWM_SD where date_obs>'" + bDateStr + "' and " + \
-              "date_obs<'" + eDateStr + "'"
-        
-        try:
-            conn.execute(cmd)
-            resultSD = conn.fetchall()
-        except:
-            print "ERROR: Unable to pull Snow Depth observations for analysis period."
-            raise
-            
-        print 'EXTRACTED SNOW OBS FROM FETCH'
-        # Proceed to pull metadata entries. This information will be used to 
-        # extract networks, etc.
-        cmd = "select * from NWM_snow_meta"
-        
-        try:
-            conn.execute(cmd)
-            resultMeta = conn.fetchall()
-        except:
-            print "ERROR: Unable to extract snow metadata table information"
-            raise
-            
-        print 'EXTRACTED METADATA INFORMATION'
-        # Close the SQL connection
-        conn.close()
-        
-        # If no ovservations were pulled, raise error.
-        if len(resultSWE) == 0 and len(resultSD) == 0:
-            print "ERROR: No observations extracted from database."
-            raise
-            
-        # Create output NetCDF file for R to read in during analysis for processing
-        # into basins, etc.
-        fileNC = snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile)
-        
-        # Process into R dataset. 
-        if args.snowNet:
-            cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig] + \
-                  " " + db.mskFile[indDbOrig]
-        else:
-            cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig]
+    # Check to make sure geogrid file exists
+    if not os.path.isfile(geoFile):
+        print "ERROR: Unable to locate input geogrid file"
+        raise
 
-        try:            
-            subprocess.call(cmd,shell=True)
-        except:
-            print "ERROR: Unable to process snow observations into R dataset"
-            raise
+    # Establish DB information
+    hostName = 'hydro-c1-web.rap.ucar.edu'
+    userName = 'logan'
+    psWd = 'DHood$1948'
+    dbName = 'NWM_snow_obs'
+    # Initialize connection with SQL
+    try:
+        dbSnow = MySQLdb.connect(hostName,userName,psWd,dbName)
+    except:
+        print "ERROR: Unable to connect to NWM Snow Database."
+        raise
+    print 'CONNECTED TO DB'
+
+    # Establish datetime strings to be used in command syntax            
+    bDateStr = begRDateObj.strftime('%Y-%m-%d %H') + ':00:00'
+    eDateStr = endRDateObj.strftime('%Y-%m-%d %H') + ':00:00'
         
-def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
+    # Pull all SWE observations from time period.
+    cmd = "select * from NWM_SWE where date_obs>'" + bDateStr + "' and " + \
+    "date_obs<'" + eDateStr + "'"
+              
+    # Create cursor object to execute SQL command
+    conn = dbSnow.cursor()
+        
+    print 'ESTABLISHED CONNECTIVITY OBJECT'
+    # Execute command to pull SWE observations
+    try:
+        conn.execute(cmd)
+        resultSWE = conn.fetchall()
+    except:
+        print "ERROR: Unable to pull SWE observations for analysis period."
+        raise
+        
+    print 'EXECUTED SQL COMMAND'
+    # Proceed to pull snow depth observations
+    cmd = "select * from NWM_SD where date_obs>'" + bDateStr + "' and " + \
+    "date_obs<'" + eDateStr + "'"
+        
+    try:
+        conn.execute(cmd)
+        resultSD = conn.fetchall()
+    except:
+        print "ERROR: Unable to pull Snow Depth observations for analysis period."
+        raise
+            
+    print 'EXTRACTED SNOW OBS FROM FETCH'
+    # Proceed to pull metadata entries. This information will be used to 
+    # extract networks, etc.
+    cmd = "select * from NWM_snow_meta"
+        
+    try:
+        conn.execute(cmd)
+        resultMeta = conn.fetchall()
+    except:
+        print "ERROR: Unable to extract snow metadata table information"
+        raise
+            
+    print 'EXTRACTED METADATA INFORMATION'
+    # Close the SQL connection
+    conn.close()
+        
+    # If no ovservations were pulled, raise error.
+    if len(resultSWE) == 0 and len(resultSD) == 0:
+        print "ERROR: No observations extracted from database."
+        raise
+            
+    # Create output NetCDF file for R to read in during analysis for processing
+    # into basins, etc.
+    fileNC = snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,maskFile)
+        
+    # Process into R dataset. 
+    if len(maskFile) != 0:
+        cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile + \
+        " " + maskFile
+    else:
+        cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile
+
+    try:            
+        subprocess.call(cmd,shell=True)
+    except:
+        print "ERROR: Unable to process snow observations into R dataset"
+        raise
+        
+def snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,mskFile):
     # Function to output extracted snow observations to NetCDF file. This
     # file will be read in by R for processing.
     
@@ -144,12 +129,22 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     latsOut = []
     lonsOut = []    
     # If network subsetting file exists, read it in.
-    if len(snowSubFile) != 0:
-        networks = pd.read_csv(snowSubFile)
+    if len(networkFile) != 0:
+        networks = pd.read_csv(networkFile)
         for i in range(0,siteLen):
             for j in range(0,len(networks.network)):
                 metaSplit = [x.strip() for x in resultMeta[i][1].split(',')]
                 if networks.network[j] in metaSplit:
+                    uniquesOut.append(resultMeta[i][0])
+                    networksOut.append(resultMeta[i][1])
+                    idsOut.append(resultMeta[i][2])
+                    latsOut.append(resultMeta[i][3])
+                    lonsOut.append(resultMeta[i][4])
+    elif len(stnFile) != 0:
+        stationSub = pd.read_csv(stnFile)
+        for i in range(siteLen):
+            for j in range(0,len(stationSub.uniqueID)):
+                if stationSub.uniqueID[j] in resultMeta[i][0]:
                     uniquesOut.append(resultMeta[i][0])
                     networksOut.append(resultMeta[i][1])
                     idsOut.append(resultMeta[i][2])
