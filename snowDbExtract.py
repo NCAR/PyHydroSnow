@@ -24,6 +24,8 @@ def main(argv):
     # Parse arguments passed in.
     print 'test1'
     parser = argparse.ArgumentParser(description='Main program to extract snow observations from database')
+    parser.add_argument('outTag', metavar='alias', type=str, nargs='+',
+	     		        help='Tag to put onto output file')
     parser.add_argument('--begRDate',nargs='?', help='Beginning Date for Read in YYYYMMDDHH Format')
     parser.add_argument('--endRDate',nargs='?', help='Ending Date for Read in YYYYMMDDHH Format')
     parser.add_argument('--outDir',nargs='?', help='Output directory to hold observations')
@@ -64,6 +66,6 @@ def main(argv):
     except:
         print "ERROR: Failure to extract snow observations from web database."
         sys.exit(1)
-
+        
 if __name__ == "__main__":
 	main(sys.argv[1:])
