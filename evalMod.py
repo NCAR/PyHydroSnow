@@ -110,8 +110,8 @@ def main(argv):
         os.unlink(nameLink)
         sys.exit(1)	
 
-    cmd = "Rscript " + nameLink
-    subprocess.call(cmd,shell=True)	
+    #cmd = "Rscript " + nameLink
+    #subprocess.call(cmd,shell=True)	
 
     # Remove namelist link specific to processor ID
     #try:
