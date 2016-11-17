@@ -149,6 +149,9 @@ for (point in 1:numSweObs){
 	sweOut$obs_mm[point] <- sweObs[point]
 	sweOut$POSIXct[point] <- as.POSIXct(sweObsDate[point]*3600.0,origin="1970-01-01",tz="UTC") 
 	if (basinFlag == 1){
+		print('-----------')
+		print(sweObsIds[point])
+		print('-----------')
 		indTmp <- which(metaOut$uniqueId == sweObsIds[point])
 		sweOut$region[point] <- metaOut$regions[indTmp]
 	}
