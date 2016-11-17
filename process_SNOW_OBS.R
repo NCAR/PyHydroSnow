@@ -108,6 +108,16 @@ if (basinFlag == 1){
   for (basin in 1:length(mskgeo.nameList)){
     bName <- mskgeo.nameList[[basin]]
 
+    minX <- mskgeo.minInds$x[basin]
+    maxX <- mskgeo.maxInds$x[basin]
+    minY <- mskgeo.minInds$y[basin]
+    maxY <- mskgeo.maxInds$y[basin]
+    print('XXXXXXXXX')
+    print(minX)
+    print(maxX)
+    print(minY)
+    print(maxY)
+
     print(bName)
     # Loop through points and determine if they fall within this region.
     for (point in 1:length(uniqueStationsAll)){
@@ -121,20 +131,11 @@ if (basinFlag == 1){
       if(is.na(xCoord)) next
       if(is.na(yCoord)) next # These are points outside the modeling domain
 
-      minX <- mskgeo.minInds$x[basin]
-      maxX <- mskgeo.maxInds$x[basin]
-      minY <- mskgeo.minInds$y[basin]
-      maxY <- mskgeo.maxInds$y[basin]
-
-      print('XXXXXXXXX')
-      print(minX)
-      print(maxX)
-      print(minY)
-      print(maxY)
       # Check to see if within bounding box of region.
       if ((xCoord >= minX) && (xCoord <= maxX) &&
           (yCoord >= minY) && (yCoord <= maxY)){
-		
+
+        print(paste0('FOUND POINT IN BASIN: ',bname,' ID = ',metaOut$uniqueId))		
         # Next, calculate local bounding box coordinates.
         localX <- xCoord - minX + 1
         localY <- yCoord - minY + 1
@@ -142,7 +143,7 @@ if (basinFlag == 1){
         # Putting threshold of 0.75 for fraction of pixel cell covered by 
         # region for it to be classified.
         if (mskgeo.List[[basin]][localX,localY] > 0.75){
-          metaOut$region <- bName				
+          metaOut$region[point] <- bName				
         }
       }
     }

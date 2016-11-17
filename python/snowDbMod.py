@@ -31,22 +31,16 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         else:
             snowNetStr = "NETALL"
             
-        print snowNetStr
         if args.subset == 1:
             subStr = "BASSUB"
         else:
             subStr = "SUBALL"
-        print subStr            
             
         # Establish paths
         fileOut = db.topDir[indDbOrig] + "/" + db.alias[indDbOrig] + "/analysis_out/" + \
                   "read_datasets/SNOW_DB_OBS_" + args.begADate + "_" + \
                   args.endADate + "_" + snowNetStr + "_" + subStr + ".nc"
                   
-        print fileOut
-        print db.snowDbHost[indDbOrig]
-        print db.snowDbUser[indDbOrig]
-        print db.snowDbPwd[indDbOrig]
         # Initialize connection with SQL
         try:
             dbSnow = MySQLdb.connect(db.snowDbHost[indDbOrig],db.snowDbUser[indDbOrig],\
@@ -64,7 +58,6 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         cmd = "select * from NWM_SWE where date_obs>'" + bDateStr + "' and " + \
               "date_obs<'" + eDateStr + "'"
               
-        print cmd
         # Create cursor object to execute SQL command
         conn = dbSnow.cursor()
         
@@ -94,7 +87,6 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         # extract networks, etc.
         cmd = "select * from NWM_snow_meta"
         
-        print cmd
         try:
             conn.execute(cmd)
             resultMeta = conn.fetchall()
@@ -122,7 +114,6 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         else:
             cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig]
 
-        print cmd
         try:            
             subprocess.call(cmd,shell=True)
         except:
@@ -141,16 +132,11 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Establish EPOCH datetime object
     epoch = datetime.datetime.utcfromtimestamp(0)
     
-    print epoch
     # Establish data lengths
     siteLen = len(resultMeta)
     numSweObs = len(resultSWE)
     numSdObs = len(resultSD)
 
-    print str(siteLen)
-    print str(numSweObs)
-    print str(numSdObs)
-    
     # Initialize empty array to hold ID values
     uniquesOut = []
     idsOut = []
@@ -161,7 +147,6 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     if len(snowSubFile) != 0:
         networks = pd.read_csv(snowSubFile)
         for i in range(0,siteLen):
-            print 'I1 = ' + str(i)
             for j in range(0,len(networks.network)):
                 metaSplit = [x.strip() for x in resultMeta[i][1].split(',')]
                 if networks.network[j] in metaSplit:
@@ -185,8 +170,6 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     #latsOut = list(set(latsOut))
     #lonsOut = list(set(lonsOut))
     
-    print str(len(uniquesOut))
-    
     uniqueSWEOut = []
     uniqueSDOut = []
     sweOut = []
@@ -199,22 +182,18 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Loop through and create output arrays
     # SWE first
     for i in range(0,numSweObs):
-        print 'I2 = ' + str(i)
         if resultSWE[i][0] in uniquesOut:
             uniqueSWEOut.append(resultSWE[i][0])
             sweOut.append(resultSWE[i][1])
             sweDateOut.append(int((resultSWE[i][2]-epoch).total_seconds()/3600.0))
         
-    print str(len(sweOut))
     # Snow Depth next
     for i in range(0,numSdObs):
-        print 'I3 = ' + str(i)
         if resultSD[i][0] in uniquesOut:
             uniqueSDOut.append(resultSD[i][0])
             sdOut.append(resultSD[i][1])
             sdDateOut.append(int((resultSD[i][2]-epoch).total_seconds()/3600.0))
             
-    print str(len(sdOut))
     # Create output NetCDF file.
     idOut = Dataset(fileOut,'w')
     
@@ -245,20 +224,9 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     sdObsDates.units = 'Hours since 1870-01-01 00:00:00'
     
     # Place date into output file
-    print str(len(uniquesOut))
-    print str(len(latsOut))
-    print str(len(lonsOut))
-    print str(len(sweOut))
-    print str(len(uniqueSWEOut))
-    print str(len(sweDateOut))
-    print str(len(sdOut))
-    print str(len(uniqueSDOut))
-    print str(len(sdDateOut))
     obsIds[:] = uniquesOut
     latVar[:] = latsOut
     lonVar[:] = lonsOut
-    print '---------'
-    print uniqueSWEOut
     if len(sweOut) == 0:
         print 'WARNING: 0 SWE Observations Extracted From Database.'
     else:
