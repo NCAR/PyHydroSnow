@@ -29,7 +29,7 @@ geoFile <- args[2]
 print(inFile)
 print(geoFile)
 # Create output file based on input file.
-inSplit = strSplit(infFile,'[.]')[[1]]
+inSplit = strsplit(infFile,'[.]')[[1]]
 if (length(inSplit) != 2){
   stop(paste0('ERROR: Unexpected file formate: ',inFile))
 }
