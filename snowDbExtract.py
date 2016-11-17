@@ -22,6 +22,7 @@ import snowDbMod
 print 'TEST'
 def main(argv):
     # Parse arguments passed in.
+    print 'test1'
     parser = argparse.ArgumentParser(description='Main program to extract snow observations from database')
     parser.add_argument('--begRDate',nargs='?', help='Beginning Date for Read in YYYYMMDDHH Format')
     parser.add_argument('--endRDate',nargs='?', help='Ending Date for Read in YYYYMMDDHH Format')
