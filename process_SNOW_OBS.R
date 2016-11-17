@@ -85,14 +85,14 @@ metaOut <- data.frame(matrix(NA,nrow=length(uniqueStationsAll),ncol=4))
 
 print('NAMING DF')
 names(metaOut) <- c("uniqueId","latitude","longitude","region")
-print('blah1')
 names(sweOut) <- c("uniqueId","obs_mm","POSIXct","region")
-print('blah2')
 names(sdOut) <- c("uniqueId","obs_mm","POSIXct","region")
-print('blah3')
-sweOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
-print('blah4')
-sdOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
+if (numSweObs != 0){
+  sweOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
+}
+if (numSdObs != 0){
+  sdOut$POSIXct <- as.POSIXct('1900-01-01 00:00:00','%Y-%m-%d %H:%M:%S')
+}
 
 print sweOut$POSIXct
 print('PLACING METADATA INTO DF')
