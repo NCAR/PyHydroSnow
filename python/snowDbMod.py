@@ -113,7 +113,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         # Process into R dataset. 
         if args.snowNet:
             cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig] + \
-                  " " + db.snowNetSubFile[indDbOrig]
+                  " " + db.mskFile[indDbOrig]
         else:
             cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig]
 
