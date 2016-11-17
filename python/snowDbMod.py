@@ -117,6 +117,7 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         else:
             cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig]
 
+        print cmd
         try:            
             subprocess.call(cmd,shell=True)
         except:
