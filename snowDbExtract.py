@@ -32,6 +32,7 @@ def main(argv):
 
     args = parser.parse_args()
     
+    print len(args)
     if len(args) < 4:
         print "ERROR: Insufficient arguments passed to program"
         sys.exit(1)
