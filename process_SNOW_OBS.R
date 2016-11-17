@@ -26,6 +26,8 @@ if (length(args) == 3){
 inFile <- args[1]
 geoFile <- args[2]
 
+print(inFile)
+print(geoFile)
 # Create output file based on input file.
 inSplit = strSplit(infFile,'[.]')[[1]]
 if (length(inSplit) != 2){
@@ -33,9 +35,11 @@ if (length(inSplit) != 2){
 }
 outFile <- paste0(inSplit[1],'.Rdata')
 
+print(outFile)
 # Load in mask file if present.
 if (basinFlag == 1){
   load(maskFile)
+  print(maskFile)
 }
 
 # Open input NetCDF file containing extracted observations.
@@ -61,6 +65,7 @@ sdObsIds <- ncvar_get(id,'sdObsIds')
 # coordinates and geogrid file.
 geoCoords <- GetGeogrid(data.frame(lat=uniqueStationsLat,lon=uniqueStationsLon),geoFile)
 
+print(geoCoords$ew[1])
 # Create output dataframe
 sweOut <- data.frame(matrix(NA,nrow=length(sweObs),ncol=4))
 sdOut <- data.frame(matrix(NA,nrow=length(sdObs),ncol=4))
@@ -84,6 +89,7 @@ if (basinFlag == 1){
 	for (basin in 1:length(mskgeo.nameList){
 		bName <- mskgeo.nameList[[basin]]
 
+		print(bName)
 		# Loop through points and determine if they fall within this region.
 		for (point in 1:length(uniqueStationsAll)){
 			xCoord <- geoCoords$ew[point]
@@ -116,6 +122,7 @@ if (basinFlag == 1){
 	}
 }
 
+print('PLACING OBS INTO DATAFRAME')
 # Loop through observations pulled and place into output dataframe. In additin,
 # find region it falls within based on metadata frame
 # SWE First
@@ -140,5 +147,6 @@ for (point in 1:length(sdObs)){
 	}
 }
 
+print('SAVING OUTPUT')
 # Save output
 save(sweOut,sdOut,metaOut,file=outFile)
