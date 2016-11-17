@@ -48,6 +48,8 @@ id <- nc_open(inFile)
 # Extract number of observations
 numSdObs <- ncatt_get(id,'sdObs','numObs')
 numSweObs <- ncatt_get(id,'sweObs','numObs')
+numSdObs <- numSdObs$value
+numSweObs <- numSweObs$value
 
 # Pull data
 # All stations that were found for entire record for given
