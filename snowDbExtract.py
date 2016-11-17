@@ -19,6 +19,7 @@ import argparse
 import pyHydroEvalUtils
 import snowDbMod
 
+print 'TEST'
 def main(argv):
     # Parse arguments passed in.
     parser = argparse.ArgumentParser(description='Main program to extract snow observations from database')
