@@ -93,6 +93,15 @@ def main(argv):
         print "ERROR: Failure to initialize R namelist file."
         sys.exit(1)
 
+    print 'EXTRACTING SNOW OBSERVATIONS'
+    # If observations from Database needed, extract here
+    try:
+        snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
+    except:
+        print "ERROR: Failure to extract snow observations from web database."
+        os.unlink(nameLink)
+        sys.exit(1)
+        
     # Begin editing R namelist file
     try:
         compileNamelist.editNamelist(namePath,args,db,size,rank)
@@ -101,18 +110,8 @@ def main(argv):
         os.unlink(nameLink)
         sys.exit(1)	
 
-    print 'EXTRACTING SNOW OBSERVATIONS'
-    # If observations from Database needed, extract here
-    snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
-    #try:
-    #    snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
-    #except:
-    #    print "ERROR: Failure to extract snow observations from web database."
-    #    os.unlink(nameLink)
-    #    sys.exit(1)
-
-    #cmd = "Rscript " + nameLink
-    #subprocess.call(cmd,shell=True)	
+    cmd = "Rscript " + nameLink
+    subprocess.call(cmd,shell=True)	
 
     # Remove namelist link specific to processor ID
     #try:

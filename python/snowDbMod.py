@@ -10,6 +10,7 @@ import numpy as np
 from netCDF4 import Dataset
 import os
 import datetime
+import subprocess
 
 def extractObs(args,db,size,rank,begADateObj,endADateObj):
     # Calculate database index where desired projects live.
@@ -107,7 +108,20 @@ def extractObs(args,db,size,rank,begADateObj,endADateObj):
         
         # Create output NetCDF file for R to read in during analysis for processing
         # into basins, etc.
-        snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile)
+        fileNC = snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile)
+        
+        # Process into R dataset. 
+        if args.snowNet:
+            cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig] + \
+                  " " + db.snowNetSubFile[indDbOrig]
+        else:
+            cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + db.geoFile[indDbOrig]
+
+        try:            
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Unable to process snow observations into R dataset"
+            raise
         
 def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     # Function to output extracted snow observations to NetCDF file. This
@@ -252,3 +266,6 @@ def snowObsNC(args,db,fileOut,resultSWE,resultSD,resultMeta,snowSubFile):
     
     # Close output file
     idOut.close()
+    
+    # Return output NetCDF file to be processed into R dataset
+    return fileOut
