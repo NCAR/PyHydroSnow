@@ -135,7 +135,7 @@ if (basinFlag == 1){
       if ((xCoord >= minX) && (xCoord <= maxX) &&
           (yCoord >= minY) && (yCoord <= maxY)){
 
-        print(paste0('FOUND POINT IN BASIN: ',bName,' ID = ',metaOut$uniqueId))		
+        #print(paste0('FOUND POINT IN BASIN: ',bName,' ID = ',metaOut$uniqueId))		
         # Next, calculate local bounding box coordinates.
         localX <- xCoord - minX + 1
         localY <- yCoord - minY + 1
