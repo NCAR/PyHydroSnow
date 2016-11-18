@@ -41,7 +41,7 @@ def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',
         
     # Pull all SWE observations from time period.
     cmd = "select * from NWM_SWE where date_obs>'" + bDateStr + "' and " + \
-    "date_obs<'" + eDateStr + "'"
+    "date_obs<'" + eDateStr + "'" + " order by date_obs asc"
               
     # Create cursor object to execute SQL command
     conn = dbSnow.cursor()
@@ -58,7 +58,7 @@ def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',
     print 'EXECUTED SQL COMMAND'
     # Proceed to pull snow depth observations
     cmd = "select * from NWM_SD where date_obs>'" + bDateStr + "' and " + \
-    "date_obs<'" + eDateStr + "'"
+    "date_obs<'" + eDateStr + "'" + " order by date_obs asc"
         
     try:
         conn.execute(cmd)
