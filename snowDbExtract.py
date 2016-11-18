@@ -51,13 +51,16 @@ def main(argv):
             
     print 'EXTRACTING SNOW OBSERVATIONS'
     # If observations from Database needed, extract here
-    try:
-        snowDbMod.extractObs(begRDateObj,endRDateObj,args.outDir,args.geoFile,\
-                             networkFile=args.netList,stnFile=args.stnList,\
-                             maskFile=args.mskFile)
-    except:
-        print "ERROR: Failure to extract snow observations from web database."
-        sys.exit(1)
+    snowDbMod.extractObs(begRDateObj,endRDateObj,args.outDir,args.geoFile,\
+                         networkFile=args.netList,stnFile=args.stnList,\
+                         maskFile=args.mskFile)
+    #try:
+    #    snowDbMod.extractObs(begRDateObj,endRDateObj,args.outDir,args.geoFile,\
+    #                         networkFile=args.netList,stnFile=args.stnList,\
+    #                         maskFile=args.mskFile)
+    #except:
+    #    print "ERROR: Failure to extract snow observations from web database."
+    #    sys.exit(1)
         
 if __name__ == "__main__":
 	main(sys.argv[1:])

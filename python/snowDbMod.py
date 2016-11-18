@@ -99,11 +99,12 @@ def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',
     else:
         cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile
 
-    try:            
-        subprocess.call(cmd,shell=True)
-    except:
-        print "ERROR: Unable to process snow observations into R dataset"
-        raise
+    subprocess.call(cmd,shell=True)
+    #try:            
+    #    subprocess.call(cmd,shell=True)
+    #except:
+    #    print "ERROR: Unable to process snow observations into R dataset"
+    #    raise
         
 def snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,mskFile):
     # Function to output extracted snow observations to NetCDF file. This
