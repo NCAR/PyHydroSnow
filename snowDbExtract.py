@@ -34,10 +34,6 @@ def main(argv):
 
     args = parser.parse_args()
     
-    if len(args) < 4:
-        print "ERROR: Insufficient arguments passed to program"
-        sys.exit(1)
-        
     # Check to make sure arguments make sense
     try:	
         pyHydroEvalUtils.checkSNArgs(args)
