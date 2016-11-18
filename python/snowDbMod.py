@@ -147,7 +147,7 @@ def snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,mskFile)
         stationSub = pd.read_csv(stnFile)
         for i in range(siteLen):
             for j in range(0,len(stationSub.uniqueID)):
-                if str(stationSub.uniqueID[j]) in resultMeta[i][0]:
+                if str(stationSub.uniqueID[j]) == str(resultMeta[i][0]):
                     uniquesOut.append(resultMeta[i][0])
                     networksOut.append(resultMeta[i][1])
                     idsOut.append(resultMeta[i][2])
