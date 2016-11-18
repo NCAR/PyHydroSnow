@@ -74,7 +74,7 @@ def checkSNArgs(parser):
         if not parser.begRDate:
             print "ERROR: Associated begADate required."
             raise
-    if not parser.outDir or len(parser.outDir):
+    if not parser.outDir or len(parser.outDir) == 0:
         print "ERROR: No output directory specified."
         raise
     if parser.netList and parser.stnList:
