@@ -13,7 +13,7 @@ import datetime
 import subprocess
 
 def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',maskFile=''):
-    print "MASK FILE = " + maskFile + " YAAAASSS"
+    print "MASK FILE = " + networkFile + " YAAAASSS"
     # Establish paths
     fileOut = outDir + "/" + "SNOW_DB_OBS_" + begRDateObj.strftime('%Y%m%d%H') + \
               "_" + endRDateObj.strftime('%Y%m%d%H') + '.nc'
