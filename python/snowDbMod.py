@@ -13,7 +13,6 @@ import datetime
 import subprocess
 
 def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',maskFile=''):
-    print "MASK FILE = " + networkFile + " YAAAASSS"
     # Establish paths
     fileOut = outDir + "/" + "SNOW_DB_OBS_" + begRDateObj.strftime('%Y%m%d%H') + \
               "_" + endRDateObj.strftime('%Y%m%d%H') + '.nc'
@@ -94,10 +93,12 @@ def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',
     fileNC = snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,maskFile)
         
     # Process into R dataset. 
-    if len(maskFile) != 0:
+    if maskFile:
+        print "MASK"
         cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile + \
         " " + maskFile
     else:
+        print "NO MASK"
         cmd = "Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile
 
     subprocess.call(cmd,shell=True)
