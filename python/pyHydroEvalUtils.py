@@ -77,6 +77,9 @@ def checkSNArgs(parser):
     if not parser.outDir or len(parser.outDir) == 0:
         print "ERROR: No output directory specified."
         raise
+    if parser.outDir == '.' or parser.outDir == './':
+        print 'ERROR: Please specify full path'
+        raise
     if parser.netList and parser.stnList:
         print "ERROR: Please choose either station subsetting or network subsetting."
         raise

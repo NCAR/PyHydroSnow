@@ -219,7 +219,7 @@ def snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,mskFile)
     sdObs.numObs = len(sdOut)    
     sdObsIds = idOut.createVariable('sdObsIds','i4',('numSdObs'),zlib=True,complevel=2)    
     sdObsDates = idOut.createVariable('sdObsDates','i4',('numSdObs'),zlib=True,complevel=2)
-    sdObsDates.units = 'Hours since 1870-01-01 00:00:00'
+    sdObsDates.units = 'Hours since 1970-01-01 00:00:00'
     
     # Place date into output file
     obsIds[:] = uniquesOut
