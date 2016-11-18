@@ -132,7 +132,7 @@ def snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,mskFile)
     latsOut = []
     lonsOut = []    
     # If network subsetting file exists, read it in.
-    if len(networkFile) != 0:
+    if networkFile:
         networks = pd.read_csv(networkFile)
         for i in range(0,siteLen):
             for j in range(0,len(networks.network)):
@@ -143,7 +143,7 @@ def snowObsNC(fileOut,resultSWE,resultSD,resultMeta,networkFile,stnFile,mskFile)
                     idsOut.append(resultMeta[i][2])
                     latsOut.append(resultMeta[i][3])
                     lonsOut.append(resultMeta[i][4])
-    elif len(stnFile) != 0:
+    elif stnFile:
         stationSub = pd.read_csv(stnFile)
         for i in range(siteLen):
             for j in range(0,len(stationSub.uniqueID)):
