@@ -95,11 +95,11 @@ def extractObs(begRDateObj,endRDateObj,outDir,geoFile,networkFile='',stnFile='',
     # Process into R dataset. 
     if maskFile:
         print "MASK"
-        cmd = "./R/Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile + \
+        cmd = "Rscript ./R/process_SNOW_OBS.R " + fileNC + " " + geoFile + \
         " " + maskFile
     else:
         print "NO MASK"
-        cmd = "./R/Rscript process_SNOW_OBS.R " + fileNC + " " + geoFile
+        cmd = "Rscript ./R/process_SNOW_OBS.R " + fileNC + " " + geoFile
 
     subprocess.call(cmd,shell=True)
     #try:            
