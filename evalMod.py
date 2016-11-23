@@ -9,6 +9,7 @@
 
 import sys
 sys.path.insert(0, './python')
+sys.path.insert(0, './R')
 
 #import subprocess
 import argparse
