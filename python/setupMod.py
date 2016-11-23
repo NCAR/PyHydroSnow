@@ -146,12 +146,12 @@ class modelDatabase:
         geoDir1 = subDir1 + "/geo"
         os.mkdir(geoDir1)
         geoLsmLnk = geoDir1 + "/geo_em.nc"
-        geoHydroLnk = geoDir1 + "/geo_Hydro.nc"
+        #geoHydroLnk = geoDir1 + "/geo_Hydro.nc"
         #mskFile = geoDir1 + "/masks_geo.Rdata"
         #statsLink2GagesFile = geoDir1 + "/stats_links_2_gages.txt"
         #plotLink2GagesFile = geoDir1 + "/plot_links_2_gages.txt"
         os.symlink(self.geoFile[ind],geoLsmLnk)
-        os.symlink(self.fullDomFile[ind],geoHydroLnk)
+        #os.symlink(self.fullDomFile[ind],geoHydroLnk)
         #os.symlink(self.mskFile[ind],mskFile)
         #if len(self.statsLink2GageFile[ind]) != 0:
         #    os.symlink(self.statsLink2GageFile[ind],statsLink2GagesFile)
