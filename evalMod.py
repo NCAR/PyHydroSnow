@@ -10,13 +10,13 @@
 import sys
 sys.path.insert(0, './python')
 
-import subprocess
+#import subprocess
 import argparse
 import os
 import pyHydroEvalUtils
-import snowDbMod
-import datetime
-import compileNamelist
+#import snowDbMod
+#import datetime
+#import compileNamelist
 #from mpi4py import MPI
 import snAnalysisMod
 
