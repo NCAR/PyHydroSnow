@@ -15,26 +15,20 @@ class modelDatabase:
         self.alias = []
         self.modelInDir = []
         self.topDir = []
-        self.forceInDir = []
+        #self.forceInDir = []
         self.tag = []
-        self.ensList = []
-        self.ensTag = []
+        #self.ensList = []
+        #self.ensTag = []
         self.geoFile = []
-        self.routeLinkFile = []
-        self.geoRes = []
-        self.agg = []
-        self.fullDomFile = []
-        self.mskFile = []
-        self.statsLink2GageFile = []
-        self.plotLink2GageFile = []
-        self.basinSubFile = []
-        self.snowNetSubFile = []
-        self.streamDB = []
-        self.snowDbHost = []
-        self.snowDbUser = []
-        self.snowDbPwd = []
+        #self.routeLinkFile = []
+        #self.geoRes = []
+        #self.agg = []
+        #self.fullDomFile = []
+        #self.mskFile = []
+        #self.statsLink2GageFile = []
+        #self.plotLink2GageFile = []
+        #self.basinSubFile = []
         self.snodasPath = []
-        self.nCores = []
     def readData(self,parser,readFlag):
         filePathDb = "./parm/modelMeta_db.pkl"
         if readFlag == 1:
@@ -47,53 +41,41 @@ class modelDatabase:
                     self.modelInDir.append(dbTmp.modelInDir[i])
                     self.alias.append(dbTmp.alias[i])
                     self.tag.append(dbTmp.tag[i])
-                    self.ensList.append(dbTmp.ensList[i])
-                    self.ensTag.append(dbTmp.ensTag[i])
-                    self.forceInDir.append(dbTmp.forceInDir[i])
+                    #self.ensList.append(dbTmp.ensList[i])
+                    #self.ensTag.append(dbTmp.ensTag[i])
+                    #self.forceInDir.append(dbTmp.forceInDir[i])
                     self.geoFile.append(dbTmp.geoFile[i])
-                    self.routeLinkFile.append(dbTmp.routeLinkFile[i])
-                    self.geoRes.append(dbTmp.geoRes[i])
-                    self.agg.append(dbTmp.agg[i])
-                    self.fullDomFile.append(dbTmp.fullDomFile[i])
-                    self.mskFile.append(dbTmp.mskFile[i])
-                    self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
-                    self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
-                    self.basinSubFile.append(dbTmp.basinSubFile[i])
-                    self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
-                    self.streamDB.append(dbTmp.streamDB[i])
-                    self.snowDbHost.append(dbTmp.snowDbHost[i])
-                    self.snowDbUser.append(dbTmp.snowDbUser[i])
-                    self.snowDbPwd.append(dbTmp.snowDbPwd[i])
+                    #self.routeLinkFile.append(dbTmp.routeLinkFile[i])
+                    #self.geoRes.append(dbTmp.geoRes[i])
+                    #self.agg.append(dbTmp.agg[i])
+                    #self.fullDomFile.append(dbTmp.fullDomFile[i])
+                    #self.mskFile.append(dbTmp.mskFile[i])
+                    #self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
+                    #self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
+                    #self.basinSubFile.append(dbTmp.basinSubFile[i])
                     self.snodasPath.append(dbTmp.snodasPath[i])
-                    self.nCores.append(dbTmp.nCores[i])
 
         # Read in temporary data from config file
         topOutTmp = parser.get('top_level','topOut')
         modelInTmp = parser.get('model_specification','modelDir')
         tagTmp = parser.get('model_specification','tag')
         aliasTmp = parser.get('model_specification','alias')
-        ensListTmp = parser.get('ensemble_specification','ensembleList')
-        ensTagTmp = parser.get('ensemble_specification','ensembleTags')
+        #ensListTmp = parser.get('ensemble_specification','ensembleList')
+        #ensTagTmp = parser.get('ensemble_specification','ensembleTags')
         # Convert strings to lists
-        ensListTmp = ensListTmp.split()
-        ensTagTmp = ensTagTmp.split()
-        forcingInTmp = parser.get('forcing_specification','forcingDir')
+        #ensListTmp = ensListTmp.split()
+        #ensTagTmp = ensTagTmp.split()
+        #forcingInTmp = parser.get('forcing_specification','forcingDir')
         geoFileTmp = parser.get('geo_specification','geoFile')
-        routeLinkFileTmp = parser.get('geo_specification','routeLinkFile')
-        geoResTmp = parser.get('geo','geoRes')
-        aggTmp = parser.get('geo','aggFactor')
-        geoHydFileTmp = parser.get('geo_specification','geoHydFile')
-        mskFileTmp = parser.get('geo_specification','maskFile')
-        statsLinkFileTmp = parser.get('geo_specification','statsLink2GageFile')
-        plotLinkFileTmp = parser.get('geo_specification','plotLink2GageFile')
-        basinSubFileTmp = parser.get('geo_specification','basinSubFile')
-        snowNetSubFileTmp = parser.get('geo_specification','snowNetSubFile')
-        streamDbTmp = parser.get('observations_specification','streamDbPath')
-        snowDbHostTmp = parser.get('observations_specification','snowDbHost')
-        snowDbUserTmp = parser.get('observations_specification','snowDbUser')
-        snowDbPwdTmp = parser.get('observations_specification','snowDbPwd')
+        #routeLinkFileTmp = parser.get('geo_specification','routeLinkFile')
+        #geoResTmp = parser.get('geo','geoRes')
+        #aggTmp = parser.get('geo','aggFactor')
+        #geoHydFileTmp = parser.get('geo_specification','geoHydFile')
+        #mskFileTmp = parser.get('geo_specification','maskFile')
+        #statsLinkFileTmp = parser.get('geo_specification','statsLink2GageFile')
+        #plotLinkFileTmp = parser.get('geo_specification','plotLink2GageFile')
+        #basinSubFileTmp = parser.get('geo_specification','basinSubFile')
         snodasPathTmp = parser.get('observations_specification','snodasPath')
-        nCoresTmp = parser.get('run_options','nCores')
 
         # Check to make sure information has not already been entered into databse
         lenTmp = len(self.alias)
@@ -109,25 +91,19 @@ class modelDatabase:
         self.modelInDir.append(modelInTmp) 
         self.alias.append(aliasTmp)
         self.tag.append(tagTmp)
-        self.ensList.append(ensListTmp)
-        self.ensTag.append(ensTagTmp)
-        self.forceInDir.append(forcingInTmp)
+        #self.ensList.append(ensListTmp)
+        #self.ensTag.append(ensTagTmp)
+        #self.forceInDir.append(forcingInTmp)
         self.geoFile.append(geoFileTmp)
-        self.routeLinkFile.append(routeLinkFileTmp)
-        self.geoRes.append(geoResTmp)
-        self.agg.append(aggTmp)
-        self.fullDomFile.append(geoHydFileTmp)
-        self.mskFile.append(mskFileTmp)
-        self.statsLink2GageFile.append(statsLinkFileTmp)
-        self.plotLink2GageFile.append(plotLinkFileTmp)
-        self.basinSubFile.append(basinSubFileTmp)
-        self.snowNetSubFile.append(snowNetSubFileTmp)
-        self.streamDB.append(streamDbTmp)
-        self.snowDbHost.append(snowDbHostTmp)
-        self.snowDbUser.append(snowDbUserTmp)
-        self.snowDbPwd.append(snowDbPwdTmp)
+        #self.routeLinkFile.append(routeLinkFileTmp)
+        #self.geoRes.append(geoResTmp)
+        #self.agg.append(aggTmp)
+        #self.fullDomFile.append(geoHydFileTmp)
+        #self.mskFile.append(mskFileTmp)
+        #self.statsLink2GageFile.append(statsLinkFileTmp)
+        #self.plotLink2GageFile.append(plotLinkFileTmp)
+        #self.basinSubFile.append(basinSubFileTmp)
         self.snodasPath.append(snodasPathTmp)
-        self.nCores.append(nCoresTmp)
 
     def setupProject(self):
         """ Function to create necessary subdirectories
@@ -155,8 +131,8 @@ class modelDatabase:
         os.symlink(self.modelInDir[ind],modelInDir1)
 
         # Create namelist directory to hold all namelists created by evaluation program.
-        namelistDir = subDir1 + "/namelists"
-        os.mkdir(namelistDir)
+        #namelistDir = subDir1 + "/namelists"
+        #os.mkdir(namelistDir)
 
         # Make observations directory, symlink observation files in (if they were listed)
         obsDir1 = subDir1 + "/Observations"
@@ -171,33 +147,33 @@ class modelDatabase:
         os.mkdir(geoDir1)
         geoLsmLnk = geoDir1 + "/geo_em.nc"
         geoHydroLnk = geoDir1 + "/geo_Hydro.nc"
-        mskFile = geoDir1 + "/masks_geo.Rdata"
-        statsLink2GagesFile = geoDir1 + "/stats_links_2_gages.txt"
-        plotLink2GagesFile = geoDir1 + "/plot_links_2_gages.txt"
+        #mskFile = geoDir1 + "/masks_geo.Rdata"
+        #statsLink2GagesFile = geoDir1 + "/stats_links_2_gages.txt"
+        #plotLink2GagesFile = geoDir1 + "/plot_links_2_gages.txt"
         os.symlink(self.geoFile[ind],geoLsmLnk)
         os.symlink(self.fullDomFile[ind],geoHydroLnk)
-        os.symlink(self.mskFile[ind],mskFile)
-        if len(self.statsLink2GageFile[ind]) != 0:
-            os.symlink(self.statsLink2GageFile[ind],statsLink2GagesFile)
-        if len(self.plotLink2GageFile[ind]) != 0:  
-            os.symlink(self.plotLink2GageFile[ind],plotLink2GagesFile)
-            basSubLnk = geoDir1 + "/basin_sub_file.txt"
+        #os.symlink(self.mskFile[ind],mskFile)
+        #if len(self.statsLink2GageFile[ind]) != 0:
+        #    os.symlink(self.statsLink2GageFile[ind],statsLink2GagesFile)
+        #if len(self.plotLink2GageFile[ind]) != 0:  
+        #    os.symlink(self.plotLink2GageFile[ind],plotLink2GagesFile)
+        #    basSubLnk = geoDir1 + "/basin_sub_file.txt"
         #if len(self.basinSubFile[ind]) != 0:
         #    os.symlink(self.basinSubFile[ind],basSubLnk)
 
         # Link forcing directory
-        forcDir1 = subDir1 + "/forcing"
-        os.symlink(self.forceInDir[ind],forcDir1)
+        #forcDir1 = subDir1 + "/forcing"
+        #os.symlink(self.forceInDir[ind],forcDir1)
 
         # Create output directories to hold analysis/plotting data
         outDir1 = subDir1 + "/analysis_out"
         outDir2 = outDir1 + "/analysis_datasets"
-        outDir3 = outDir1 + "/plotting"
-        outDir4 = outDir1 + "/read_datasets"
-        os.mkdir(outDir1)
-        os.mkdir(outDir2)
-        os.mkdir(outDir3)
-        os.mkdir(outDir4)
+        #outDir3 = outDir1 + "/plotting"
+        #outDir4 = outDir1 + "/read_datasets"
+        #os.mkdir(outDir1)
+        #os.mkdir(outDir2)
+        #os.mkdir(outDir3)
+        #os.mkdir(outDir4)
 
     def deleteProject(self,aliasCheck,filePathDb):
         """ Remove project and directory structure
@@ -208,26 +184,26 @@ class modelDatabase:
         aliasTmp = []
         modelInDirTmp = []
         topDirTmp = []
-        forceInDirTmp = []
+        #forceInDirTmp = []
         tagTmp = []
-        ensListTmp = []
-        ensTagTmp = []
+        #ensListTmp = []
+        #ensTagTmp = []
         geoFileTmp = []
-        routeLinkFileTmp = []
-        geoResTmp = []
-        aggTmp = []
-        fullDomFileTmp = []
-        mskFileTmp = []
-        statsLink2GageFileTmp = []
-        plotLink2GageFileTmp = []
-        basinSubFileTmp = []
-        snowNetSubFileTmp = []
-        streamDbTmp = []
-        snowDbHostTmp = []
-        snowDbUserTmp = []
-        snowDbPwdTmp = []
+        #routeLinkFileTmp = []
+        #geoResTmp = []
+        #aggTmp = []
+        #fullDomFileTmp = []
+        #mskFileTmp = []
+        #statsLink2GageFileTmp = []
+        #plotLink2GageFileTmp = []
+        #basinSubFileTmp = []
+        #snowNetSubFileTmp = []
+        #streamDbTmp = []
+        #snowDbHostTmp = []
+        #snowDbUserTmp = []
+        #snowDbPwdTmp = []
         snodasPathTmp = []
-        nCoresTmp = []
+        #nCoresTmp = []
 
         with open(filePathDb,'rb') as input:
             dbTmp = pickle.load(input)
@@ -237,25 +213,25 @@ class modelDatabase:
                 self.modelInDir.append(dbTmp.modelInDir[i])
                 self.alias.append(dbTmp.alias[i])
                 self.tag.append(dbTmp.tag[i])
-                self.ensList.append(dbTmp.ensList[i])
-                self.ensTag.append(dbTmp.ensTag[i])
-                self.forceInDir.append(dbTmp.forceInDir[i])
+                #self.ensList.append(dbTmp.ensList[i])
+                #self.ensTag.append(dbTmp.ensTag[i])
+                #self.forceInDir.append(dbTmp.forceInDir[i])
                 self.geoFile.append(dbTmp.geoFile[i])
-                self.routeLinkFile.append(dbTmp.routeLinkFile[i])
-                self.geoRes.append(dbTmp.geoRes[i])
-                self.agg.append(dbTmp.agg[i])
-                self.fullDomFile.append(dbTmp.fullDomFile[i])
-                self.mskFile.append(dbTmp.mskFile[i])
-                self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
-                self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
-                self.basinSubFile.append(dbTmp.basinSubFile[i])
-                self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
-                self.streamDB.append(dbTmp.streamDB[i])
-                self.snowDbHost.append(dbTmp.snowDbHost[i])
-                self.snowDbUser.append(dbTmp.snowDbUser[i])
-                self.snowDbPwd.append(dbTmp.snowDbPwd[i])
+                #self.routeLinkFile.append(dbTmp.routeLinkFile[i])
+                #self.geoRes.append(dbTmp.geoRes[i])
+                #self.agg.append(dbTmp.agg[i])
+                #self.fullDomFile.append(dbTmp.fullDomFile[i])
+                #self.mskFile.append(dbTmp.mskFile[i])
+                #self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
+                #self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
+                #self.basinSubFile.append(dbTmp.basinSubFile[i])
+                #self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
+                #self.streamDB.append(dbTmp.streamDB[i])
+                #self.snowDbHost.append(dbTmp.snowDbHost[i])
+                #self.snowDbUser.append(dbTmp.snowDbUser[i])
+                #self.snowDbPwd.append(dbTmp.snowDbPwd[i])
                 self.snodasPath.append(dbTmp.snodasPath[i])
-                self.nCores.append(dbTmp.nCores[i])
+                #self.nCores.append(dbTmp.nCores[i])
 
         # Loop through projects in database, once found,
         # remove project, and files. Return updated 
@@ -265,26 +241,26 @@ class modelDatabase:
                 aliasTmp.append(self.alias[i])
                 modelInDirTmp.append(self.modelInDir[i])
                 topDirTmp.append(self.topDir[i])
-                forceInDirTmp.append(self.forceInDir[i])
+                #forceInDirTmp.append(self.forceInDir[i])
                 tagTmp.append(self.tag[i])
-                ensListTmp.append(self.ensList[i])
-                ensTagTmp.append(self.ensTag[i])
+                #ensListTmp.append(self.ensList[i])
+                #ensTagTmp.append(self.ensTag[i])
                 geoFileTmp.append(self.geoFile[i])
-                routeLinkFileTmp.append(self.routeLinkFile[i]) 
-                geoResTmp.append(self.geoRes[i])
-                aggTmp.append(self.agg[i])
-                fullDomFileTmp.append(self.fullDomFile[i])
-                mskFileTmp.append(self.mskFile[i])
-                statsLink2GageFileTmp.append(self.statsLink2GageFile[i])
-                plotLink2GageFileTmp.append(self.plotLink2GageFile[i])
-                basinSubFileTmp.append(self.basinSubFile[i])
-                snowNetSubFileTmp.append(self.snowNetSubFile[i])
-                streamDbTmp.append(self.streamDB[i])
-                snowDbHostTmp.append(self.snowDbHost[i])
-                snowDbUserTmp.append(self.snowDbUser[i])
-                snowDbPwdTmp.append(self.snowDbPwd[i])
+                #routeLinkFileTmp.append(self.routeLinkFile[i]) 
+                #geoResTmp.append(self.geoRes[i])
+                #aggTmp.append(self.agg[i])
+                #fullDomFileTmp.append(self.fullDomFile[i])
+                #mskFileTmp.append(self.mskFile[i])
+                #statsLink2GageFileTmp.append(self.statsLink2GageFile[i])
+                #plotLink2GageFileTmp.append(self.plotLink2GageFile[i])
+                #basinSubFileTmp.append(self.basinSubFile[i])
+                #snowNetSubFileTmp.append(self.snowNetSubFile[i])
+                #streamDbTmp.append(self.streamDB[i])
+                #snowDbHostTmp.append(self.snowDbHost[i])
+                #snowDbUserTmp.append(self.snowDbUser[i])
+                #snowDbPwdTmp.append(self.snowDbPwd[i])
                 snodasPathTmp.append(self.snodasPath[i])
-                nCoresTmp.append(self.nCores[i])
+                #nCoresTmp.append(self.nCores[i])
             else: # Found project to delete
                 deleteDir = self.topDir[i] + "/" + self.alias[i]
                 shutil.rmtree(deleteDir, ignore_errors=True)
@@ -293,51 +269,51 @@ class modelDatabase:
         self.alias = []
         self.modelInDir = []
         self.topDir = []
-        self.forceInDir = []
+        #self.forceInDir = []
         self.tag = []
-        self.ensList = []
-        self.ensTag = []
+        #self.ensList = []
+        #self.ensTag = []
         self.geoFile = []
-        self.routeLinkFile = []
-        self.geoRes = []
-        self.agg = []
-        self.fullDomFile = []
-        self.mskFile = []
-        self.statsLink2GageFile = []
-        self.plotLink2GageFile = []
-        self.basinSubFile = []
-        self.snowNetSubFile = []
-        self.streamDB = []
-        self.snowDbHost = []
-        self.snowDbUser = []
-        self.snowDbPwd = []
+        #self.routeLinkFile = []
+        #self.geoRes = []
+        #self.agg = []
+        #self.fullDomFile = []
+        #self.mskFile = []
+        #self.statsLink2GageFile = []
+        #self.plotLink2GageFile = []
+        #self.basinSubFile = []
+        #self.snowNetSubFile = []
+        #self.streamDB = []
+        #self.snowDbHost = []
+        #self.snowDbUser = []
+        #self.snowDbPwd = []
         self.snodasPath = []
-        self.nCores = []
+        #self.nCores = []
 
         for i in range(0,len(aliasTmp)):
             self.alias.append(aliasTmp[i])
             self.modelInDir.append(modelInDirTmp[i])
             self.topDir.append(topDirTmp[i])
-            self.forceInDir.append(forceInDirTmp[i])
+            #self.forceInDir.append(forceInDirTmp[i])
             self.tag.append(tagTmp[i])
-            self.ensList.append(ensListTmp[i])
-            self.ensTag.append(ensTagTmp[i])
+            #self.ensList.append(ensListTmp[i])
+            #self.ensTag.append(ensTagTmp[i])
             self.geoFile.append(geoFileTmp[i])
-            self.routeLinkFile.append(routeLinkFileTmp[i])
-            self.geoRes.append(geoResTmp[i])
-            self.agg.append(aggTmp[i])
-            self.fullDomFile.append(fullDomFileTmp[i])
-            self.mskFile.append(mskFileTmp[i]) 
-            self.statsLink2GageFile.append(statsLink2GageFileTmp[i])
-            self.plotLink2GageFile.append(plotLink2GageFileTmp[i])
-            self.basinSubFile.append(basinSubFileTmp[i])
-            self.snowNetSubFile.append(snowNetSubFileTmp[i])
-            self.streamDB.append(streamDbTmp[i])
-            self.snowDbHost.append(snowDbHostTmp[i])
-            self.snowDbUser.append(snowDbUserTmp[i])
-            self.snowDbPwd.append(snowDbPwdTmp[i])
+            #self.routeLinkFile.append(routeLinkFileTmp[i])
+            #self.geoRes.append(geoResTmp[i])
+            #self.agg.append(aggTmp[i])
+            #self.fullDomFile.append(fullDomFileTmp[i])
+            #self.mskFile.append(mskFileTmp[i]) 
+            #self.statsLink2GageFile.append(statsLink2GageFileTmp[i])
+            #self.plotLink2GageFile.append(plotLink2GageFileTmp[i])
+            #self.basinSubFile.append(basinSubFileTmp[i])
+            #self.snowNetSubFile.append(snowNetSubFileTmp[i])
+            #self.streamDB.append(streamDbTmp[i])
+            #self.snowDbHost.append(snowDbHostTmp[i])
+            #self.snowDbUser.append(snowDbUserTmp[i])
+            #self.snowDbPwd.append(snowDbPwdTmp[i])
             self.snodasPath.append(snodasPathTmp[i])
-            self.nCores.append(nCoresTmp[i])
+            #self.nCores.append(nCoresTmp[i])
 
     def copyModel(self,dbPath,args,aliasIn,aliasNew):
         """ Copy model database entry to
@@ -352,25 +328,25 @@ class modelDatabase:
                 self.modelInDir.append(dbTmp.modelInDir[i])
                 self.alias.append(dbTmp.alias[i])
                 self.tag.append(dbTmp.tag[i])
-                self.ensList.append(dbTmp.ensList[i])
-                self.ensTag.append(dbTmp.ensTag[i])
-                self.forceInDir.append(dbTmp.forceInDir[i])
+                #self.ensList.append(dbTmp.ensList[i])
+                #self.ensTag.append(dbTmp.ensTag[i])
+                #self.forceInDir.append(dbTmp.forceInDir[i])
                 self.geoFile.append(dbTmp.geoFile[i])
-                self.routeLinkFile.append(dbTmp.routeLinkFile[i])
-                self.geoRes.append(dbTmp.geoRes[i])
-                self.agg.append(dbTmp.agg[i])
-                self.fullDomFile.append(dbTmp.fullDomFile[i])
-                self.mskFile.append(dbTmp.mskFile[i])
-                self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
-                self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
-                self.basinSubFile.append(dbTmp.basinSubFile[i])
-                self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
-                self.streamDB.append(dbTmp.streamDB[i])
-                self.snowDbHost.append(dbTmp.snowDbHost[i])
-                self.snowDbUser.append(dbTmp.snowDbUser[i])
-                self.snowDbPwd.append(dbTmp.snowDbPwd[i])
+                #self.routeLinkFile.append(dbTmp.routeLinkFile[i])
+                #self.geoRes.append(dbTmp.geoRes[i])
+                #self.agg.append(dbTmp.agg[i])
+                #self.fullDomFile.append(dbTmp.fullDomFile[i])
+                #self.mskFile.append(dbTmp.mskFile[i])
+                #self.statsLink2GageFile.append(dbTmp.statsLink2GageFile[i])
+                #self.plotLink2GageFile.append(dbTmp.plotLink2GageFile[i])
+                #self.basinSubFile.append(dbTmp.basinSubFile[i])
+                #self.snowNetSubFile.append(dbTmp.snowNetSubFile[i])
+                #self.streamDB.append(dbTmp.streamDB[i])
+                #self.snowDbHost.append(dbTmp.snowDbHost[i])
+                #self.snowDbUser.append(dbTmp.snowDbUser[i])
+                #self.snowDbPwd.append(dbTmp.snowDbPwd[i])
                 self.snodasPath.append(dbTmp.snodasPath[i])
-                self.nCores.append(dbTmp.nCores[i])
+                #self.nCores.append(dbTmp.nCores[i])
 
         # Loop through projects in database, once the primary
         # input alias has been found, calculate the index, which
@@ -405,102 +381,102 @@ class modelDatabase:
         else:
             self.modelInDir.append(self.modelInDir[aliasInd])
             
-        if args.forcingDir:
-            self.forceInDir.append(args.forcingDir)
-        else:
-            self.forceInDir.append(self.forceInDir[aliasInd])
+        #if args.forcingDir:
+        #    self.forceInDir.append(args.forcingDir)
+        #else:
+        #    self.forceInDir.append(self.forceInDir[aliasInd])
 
         if args.tag:
             self.tag.append(args.tag)
         else:
             self.tag.append(self.tag[aliasInd])
 
-        if args.ensList and not args.ensTag:
-            print "ERROR: Must supply both ensemble list and tags."
-            raise
-        if args.ensTag and not args.ensList:
-            print "ERROR: Must supply both ensemble list and tags."
-            raise
+        #if args.ensList and not args.ensTag:
+        #    print "ERROR: Must supply both ensemble list and tags."
+        #    raise
+        #if args.ensTag and not args.ensList:
+        #    print "ERROR: Must supply both ensemble list and tags."
+        #    raise
 
-        if args.ensTag and args.ensList:
-            if len(args.ensTag.split()) != len(args.ensList.split()):
-                print "ERROR: Ensemble list and tags must be equal length."
-                raise
+        #if args.ensTag and args.ensList:
+        #    if len(args.ensTag.split()) != len(args.ensList.split()):
+        #        print "ERROR: Ensemble list and tags must be equal length."
+        #        raise
 
-        if args.ensList:
-            self.ensList.append(args.ensList.split())
-        else:
-            self.ensList.append(self.ensList[aliasInd])
+        #if args.ensList:
+        #    self.ensList.append(args.ensList.split())
+        #else:
+        #    self.ensList.append(self.ensList[aliasInd])
 
-        if args.ensTag:
-            self.ensTag.append(args.ensTag.split())
-        else:
-            self.ensTag.append(self.ensTag[aliasInd])
+        #if args.ensTag:
+        #    self.ensTag.append(args.ensTag.split())
+        #else:
+        #    self.ensTag.append(self.ensTag[aliasInd])
 
-        if args.mskFile:
-            self.mskFile.append(args.mskFile)
-        else:
-            self.mskFile.append(self.mskFile[aliasInd])
+        #if args.mskFile:
+        #    self.mskFile.append(args.mskFile)
+        #else:
+        #    self.mskFile.append(self.mskFile[aliasInd])
             
-        if args.snowNetSub:
-            self.snowNetSubFile.append(args.snowNetSub)
-        else:
-            self.snowNetSubFile.append(self.snowNetSubFile[aliasInd])
+        #if args.snowNetSub:
+        #    self.snowNetSubFile.append(args.snowNetSub)
+        #else:
+        #    self.snowNetSubFile.append(self.snowNetSubFile[aliasInd])
 
         if args.geoFile:
             self.geoFile.append(args.geoFile)
         else:
             self.geoFile.append(self.geoFile[aliasInd])
 
-        if args.routeLinkFile:
-            self.routeLinkFile.append(args.routeLinkFile)
-        else:
-            self.routeLinkFile.append(self.routeLinkFile[aliasInd])
+        #if args.routeLinkFile:
+        #    self.routeLinkFile.append(args.routeLinkFile)
+        #else:
+        #    self.routeLinkFile.append(self.routeLinkFile[aliasInd])
 
-        if args.geoRes:
-            self.geoRes.append(args.geoRes)
-        else:
-            self.geoRes.append(self.geoRes[aliasInd])
+        #if args.geoRes:
+        #    self.geoRes.append(args.geoRes)
+        #else:
+        #    self.geoRes.append(self.geoRes[aliasInd])
 
-        if args.agg:
-            self.agg.append(args.agg)
-        else:
-            self.agg.append(self.agg[aliasInd])
+        #if args.agg:
+        #    self.agg.append(args.agg)
+        #else:
+        #    self.agg.append(self.agg[aliasInd])
 
-        if args.hydFile:
-            self.fullDomFile.append(args.hydFile)
-        else:
-            self.fullDomFile.append(self.fullDomFile[aliasInd])
+        #if args.hydFile:
+        #    self.fullDomFile.append(args.hydFile)
+        #else:
+        #    self.fullDomFile.append(self.fullDomFile[aliasInd])
 
-        if args.statsLink2gage:
-            self.statsLink2GageFile.append(args.statsLink2gage)
-        else:
-            self.statsLink2GageFile.append(self.statsLink2GageFile[aliasInd])
+        #if args.statsLink2gage:
+        #    self.statsLink2GageFile.append(args.statsLink2gage)
+        #else:
+        #    self.statsLink2GageFile.append(self.statsLink2GageFile[aliasInd])
 
-        if args.plotLink2gage:
-            self.plotLink2GageFile.append(args.plotLink2gage)
-        else:
-            self.plotLink2GageFile.append(self.plotLink2GageFile[aliasInd])
+        #if args.plotLink2gage:
+        #    self.plotLink2GageFile.append(args.plotLink2gage)
+        #else:
+        #    self.plotLink2GageFile.append(self.plotLink2GageFile[aliasInd])
 
-        if args.basSub:
-            self.basinSubFile.append(args.basSub)
-        else:
-            self.basinSubFile.append(self.basinSubFile[aliasInd])
+        #if args.basSub:
+        #    self.basinSubFile.append(args.basSub)
+        #else:
+        #    self.basinSubFile.append(self.basinSubFile[aliasInd])
             
         if args.snPath:
             self.snodasPath.append(args.snPath)
         else:
             self.snodasPath.append(self.snodasPath[aliasInd])
 
-        if args.streamDB:
-            self.streamDB.append(args.streamDB)
-        else:
-            self.streamDB.append(self.streamDB[aliasInd])
+        #if args.streamDB:
+        #    self.streamDB.append(args.streamDB)
+        #else:
+        #    self.streamDB.append(self.streamDB[aliasInd])
             
-        if args.nCores:
-            self.nCores.append(args.nCores)
-        else:
-            self.nCores.append(self.nCores[aliasInd])
+        #if args.nCores:
+        #    self.nCores.append(args.nCores)
+        #else:
+        #    self.nCores.append(self.nCores[aliasInd])
 
 def addModelProject():    
     """ Setup new model project, which will be added to the db
@@ -538,14 +514,14 @@ def addModelProject():
     # Check for existence of files/directories
     if not os.path.exists(db.modelInDir[numModels-1]):
         print "ERROR: Model input directory: " + db.modelInDir[numModels-1] + " not found."
-    if not os.path.exists(db.forceInDir[numModels-1]):
-        print "ERROR: Forcing input directory: " + db.forceInDir[numModels-1] + " not found."
+    #if not os.path.exists(db.forceInDir[numModels-1]):
+    #    print "ERROR: Forcing input directory: " + db.forceInDir[numModels-1] + " not found."
     if not os.path.isfile(db.geoFile[numModels-1]):
         print "ERROR: Geofile: " + db.geoFile[numModels] + db.geoFile[numModels-1] + " not found."
-    if not os.path.isfile(db.fullDomFile[numModels-1]):
-        print "ERROR: High resolution geofile: " + db.fullDomFile[numModels-1] + " not found."
-    if not os.path.isfile(db.mskFile[numModels-1]):
-        print "ERROR: Mask file: " + db.mskFile[numModels-1] + " not found."
+    #if not os.path.isfile(db.fullDomFile[numModels-1]):
+    #    print "ERROR: High resolution geofile: " + db.fullDomFile[numModels-1] + " not found."
+    #if not os.path.isfile(db.mskFile[numModels-1]):
+    #    print "ERROR: Mask file: " + db.mskFile[numModels-1] + " not found."
     # Won't check for existence of remaining files as they are optional.
 
     # Save database, or updated database to pickle object to be read in next time.

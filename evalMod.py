@@ -18,6 +18,7 @@ import snowDbMod
 import datetime
 import compileNamelist
 #from mpi4py import MPI
+import snAnalysisMod
 
 # Establish MPI objects
 #comm = MPI.COMM_WORLD
@@ -31,15 +32,14 @@ def main(argv):
     parser = argparse.ArgumentParser(description='Main program to run analysis on WRF-Hydro')
     parser.add_argument('modelProjects', metavar='alias', type=str, nargs='+',
 	     		        help='A list of model projects to run analysis on')
+    parser.add_argument('--jobName',nargs='?', help='Customized name which will be the sub-directory containing results')
     parser.add_argument('--begADate',nargs='?', help='Beginning Date for Analysis/Read in YYYYMMDDHH Format')
     parser.add_argument('--endADate',nargs='?', help='Ending Date for Analysis/Read in YYYYMMDDHH Format') 
+    parser.add_argument('--inFile',nargs='?', help='Input file necessary for reading/analysis. Can either be model reads, or observation point file')
     parser.add_argument('--snRead',nargs='?', help='Read flag for snow analysis and observations (1-4)')
-    parser.add_argument('--stRead',nargs='?', help='Streamflow read flag for model output and observations (1-2)')
     parser.add_argument('--snRun',nargs='?', help='Snow analysis flag (1-6)')
-    parser.add_argument('--stRun',nargs='?', help='Streamflow analysis flag (1-6)')
-    parser.add_argument('--subset',nargs='?', help='Flag to turn on subsetting within reading or plotting')
-    parser.add_argument('--pad',nargs='?', help='Padding value to pad beginning of streamflow plots with observations')
-    parser.add_argument('--snowNet',nargs='?', help='Flag to turn on snow observation network subsetting by network name')      
+    parser.add_argument('--bsnMskFile',nargs='?', help='Optional basin/region R mask file used for reading/analysis.')
+    parser.add_argument('--bsnSubFile',nargs='?', help='CSV text file listing subset of basins/regions to read/process')
       
     args = parser.parse_args()
 
@@ -60,14 +60,14 @@ def main(argv):
 
     # Check to ensure proper files exist to run analysis
     dbPath = "./parm/modelMeta_db.pkl"
-    namelistTemplate = "./parm/namelist_template.R"
+    #namelistTemplate = "./parm/namelist_template.R"
 
     if not os.path.isfile(dbPath):
         print "ERROR: Database: " + dbPath + " not found."
         sys.exit(1)
-    if not os.path.isfile(namelistTemplate):
-        print "ERROR: Template R namelist file: " + namelistTemplate + " not found."
-        sys.exit(1)
+    #if not os.path.isfile(namelistTemplate):
+    #    print "ERROR: Template R namelist file: " + namelistTemplate + " not found."
+    #    sys.exit(1)
 
     # Read in model project database
     try:
@@ -82,33 +82,47 @@ def main(argv):
     except:
         print "ERROR: checkDb failed."
         sys.exit(1)
-
-    # Copy template namelist file to namelist directory in model project directory.
-    # If multiple model projects have been chosen for cross-model validation, 
-    # original namelist will be placed in first model project listed, with symbolic
-    # links in remaining model projects.
-    try:
-        namePath, nameLink = pyHydroEvalUtils.initNamelist(args,db,rank)
-    except:
-        print "ERROR: Failure to initialize R namelist file."
-        sys.exit(1)
-
-    print 'EXTRACTING SNOW OBSERVATIONS'
-    # If observations from Database needed, extract here
-    try:
-        snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
-    except:
-        print "ERROR: Failure to extract snow observations from web database."
-        os.unlink(nameLink)
-        sys.exit(1)
         
-    # Begin editing R namelist file
+    # Create subdirectory based on job name to hold output analysis/datasets/plots
     try:
-        compileNamelist.editNamelist(namePath,args,db,size,rank)
-    except: 
-        print "ERROR: Failure to compile R namelist file."
-        os.unlink(nameLink)
-        sys.exit(1)	
+        pyHydroEvalUtils.mkJobDir(args,db)
+    except:
+        print "ERROR: Unable to create job name subdirectory."
+        sys.exit(1)
+    
+    # Run snow reading functions if desired by user.
+    try:
+        snAnalysisMod.readSnow(args,db,begADateObj,endADateObj,size,rank)
+    except:
+        print "ERROR: Unable to read snow observations/analysis in."
+        sys.exit(1)
+
+    ## Copy template namelist file to namelist directory in model project directory.
+    ## If multiple model projects have been chosen for cross-model validation, 
+    ## original namelist will be placed in first model project listed, with symbolic
+    ## links in remaining model projects.
+    #try:
+    #    namePath, nameLink = pyHydroEvalUtils.initNamelist(args,db,rank)
+    #except:
+    #    print "ERROR: Failure to initialize R namelist file."
+    #    sys.exit(1)
+
+    #print 'EXTRACTING SNOW OBSERVATIONS'
+    ## If observations from Database needed, extract here
+    #try:
+    #    snowDbMod.extractObs(args,db,size,rank,begADateObj,endADateObj)
+    #except:
+    #    print "ERROR: Failure to extract snow observations from web database."
+    #    os.unlink(nameLink)
+    #    sys.exit(1)
+        
+    ## Begin editing R namelist file
+    #try:
+    #    compileNamelist.editNamelist(namePath,args,db,size,rank)
+    #except: 
+    #    print "ERROR: Failure to compile R namelist file."
+    #    os.unlink(nameLink)
+    #    sys.exit(1)	
 
     #cmd = "Rscript " + nameLink
     #subprocess.call(cmd,shell=True)	

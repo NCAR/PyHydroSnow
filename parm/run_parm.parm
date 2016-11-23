@@ -28,6 +28,8 @@ snRead = 3 # Read model snow fields aggregated to regions + point observations
            # that fall within the region.
 snRead = 4 # Read model snow fields + SNODAS aggregated to regions +
            # + point observations that fall within the region.
+snRead = 5 # Read model snow fields aggregated to regions.
+snRead = 6 # Read model snow fields + SNODAS aggregated to regions.
 
 # Specify streamflow read flag. This is to read streamflow from either
 # frxst point files, or CHRTOUT files. If CHRTOUT, then a mapping to 
