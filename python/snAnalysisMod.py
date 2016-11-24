@@ -93,6 +93,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     if args.snRead == 1:
         outFile = "outFile <- '" + jobDirStr + "/SN_PT_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
+        print outFile
         obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,obsStr)
