@@ -97,9 +97,9 @@ for (i in 1:length(mskgeo.nameList)) {
 		
       message(paste0('Processing: ',dCurrent))
       # SNODAS first
-      snodasPath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-                           strftime(dCurrent,"%Y%m%d"),".nc")
-      id <- nc_open(snodasPath)
+      snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                               strftime(dCurrent,"%Y%m%d"),".nc")
+      id <- nc_open(snodasFilePath)
       sweSnodas <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
       nc_close(id)
 

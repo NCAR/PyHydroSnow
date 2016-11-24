@@ -7,6 +7,7 @@
 
 import ioMgmntMod
 import subprocess
+import os
 
 def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     # Top level module to read in either point analysis/model, aggregated
@@ -224,3 +225,10 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         except:
             print "ERROR: Failure to execute snow reads"
             raise
+            
+    # Remove temporary R namelist file
+    try:
+        os.remove(tmpRFile)
+    except:
+        print "ERROR: Failure to remove temporary R namelist file."
+        raise
