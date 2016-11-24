@@ -6,6 +6,7 @@
 # Research Applications Laboratory
 
 import ioMgmntMod
+import subprocess
 
 def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     # Top level module to read in either point analysis/model, aggregated
@@ -63,6 +64,9 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     if len(dbIn.snodasPath[indDbOrig]) != 0:
         snodasStr = "snodasPath <- '" + dbIn.snodasPath[indDbOrig] + "'\n"
         
+    # Establish path to geogrid file
+    geoStr = "geoFile <- '" + dbIn.geoFile[indDbOrig] + "'\n"
+        
     # Compose strings conveying MPI size/rank information
     sizeStr = "size <- " + str(size) + "\n"
     rankStr = "rank <- " + str(rank) + "\n"
@@ -85,6 +89,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         ioMgmntMod.writeStrToFile(tmpRFile,endDateStr)
         ioMgmntMod.writeStrToFile(tmpRFile,sizeStr)
         ioMgmntMod.writeStrToFile(tmpRFile,rankStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,geoStr)
     except:
         print("ERROR: Unable to write basic R information to temporary file.")
         raise
@@ -100,6 +105,13 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         except:
             print "ERROR: Unable to write to temporary R file."
             raise
+            
+        cmd = "Rscript ./R/SNOW_POINT_READ.R " + tmpRFile
+        #try:
+        #    subprocess.call(cmd,shell=True)
+        #except:
+        #    print "ERROR: Failure to execute snow reads"
+        #    raise
         
     # Situation #2 - Read in model + SNODAS fields at points given observations file.
     if args.snRead == "2":
@@ -116,6 +128,13 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         except:
             print "ERROR: Unable to write to temporary R file."
             raise
+            
+        cmd = "Rscript ./R/SNOW_POINT_READ.R " + tmpRFile
+        #try:
+        #    subprocess.call(cmd,shell=True)
+        #except:
+        #    print "ERROR: Failure to execute snow reads"
+        #    raise
         
     # Situation #3 - Read in model snow fields aggregated to basins plus point obs.
     if args.snRead == "3":
@@ -130,6 +149,13 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         except:
             print "ERROR: Unable to write to temporary R file."
             raise
+            
+        cmd = "Rscript ./R/SNOW_BASIN_POINT_READ.R " + tmpRFile
+        #try:
+        #    subprocess.call(cmd,shell=True)
+        #except:
+        #    print "ERROR: Failure to execute snow reads"
+        #    raise
             
     # Situation #4 - Read in model + SNODAS fields aggregated to basins plus point obs.
     if args.snRead == "4":
@@ -149,6 +175,13 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             print "ERROR: Unable to write to temporary R file."
             raise
             
+        cmd = "Rscript ./R/SNOW_BASIN_POINT_READ.R " + tmpRFile
+        #try:
+        #    subprocess.call(cmd,shell=True)
+        #except:
+        #    print "ERROR: Failure to execute snow reads"
+        #    raise
+            
     # Situation #5 - Read in model snow fields aggregated to basins.
     if args.snRead == "5":
         outFile = "outFile <- '" + jobDir + "/SN_BAS_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
@@ -159,6 +192,13 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             ioMgmntMod.writeStrToFile(tmpRFile,outFile)
         except:
             print "ERROR: Unable to write to temporary R file."
+            raise
+            
+        cmd = "Rscript ./R/SNOW_BASIN_READ.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
             raise
         
     # Situation #6 - Read in mode + SNODAS fields aggregated to basins. 
@@ -175,4 +215,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             ioMgmntMod.writeStrToFile(tmpRFile,outFile)
         except:
             print "ERROR: Unable to write to temporary R file."
+            raise
+            
+        cmd = "Rscript ./R/SNOW_BASIN_READ_SNODAS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
             raise
