@@ -94,7 +94,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     # Situation #1 - Read in model snow fields at points given observations file.
     if args.snRead == "1":
         print 'lkjsadf'
-        outFile = "outFile <- '" + jobDirStr + "/SN_PT_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_PT_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         print outFile
         obsStr = "ptObsFile <- '" + args.inFile + "'\n"
@@ -107,7 +107,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #2 - Read in model + SNODAS fields at points given observations file.
     if args.snRead == "2":
-        outFile = "outFile <- '" + jobDirStr + "/SN_PT_MOD_SNODAS_" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_PT_MOD_SNODAS_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         if len(dbIn.snodasPath[indDbOrig]) == 0:
@@ -123,7 +123,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #3 - Read in model snow fields aggregated to basins plus point obs.
     if args.snRead == "3":
-        outFile = "outFile <- '" + jobDirStr + "/SN_PTBAS_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_PTBAS_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'"
@@ -137,7 +137,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Situation #4 - Read in model + SNODAS fields aggregated to basins plus point obs.
     if args.snRead == "4":
-        outFile = "outFile <- '" + jobDirStr + "/SN_PTBAS_MOD_SNODAS_" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_PTBAS_MOD_SNODAS_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         if len(dbIn.snodasPath[indDbOrig]) == 0:
@@ -155,7 +155,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Situation #5 - Read in model snow fields aggregated to basins.
     if args.snRead == "5":
-        outFile = "outFile <- '" + jobDirStr + "/SN_BAS_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_BAS_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'\n"
         try:
@@ -167,7 +167,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #6 - Read in mode + SNODAS fields aggregated to basins. 
     if args.snRead == "6":
-        outFile = "outFile <- '" + jobDirStr + "/SN_BAS_MOD_SNODAS" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_BAS_MOD_SNODAS" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         if len(dbIn.snodasPath[indDbOrig]) == 0:
             print "ERROR: Path to SNODAS data necessary for reads."
