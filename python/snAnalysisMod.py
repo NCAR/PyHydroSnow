@@ -51,9 +51,9 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Compose datetime strings
     begDateStr = "dateStart <- as.POSIXct('" + begDateObj.strftime('%Y-%m-%d %H') + \
-                 ":00', format='%Y-%m-%d %H:%M', tz='UTC'\n" 
+                 ":00', format='%Y-%m-%d %H:%M', tz='UTC')\n" 
     endDateStr = "dateEnd <- as.POSIXct('" + endDateObj.strftime('%Y-%m-%d %H') + \
-                 ":00', format='%Y-%m-%d %H:%M', tz='UTC'\n"
+                 ":00', format='%Y-%m-%d %H:%M', tz='UTC')\n"
             
     # Establish constants
     jobDir = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/" + args.jobName
