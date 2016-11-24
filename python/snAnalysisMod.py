@@ -89,14 +89,10 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         print("ERROR: Unable to write basic R information to temporary file.")
         raise
         
-    print 'vnajksdnkj'
-        
     # Situation #1 - Read in model snow fields at points given observations file.
     if args.snRead == "1":
-        print 'lkjsadf'
         outFile = "outFile <- '" + jobDir + "/SN_PT_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
-        print outFile
         obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,obsStr)
