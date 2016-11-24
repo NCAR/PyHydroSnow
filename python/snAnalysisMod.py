@@ -58,9 +58,6 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     # Establish constants
     jobDir = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/" + args.jobName
     jobDirStr = "jobDir <- '" + jobDir + "'"
-    if args.snRead > 2 and not args.bsnMskFile:
-        print "ERROR: Basin mask file necessary to aggregate snow values."
-        raise
         
     # Establish path to SNODAS data
     if len(dbIn.snodasPath[indDbOrig]) != 0:

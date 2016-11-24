@@ -8,10 +8,10 @@
 import os
 import datetime
 import pickle
-import shutil
-import fileinput
-import sys
-import string
+#import shutil
+#import fileinput
+#import sys
+#import string
 
 def checkArgs(parser):
     # First check to ensure dates passed make sense
@@ -36,23 +36,23 @@ def checkArgs(parser):
         print "ERROR: Zero length job name passed to program."
         raise
     if parser.snRead:
-        if (int(parser.snRead) < 1) or (int(parser.snRead) > 6):
+        if int(parser.snRead) < 1 or int(parser.snRead) > 6:
             print "ERROR: Invalid Snow Read Value."
             raise
     if parser.snRun:
-        if (int(parser.snRun) < 1) or (int(parser.snRun) > 12):
+        if int(parser.snRun) < 1 or int(parser.snRun) > 12:
             print "ERROR: Invalid Snow Analysis Value."
             raise
     if parser.snRead:
-        if (int(parser.snRead) <= 4 and not parser.inFile):
+        if int(parser.snRead) <= 4 and not parser.inFile:
             print "ERROR: Input snow point observation file necessary."
             raise
-        if (int(parser.snRead) <= 4 and len(parser.inFile) == 0):
+        if int(parser.snRead) <= 4 and len(parser.inFile) == 0:
             print "ERROR: Zero length snow point observation passed when file needed for reading."
             raise
     if parser.snRun:
         if not parser.inFile:
-            print "ERROR: Necessary input file necessary for analysis."
+            print "ERROR: Input file necessary for analysis."
             raise
         elif len(parser.inFile):
             print "ERROR: Zero length input file passed to program when file needed for analysis."
@@ -61,7 +61,7 @@ def checkArgs(parser):
         if len(parser.bsnMskFile) == 0:
             print "ERROR: Zero length basin subset file passed to program."
             raise
-    if ((int(parser.snRead) > 2) and not parser.bsnMskFile):
+    if int(parser.snRead) > 2 and not parser.bsnMskFile:
         print "ERROR: Mask file necessary for aggregated reads."
         raise
     if parser.bsnSubFile:
