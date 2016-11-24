@@ -89,6 +89,8 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         print("ERROR: Unable to write basic R information to temporary file.")
         raise
         
+    print 'vnajksdnkj'
+        
     # Situation #1 - Read in model snow fields at points given observations file.
     if args.snRead == 1:
         print 'lkjsadf'
