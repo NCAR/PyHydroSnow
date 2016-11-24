@@ -101,31 +101,31 @@ for (i in 1:length(mskgeo.nameList)) {
       message(paste0('Processing: ',dCurrent))
       count = count + 1
       # Model data
-#      for(k in 1:length(modPathList)) {
-#         modoutTag <- modTags[k]
-#         tmpPath = modPaths[[k]]
-#         snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
-#			    "00.LDASOUT_DOMAIN1")
-#         id <- nc_open(snowPath)
-#         sweModel <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
-#         nc_close(id)
+      for(k in 1:length(modPathList)) {
+         modoutTag <- modTags[k]
+         tmpPath = modPaths[[k]]
+         snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
+			    "00.LDASOUT_DOMAIN1")
+         id <- nc_open(snowPath)
+         sweModel <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
+         nc_close(id)
 
-#         statsTemp <- basSnowMetrics(sweModel,mskVar,basElev,res=resKM)
-#         snowBasinData$Basin[count] <- bName
-#	 snowBasinData$Date[count] <- dCurrent
-#         snowBasinData$product[count] <- modoutTag
-#         snowBasinData$basin_area_km[count] <- statsTemp$totArea
-#         snowBasinData$snow_area_km[count] <- statsTemp$totSnoArea
-#         snowBasinData$snow_cover_fraction[count] <- statsTemp$snoFrac
-#         snowBasinData$mean_snow_line_meters[count] <- statsTemp$meanSnoElevMeters
-#         snowBasinData$mean_snow_line_feet[count] <- statsTemp$meanSnoElevFeet
-#         snowBasinData$snow_volume_cub_meters[count] <- statsTemp$sweVolCubMeters
-#         snowBasinData$snow_volume_acre_feet[count] <- statsTemp$sweVolAcreFeet
-#         snowBasinData$mean_swe_mm[count] <- statsTemp$meanSweMM
-#         snowBasinData$max_swe_mm[count] <- statsTemp$maxSweMM
-#
-#         count = count + 1
-#      }
+         statsTemp <- basSnowMetrics(sweModel,mskVar,basElev,res=resKM)
+         snowBasinData$Basin[count] <- bName
+	 snowBasinData$Date[count] <- dCurrent
+         snowBasinData$product[count] <- modoutTag
+         snowBasinData$basin_area_km[count] <- statsTemp$totArea
+         snowBasinData$snow_area_km[count] <- statsTemp$totSnoArea
+         snowBasinData$snow_cover_fraction[count] <- statsTemp$snoFrac
+         snowBasinData$mean_snow_line_meters[count] <- statsTemp$meanSnoElevMeters
+         snowBasinData$mean_snow_line_feet[count] <- statsTemp$meanSnoElevFeet
+         snowBasinData$snow_volume_cub_meters[count] <- statsTemp$sweVolCubMeters
+         snowBasinData$snow_volume_acre_feet[count] <- statsTemp$sweVolAcreFeet
+         snowBasinData$mean_swe_mm[count] <- statsTemp$meanSweMM
+         snowBasinData$max_swe_mm[count] <- statsTemp$maxSweMM
+
+         count = count + 1
+      }
    }
 }
 
@@ -133,4 +133,4 @@ for (i in 1:length(mskgeo.nameList)) {
 nc_close(idGeo)
 
 # Save data to output file
-#save(snowBasinData,file=outFile)
+save(snowBasinData,file=outFile)
