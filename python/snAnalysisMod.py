@@ -38,7 +38,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             tagStr = tagStr + "'" + tags[i] + "')"
         else:
             tagStr = tagStr + "'" + tags[i] + "', "
-    tagStr  = "modTags <- " + tagStr
+    tagStr  = "modTags <- " + tagStr + "\n"
 
     # Compose model/force path list string
     pathListStr = "c("
@@ -47,25 +47,25 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             pathListStr = pathListStr + "'" + modPaths[i] + "')"
         else:
             pathListStr = pathListStr + "'" + modPaths[i] + "', "
-    pathListStr = "modPaths <- " + pathListStr
+    pathListStr = "modPaths <- " + pathListStr + "\n"
             
     # Compose datetime strings
     begDateStr = "dateStart <- as.POSIXct('" + begDateObj.strftime('%Y-%m-%d %H') + \
-                 ":00', format='%Y-%m-%d %H:%M', tz='UTC'"
+                 ":00', format='%Y-%m-%d %H:%M', tz='UTC'\n" 
     endDateStr = "dateEnd <- as.POSIXct('" + endDateObj.strftime('%Y-%m-%d %H') + \
-                 ":00', format='%Y-%m-%d %H:%M', tz='UTC'"
+                 ":00', format='%Y-%m-%d %H:%M', tz='UTC'\n"
             
     # Establish constants
     jobDir = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/" + args.jobName
-    jobDirStr = "jobDir <- '" + jobDir + "'"
+    jobDirStr = "jobDir <- '" + jobDir + "'\n"
         
     # Establish path to SNODAS data
     if len(dbIn.snodasPath[indDbOrig]) != 0:
-        snodasStr = "snodasPath <- '" + dbIn.snodasPath[indDbOrig] + "'"
+        snodasStr = "snodasPath <- '" + dbIn.snodasPath[indDbOrig] + "'\n"
         
     # Compose strings conveying MPI size/rank information
-    sizeStr = "size <- " + str(size)
-    rankStr = "rank <- " + str(rank)
+    sizeStr = "size <- " + str(size) + "\n"
+    rankStr = "rank <- " + str(rank) + "\n"
     
     # Create empty temporary text file. This will be used by R to read in options for
     # reading in data.
@@ -91,7 +91,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #1 - Read in model snow fields at points given observations file.
     if args.snRead == 1:
-        obsStr = "ptObsFile <- '" + args.inFile + "'"
+        obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,obsStr)
         except:
@@ -100,7 +100,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #2 - Read in model + SNODAS fields at points given observations file.
     if args.snRead == 2:
-        obsStr = "ptObsFile <- '" + args.inFile + "'"
+        obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         if len(dbIn.snodasPath[indDbOrig]) == 0:
             print "ERROR: Path to SNODAS data necessary for reads."
             raise
@@ -113,7 +113,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #3 - Read in model snow fields aggregated to basins plus point obs.
     if args.snRead == 3:
-        obsStr = "ptObsFile <- '" + args.inFile + "'"
+        obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,obsStr)
@@ -124,11 +124,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Situation #4 - Read in model + SNODAS fields aggregated to basins plus point obs.
     if args.snRead == 4:
-        obsStr = "ptObsFile <- '" + args.inFile + "'"
+        obsStr = "ptObsFile <- '" + args.inFile + "'\n"
         if len(dbIn.snodasPath[indDbOrig]) == 0:
             print "ERROR: Path to SNODAS data necessary for reads."
             raise
-        bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'"
+        bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'\n"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,obsStr)
             ioMgmntMod.writeStrToFile(tmpRFile,bsnMskStr)
@@ -139,7 +139,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Situation #5 - Read in model snow fields aggregated to basins.
     if args.snRead == 5:
-        bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'"
+        bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'\n"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,bsnMskStr)
         except:
@@ -151,7 +151,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         if len(dbIn.snodasPath[indDbOrig]) == 0:
             print "ERROR: Path to SNODAS data necessary for reads."
             raise
-        bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'"
+        bsnMskStr = "bsnMskFile <- '" + args.bsnMskFile + "'\n"
         try:
             ioMgmntMod.writeStrToFile(tmpRFile,bsnMskStr)
             ioMgmntMod.writeStrToFile(tmpRFile,snodasStr)
