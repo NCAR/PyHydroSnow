@@ -91,6 +91,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #1 - Read in model snow fields at points given observations file.
     if args.snRead == 1:
+        print 'lkjsadf'
         outFile = "outFile <- '" + jobDirStr + "/SN_PT_MOD_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         print outFile
