@@ -52,7 +52,7 @@ if (size > 1){
 # Establish time information
 dUnits <- "days"
 diff <- difftime(dateEnd,dateStart,units=dUnits)
-nSteps <- diff1 <- as.numeric(diff1)
+nSteps <- diff <- as.numeric(diff)
 dt <- 24*3600
 
 # Create output data frame that will hold data
