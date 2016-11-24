@@ -101,7 +101,7 @@ for (i in 1:length(mskgeo.nameList)) {
       message(paste0('Processing: ',dCurrent))
       count = count + 1
       # Model data
-      for(k in 1:length(modPathList)) {
+      for(k in 1:length(modPaths)) {
          modoutTag <- modTags[k]
          tmpPath = modPaths[[k]]
          snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
