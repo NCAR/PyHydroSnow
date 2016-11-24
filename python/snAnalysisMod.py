@@ -195,6 +195,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             raise
             
         cmd = "Rscript ./R/SNOW_BASIN_READ.R " + tmpRFile
+        print cmd
         try:
             subprocess.call(cmd,shell=True)
         except:
