@@ -56,11 +56,11 @@ metaOut[['jCoord']] <- dfCoord$sn
 #numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
 
 ## Create output dataframes
-#sweOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSwePts)
-#sdOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSdPts)
+#sweOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSwePts)
+#sdOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSdPts)
 
-#names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
-#names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','value_mm','tag')
+#names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','region','value_mm','tag')
+#names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','region','value_mm','tag')
 
 #sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 #sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
@@ -99,9 +99,11 @@ metaOut[['jCoord']] <- dfCoord$sn
 #      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
 #      latTmp <- metaOut$latitude[indMeta]
 #      lonTmp <- metaOut$longitude[indMeta]
+#      regionTmp <- metaOut$region[indMeta]
 #
 #      sweOutPts$lat[count] <- latTmp
 #      sweOutPts$lon[count] <- lonTmp
+#      sweOutPts$region[count] <- regionTmp
 #      count <- count + 1
 #
 #      # Loop through model groups to read in.
@@ -120,6 +122,7 @@ metaOut[['jCoord']] <- dfCoord$sn
 #         sweOutPts$tag[count] <- modTag
 #         sweOutPts$lat[count] <- latTmp
 #         sweOutPts$lon[count] <- lonTmp
+#         sweOutPts$region[count] <- regionTmp
 #         count <- count + 1
 #      } 
 #   }
@@ -155,9 +158,11 @@ metaOut[['jCoord']] <- dfCoord$sn
 #      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
 #      latTmp <- metaOut$latitude[indMeta]
 #      lonTmp <- metaOut$longitude[indMeta]
+#      regionTmp <- metaOut$region[indMeta]
 #
 #      sdOutPts$lat[count] <- latTmp
 #      sdOutPts$lon[count] <- lonTmp
+#      sdOutPts$region[count] <- regionTmp
 #      count <- count + 1
 #
 #      # Loop through model groups to read in.
@@ -176,6 +181,7 @@ metaOut[['jCoord']] <- dfCoord$sn
 #         sdOutPts$tag[count] <- modTag
 #         sdOutPts$lat[count] <- latTmp
 #         sdOutPts$lon[count] <- lonTmp
+#         sdOutPts$region[count] <- regionTmp
 #         count <- count + 1
 #      }
 #   }

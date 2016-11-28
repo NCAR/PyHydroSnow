@@ -56,8 +56,8 @@ metaOut[['jCoord']] <- dfCoord$sn
 #numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
 
 ## Create output dataframes
-#sweOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSwePts)
-#sdOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSdPts)
+#sweOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSwePts)
+#sdOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSdPts)
 
 #names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
 #names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','value_mm','tag')
@@ -121,7 +121,22 @@ metaOut[['jCoord']] <- dfCoord$sn
 #         sweOutPts$lat[count] <- latTmp
 #         sweOutPts$lon[count] <- lonTmp
 #         count <- count + 1
-#      } 
+#      }
+#       
+#       # Pull SNODAS Data
+#       snowPath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+#                          strftime(dCurrent,"%Y%m%d"),".nc") 
+#       id <- nc_open(snowPath)
+#       sweSnodas <- ncvar_get(id,'SNEQV')
+#       nc_close(id)
+#
+#       sweOutPts$uniqueId[count] <- uniqueTmp[station]
+#       sweOutPts$POSIXct[count] <- dCurrent
+#       sweOutPts$value_mm[count] <- sweSnodas[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
+#       sweOutPts$tag[count] <- 'SNODAS'
+#       sweOutPts$lat[count] <- latTmp
+#       sweOutPts$lon[count] <- lonTmp
+#       count <- count + 1
 #   }
 #}
 
@@ -178,6 +193,22 @@ metaOut[['jCoord']] <- dfCoord$sn
 #         sdOutPts$lon[count] <- lonTmp
 #         count <- count + 1
 #      }
+#
+#       # Pull SNODAS Data
+#       snowPath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+#                          strftime(dCurrent,"%Y%m%d"),".nc")
+#       id <- nc_open(snowPath)
+#       sdSnodas <- ncvar_get(id,'SNOWH')
+#       nc_close(id)
+#       
+#       sdOutPts$uniqueId[count] <- uniqueTmp[station]
+#       sdOutPts$POSIXct[count] <- dCurrent
+#       sdOutPts$value_mm[count] <- sdSnodas[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
+#       sdOutPts$tag[count] <- 'SNODAS'
+#       sdOutPts$lat[count] <- latTmp
+#       sdOutPts$lon[count] <- lonTmp
+#       count <- count + 1
+#
 #   }
 #}
 

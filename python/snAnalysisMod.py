@@ -130,7 +130,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             print "ERROR: Unable to write to temporary R file."
             raise
             
-        cmd = "Rscript ./R/SNOW_POINT_READ.R " + tmpRFile
+        cmd = "Rscript ./R/SNOW_POINT_READ_SNODAS.R " + tmpRFile
         #try:
         #    subprocess.call(cmd,shell=True)
         #except:
@@ -176,7 +176,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             print "ERROR: Unable to write to temporary R file."
             raise
             
-        cmd = "Rscript ./R/SNOW_BASIN_POINT_READ.R " + tmpRFile
+        cmd = "Rscript ./R/SNOW_BASIN_POINT_READ_SNODAS.R " + tmpRFile
         #try:
         #    subprocess.call(cmd,shell=True)
         #except:
