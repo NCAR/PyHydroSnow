@@ -205,7 +205,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
         
     # Situation #6 - Read in mode + SNODAS fields aggregated to basins. 
     if args.snRead == "6":
-        outFile = "outFile <- '" + jobDir + "/SN_BAS_MOD_SNODAS" + begDateObj.strftime('%Y%m%d%H') + \
+        outFile = "outFile <- '" + jobDir + "/SN_BAS_MOD_SNODAS_" + begDateObj.strftime('%Y%m%d%H') + \
                   "_" + endDateObj.strftime('%Y%m%d%H') + ".Rdata'\n"
         if len(dbIn.snodasPath[indDbOrig]) == 0:
             print "ERROR: Path to SNODAS data necessary for reads."
