@@ -75,7 +75,7 @@ sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 count <- 1
 # SWE First.
 for (day in 1:nSteps){
-   dCurrent <- dateStart + dt*j
+   dCurrent <- dateStart + dt*day
    print(dCurrent)
 #   # Find all observations that fall on this day
 #   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
