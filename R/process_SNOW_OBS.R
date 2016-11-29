@@ -135,27 +135,37 @@ print('PLACING OBS INTO DATAFRAME')
 # Loop through observations pulled and place into output dataframe. In additin,
 # find region it falls within based on metadata frame
 # SWE First
-for (point in 1:numSweObs){
-	if(numSweObs == 0) next
-	sweOut$obs_mm[point] <- sweObs[point]
-	sweOut$uniqueId[point] <- sweObsIds[point]
-	sweOut$POSIXct[point] <- as.POSIXct(sweObsDate[point]*3600.0,origin="1970-01-01",tz="UTC") 
-	if (basinFlag == 1){
-		indTmp <- which(metaOut$uniqueId == sweObsIds[point])
-		sweOut$region[point] <- metaOut$region[indTmp]
-	}
+if(numSweObs != 0){
+   sweOut$obs_mm[:] <- sweObs[:]
+   sweOut$uniqueId[:] <- sweObsIds[:]
+   sweOut$POSIXct[:] <- as.POSIXct(sweObsDate[:]*3600.0,origin="1970-01-01",tz="UTC")
+   if (basinFlag == 1){
+      # Loop through unique ID points, fetch region value, and assign to output DF.
+      for(point in 1:length(metaOut$uniqueId){
+         idCheck <- metaOut$uniqueId[point]
+         regionTmp <- metaOut$regino[point]
+         indTmp <- which(sweOut$uniqueId == idCheck)
+         if(length(indTmp) != 0{
+            sweOut$region[ind] <- regionTmp
+         } 
+   }
 }
 
 # Depth next
-for (point in 1:numSdObs){
-	if(numSdObs == 0) next
-	sdOut$obs_mm[point] <- sdObs[point]
-	sdOut$uniqueId[point] <- sdObsIds[point]
-	sdOut$POSIXct[point] <- as.POSIXct(sdObsDate[point]*3600.0,origin="1970-01-01",tz="UTC")
-	if (basinFlag == 1){
-		indTmp <- which(metaOut$uniqueId == sdObsIds[point])
-		sdOut$region[point] <- metaOut$region[indTmp]
-	}
+if(numSdObs != 0){
+   sdOut$obs_mm[:] <- sdObs[:]
+   sdOut$uniqueId[:] <- sdObsIds[:]
+   sdOut$POSIXct[:] <- as.POSIXct(sdObsDate[:]*3600.0,origin="1970-01-01",tz="UTC")
+   if (basinFlag == 1){
+      # Loop through unique ID points, fetch region value, and assign to output DF.
+      for(point in 1:length(metaOut$uniqueId){
+         idCheck <- metaOut$uniqueId[point]
+         regionTmp <- metaOut$regino[point]
+         indTmp <- which(sdOut$uniqueId == idCheck) 
+         if(length(indTmp) != 0{ 
+            sdOut$region[ind] <- regionTmp
+         }
+   }
 }
 
 print('SAVING OUTPUT')
