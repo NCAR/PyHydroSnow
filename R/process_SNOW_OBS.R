@@ -141,7 +141,7 @@ if(numSweObs != 0){
    sweOut$POSIXct[] <- as.POSIXct(sweObsDate[]*3600.0,origin="1970-01-01",tz="UTC")
    if (basinFlag == 1){
       # Loop through unique ID points, fetch region value, and assign to output DF.
-      for(point in 1:length(metaOut$uniqueId){
+      for(point in 1:length(metaOut$uniqueId)){
          idCheck <- metaOut$uniqueId[point]
          regionTmp <- metaOut$regino[point]
          indTmp <- which(sweOut$uniqueId == idCheck)
@@ -159,7 +159,7 @@ if(numSdObs != 0){
    sdOut$POSIXct[] <- as.POSIXct(sdObsDate[:]*3600.0,origin="1970-01-01",tz="UTC")
    if (basinFlag == 1){
       # Loop through unique ID points, fetch region value, and assign to output DF.
-      for(point in 1:length(metaOut$uniqueId){
+      for(point in 1:length(metaOut$uniqueId)){
          idCheck <- metaOut$uniqueId[point]
          regionTmp <- metaOut$regino[point]
          indTmp <- which(sdOut$uniqueId == idCheck) 
