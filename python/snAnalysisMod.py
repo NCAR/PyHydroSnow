@@ -226,6 +226,7 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             print "ERROR: Failure to execute snow reads"
             raise
             
+    print tmpRFile
     # Remove temporary R namelist file
     #try:
     #    os.remove(tmpRFile)
