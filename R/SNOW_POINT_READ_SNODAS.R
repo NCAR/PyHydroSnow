@@ -63,7 +63,7 @@ metaOut[['jCoord']] <- dfCoord$sn
 #sdOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSdPts))
 
 #names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
-#names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','value_mm','tag')
+#names(sdOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
 
 #sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 #sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
