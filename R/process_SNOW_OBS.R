@@ -136,9 +136,9 @@ print('PLACING OBS INTO DATAFRAME')
 # find region it falls within based on metadata frame
 # SWE First
 if(numSweObs != 0){
-   sweOut$obs_mm[:] <- sweObs[:]
-   sweOut$uniqueId[:] <- sweObsIds[:]
-   sweOut$POSIXct[:] <- as.POSIXct(sweObsDate[:]*3600.0,origin="1970-01-01",tz="UTC")
+   sweOut$obs_mm[] <- sweObs[]
+   sweOut$uniqueId[] <- sweObsIds[]
+   sweOut$POSIXct[] <- as.POSIXct(sweObsDate[]*3600.0,origin="1970-01-01",tz="UTC")
    if (basinFlag == 1){
       # Loop through unique ID points, fetch region value, and assign to output DF.
       for(point in 1:length(metaOut$uniqueId){
@@ -154,9 +154,9 @@ if(numSweObs != 0){
 
 # Depth next
 if(numSdObs != 0){
-   sdOut$obs_mm[:] <- sdObs[:]
-   sdOut$uniqueId[:] <- sdObsIds[:]
-   sdOut$POSIXct[:] <- as.POSIXct(sdObsDate[:]*3600.0,origin="1970-01-01",tz="UTC")
+   sdOut$obs_mm[] <- sdObs[]
+   sdOut$uniqueId[] <- sdObsIds[]
+   sdOut$POSIXct[] <- as.POSIXct(sdObsDate[:]*3600.0,origin="1970-01-01",tz="UTC")
    if (basinFlag == 1){
       # Loop through unique ID points, fetch region value, and assign to output DF.
       for(point in 1:length(metaOut$uniqueId){
