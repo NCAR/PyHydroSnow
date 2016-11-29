@@ -77,55 +77,55 @@ count <- 1
 for (day in 1:nSteps){
    dCurrent <- dateStart + dt*day
    print(dCurrent)
-#   # Find all observations that fall on this day
-#   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-#   ind <- which(strftime(sweOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
-#   if(length(ind) == 0){
-#      print(paste0('WARNING: No SWE Observations Found For: ',strftime(dCurrent,'%Y-%m-%d',tz='UTC')))
-#      continue
-#   }
-#
-#   # Subset observation database for this timestep
-#   obsTmp <- sweOut[indTmp,]
-#   uniqueTmp <- unique(obsTmp$uniqueId)
-#
-#   # Loop through unique stations found in this time step. Average observed values found during 
-#   # time period are averaged. Modeled values are then pulled.
-#   for (station in 1:length(uniqueTmp)){
-#      indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
-#      sweOutPts$uniqueId[count] <- uniqueTmp[station]
-#      sweOutPts$POSIXct[count] <- dCurrent
-#      sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
-#      sweOutPts$tag[count] <- 'Obs'
-#
-#      # Pull meta data info for this station
-#      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
-#      latTmp <- metaOut$latitude[indMeta]
-#      lonTmp <- metaOut$longitude[indMeta]
-#
-#      sweOutPts$lat[count] <- latTmp
-#      sweOutPts$lon[count] <- lonTmp
-#      count <- count + 1
-#
-#      # Loop through model groups to read in.
-#      for (tag in 1:length(modTags)){
-#         modTag <- modTags[tag]
-#         tmpPath = modPaths[[tag]]
-#         snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
-#                            "00.LDASOUT_DOMAIN1")
-#         id <- nc_open(snowPath)
-#         sweModel <- ncvar_get(id,'SNEQV')
-#         nc_close(id)
-#
-#         sweOutPts$uniqueId[count] <- uniqueTmp[station]
-#         sweOutPts$POSIXct[count] <- dCurrent
-#         sweOutPts$value_mm[count] <- sweMod[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
-#         sweOutPts$tag[count] <- modTag
-#         sweOutPts$lat[count] <- latTmp
-#         sweOutPts$lon[count] <- lonTmp
-#         count <- count + 1
-#      } 
-#   }
+   # Find all observations that fall on this day
+   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+   ind <- which(strftime(sweOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
+   if(length(ind) == 0){
+      print(paste0('WARNING: No SWE Observations Found For: ',strftime(dCurrent,'%Y-%m-%d',tz='UTC')))
+      continue
+   }
+
+   # Subset observation database for this timestep
+   obsTmp <- sweOut[indTmp,]
+   uniqueTmp <- unique(obsTmp$uniqueId)
+
+   # Loop through unique stations found in this time step. Average observed values found during 
+   # time period are averaged. Modeled values are then pulled.
+   for (station in 1:length(uniqueTmp)){
+      indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
+      sweOutPts$uniqueId[count] <- uniqueTmp[station]
+      sweOutPts$POSIXct[count] <- dCurrent
+      sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
+      sweOutPts$tag[count] <- 'Obs'
+
+      # Pull meta data info for this station
+      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
+      latTmp <- metaOut$latitude[indMeta]
+      lonTmp <- metaOut$longitude[indMeta]
+
+      sweOutPts$lat[count] <- latTmp
+      sweOutPts$lon[count] <- lonTmp
+      count <- count + 1
+
+      # Loop through model groups to read in.
+      for (tag in 1:length(modTags)){
+         modTag <- modTags[tag]
+         tmpPath = modPaths[[tag]]
+         snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
+                            "00.LDASOUT_DOMAIN1")
+         id <- nc_open(snowPath)
+         sweModel <- ncvar_get(id,'SNEQV')
+         nc_close(id)
+
+         sweOutPts$uniqueId[count] <- uniqueTmp[station]
+         sweOutPts$POSIXct[count] <- dCurrent
+         sweOutPts$value_mm[count] <- sweMod[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
+         sweOutPts$tag[count] <- modTag
+         sweOutPts$lat[count] <- latTmp
+         sweOutPts$lon[count] <- lonTmp
+         count <- count + 1
+      } 
+   }
 }
 
 ## Depth Second.
