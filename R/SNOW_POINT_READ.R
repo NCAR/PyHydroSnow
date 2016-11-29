@@ -86,7 +86,7 @@ for (day in 1:nSteps){
    }
 
    # Subset observation database for this timestep
-   obsTmp <- sweOut[indTmp,]
+   obsTmp <- sweOut[ind,]
    uniqueTmp <- unique(obsTmp$uniqueId)
 
    # Loop through unique stations found in this time step. Average observed values found during 
@@ -142,7 +142,7 @@ for (day in 1:nSteps){
 #   }
 #
 #   # Subset observation database for this timestep
-#   obsTmp <- sdOut[indTmp,]
+#   obsTmp <- sdOut[ind,]
 #   uniqueTmp <- unique(obsTmp$uniqueId)
 #
 #   # Loop through unique stations found in this time step. Average observed values found during
