@@ -146,7 +146,7 @@ if(numSweObs != 0){
          regionTmp <- metaOut$regino[point]
          indTmp <- which(sweOut$uniqueId == idCheck)
          if(length(indTmp) != 0){
-            sweOut$region[ind] <- regionTmp
+            sweOut$region[indTmp] <- regionTmp
          }
       } 
    }
@@ -164,7 +164,7 @@ if(numSdObs != 0){
          regionTmp <- metaOut$regino[point]
          indTmp <- which(sdOut$uniqueId == idCheck) 
          if(length(indTmp) != 0){ 
-            sdOut$region[ind] <- regionTmp
+            sdOut$region[indTmp] <- regionTmp
          }
       }
    }
