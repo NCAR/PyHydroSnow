@@ -119,7 +119,7 @@ for (day in 1:nSteps){
 
          sweOutPts$uniqueId[count] <- uniqueTmp[station]
          sweOutPts$POSIXct[count] <- dCurrent
-         sweOutPts$value_mm[count] <- sweMod[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
+         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
          sweOutPts$tag[count] <- modTag
          sweOutPts$lat[count] <- latTmp
          sweOutPts$lon[count] <- lonTmp
@@ -175,7 +175,7 @@ for (day in 1:nSteps){
 #
 #         sdOutPts$uniqueId[count] <- uniqueTmp[station]
 #         sdOutPts$POSIXct[count] <- dCurrent
-#         sdOutPts$value_mm[count] <- sdMod[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
+#         sdOutPts$value_mm[count] <- sdModel[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
 #         sdOutPts$tag[count] <- modTag
 #         sdOutPts$lat[count] <- latTmp
 #         sdOutPts$lon[count] <- lonTmp
