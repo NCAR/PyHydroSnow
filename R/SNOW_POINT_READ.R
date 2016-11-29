@@ -47,6 +47,7 @@ dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude
 metaOut[['iCoord']] <- dfCoord$ew
 metaOut[['jCoord']] <- dfCoord$sn
 
+print(metaOut)
 ## Subset coordinates to remove NA values that fall outside of domain.
 #metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
 

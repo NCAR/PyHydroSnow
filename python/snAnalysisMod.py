@@ -108,11 +108,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             raise
             
         cmd = "Rscript ./R/SNOW_POINT_READ.R " + tmpRFile
-        #try:
-        #    subprocess.call(cmd,shell=True)
-        #except:
-        #    print "ERROR: Failure to execute snow reads"
-        #    raise
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
+            raise
         
     # Situation #2 - Read in model + SNODAS fields at points given observations file.
     if args.snRead == "2":
