@@ -147,7 +147,8 @@ if(numSweObs != 0){
          indTmp <- which(sweOut$uniqueId == idCheck)
          if(length(indTmp) != 0{
             sweOut$region[ind] <- regionTmp
-         } 
+         }
+      } 
    }
 }
 
@@ -165,6 +166,7 @@ if(numSdObs != 0){
          if(length(indTmp) != 0{ 
             sdOut$region[ind] <- regionTmp
          }
+      }
    }
 }
 
