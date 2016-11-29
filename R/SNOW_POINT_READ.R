@@ -50,34 +50,33 @@ dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude
 metaOut[['iCoord']] <- dfCoord$ew
 metaOut[['jCoord']] <- dfCoord$sn
 
-print(metaOut)
-## Subset coordinates to remove NA values that fall outside of domain.
-#metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
+# Subset coordinates to remove NA values that fall outside of domain.
+metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
 
-## Calculate total number of observations based on observations file and number of model
-## groups.
-#numPossSwePts <- length(sweOut$obs_mm)*length(modTags)
-#numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
+# Calculate total number of observations based on observations file and number of model
+# groups.
+numPossSwePts <- length(sweOut$obs_mm)*length(modTags)
+numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
 
-## Create output dataframes
-#sweOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSwePts)
-#sdOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSdPts)
+# Create output dataframes
+sweOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSwePts)
+sdOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSdPts)
 
-#names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
-#names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','value_mm','tag')
+names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
+names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','value_mm','tag')
 
-#sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
-#sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 
-## Loop time period of interest. Pull model values for each daily output file. 
-## In addition, check for observations for given day, if they exist, calculate
-## an average for the 24 hour time period and use that as the "observed" value.
+# Loop time period of interest. Pull model values for each daily output file. 
+# In addition, check for observations for given day, if they exist, calculate
+# an average for the 24 hour time period and use that as the "observed" value.
 
-#count <- 1
-## SWE First.
-#for (day in 1:nSteps){
-#   dCurrent <- dateStart + dt*j
-#
+count <- 1
+# SWE First.
+for (day in 1:nSteps){
+   dCurrent <- dateStart + dt*j
+   print(dCurrent)
 #   # Find all observations that fall on this day
 #   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
 #   ind <- which(strftime(sweOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
@@ -127,7 +126,7 @@ print(metaOut)
 #         count <- count + 1
 #      } 
 #   }
-#}
+}
 
 ## Depth Second.
 #count <- 1
