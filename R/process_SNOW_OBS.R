@@ -143,7 +143,7 @@ if(numSweObs != 0){
       # Loop through unique ID points, fetch region value, and assign to output DF.
       for(point in 1:length(metaOut$uniqueId)){
          idCheck <- metaOut$uniqueId[point]
-         regionTmp <- metaOut$regino[point]
+         regionTmp <- metaOut$region[point]
          indTmp <- which(sweOut$uniqueId == idCheck)
          if(length(indTmp) != 0){
             if(!is.na(regionTmp)){
@@ -163,7 +163,7 @@ if(numSdObs != 0){
       # Loop through unique ID points, fetch region value, and assign to output DF.
       for(point in 1:length(metaOut$uniqueId)){
          idCheck <- metaOut$uniqueId[point]
-         regionTmp <- metaOut$regino[point]
+         regionTmp <- metaOut$region[point]
          indTmp <- which(sdOut$uniqueId == idCheck) 
          if(length(indTmp) != 0){ 
             if(!is.na(regionTmp)){
