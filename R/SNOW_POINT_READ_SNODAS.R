@@ -7,6 +7,9 @@
 # National Center for Atmospheric Research
 # Research Applications Laboratory
 
+# Load necessary libraries
+library(rwrfhydro)
+
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
 sourceFile <- args[1]
