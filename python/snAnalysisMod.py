@@ -227,8 +227,8 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             raise
             
     # Remove temporary R namelist file
-    try:
-        os.remove(tmpRFile)
-    except:
-        print "ERROR: Failure to remove temporary R namelist file."
-        raise
+    #try:
+    #    os.remove(tmpRFile)
+    #except:
+    #    print "ERROR: Failure to remove temporary R namelist file."
+    #    raise
