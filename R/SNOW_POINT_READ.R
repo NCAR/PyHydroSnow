@@ -111,7 +111,7 @@ for (day in 1:nSteps){
       for (tag in 1:length(modTags)){
          modTag <- modTags[tag]
          tmpPath = modPaths[[tag]]
-         snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
+         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
                             "00.LDASOUT_DOMAIN1")
          id <- nc_open(snowPath)
          sweModel <- ncvar_get(id,'SNEQV')
@@ -167,7 +167,7 @@ for (day in 1:nSteps){
 #      for (tag in 1:length(modTags)){
 #         modTag <- modTags[tag]
 #         tmpPath = modPaths[[tag]]
-#         snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
+#         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
 #                            "00.LDASOUT_DOMAIN1")
 #         id <- nc_open(snowPath)
 #         sdModel <- ncvar_get(id,'SNEQV')
