@@ -100,6 +100,9 @@ for (day in 1:nSteps){
 
       # Pull meta data info for this station
       indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
+      print(station)
+      print(uniqueTmp[station])
+      print(indMeta)
       latTmp <- metaOut$latitude[indMeta]
       lonTmp <- metaOut$longitude[indMeta]
 
