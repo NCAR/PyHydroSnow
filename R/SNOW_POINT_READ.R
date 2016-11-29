@@ -59,8 +59,8 @@ numPossSwePts <- length(sweOut$obs_mm)*length(modTags)
 numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
 
 # Create output dataframes
-sweOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSwePts)
-sdOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSdPts)
+sweOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSwePts))
+sdOutPts <- data.frame(matrix(NA,ncol=6,nrow=numPossSdPts))
 
 names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','value_mm','tag')
 names(sdOutPts) <- c('uniqueId,'lat','lon','POSIXct','value_mm','tag')
