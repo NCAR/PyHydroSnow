@@ -120,7 +120,7 @@ for (day in 1:nSteps){
       sweOutPts$uniqueId[count] <- uniqueTmp[station]
       sweOutPts$POSIXct[count] <- dCurrent
       #sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
-      sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & uniqueId == uniqueTmp[station]]$obs_mm)
+      #sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & uniqueId == uniqueTmp[station]]$obs_mm)
       sweOutPts$tag[count] <- 'Obs'
 
       # Pull meta data info for this station
