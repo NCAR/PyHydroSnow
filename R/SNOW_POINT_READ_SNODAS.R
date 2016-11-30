@@ -103,6 +103,13 @@ for (day in 1:nSteps){
    }
    sweModel <- array(sweModel,dim=c(nCol,nRow,length(modTags)))
 
+   # Read in SNODAS data
+   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                            strftime(dCurrent,"%Y%m%d"),".nc")
+   id <- nc_open(snodasFilePath)
+   sweSnodas <- ncvar_get(id,'SNEQV')
+   nc_close(id)
+
    # Loop through each observation station and pull values based on I/J coordinates calculated earlier. 
    for (station in 1:length(uniqueTmp)){
       latTmp <- metaOut$latitude[station]
@@ -118,22 +125,16 @@ for (day in 1:nSteps){
          sweOutPts$lat[count] <- latTmp
          sweOutPts$lon[count] <- lonTmp
          count <- count + 1
-      } 
+      }
+      # Pull SNODAS data out for station
+      sweOutPts$uniqueId[count] <- uniqueTmp[station]
+      sweOutPts$POSIXct[count] <- dCurrent
+      sweOutPts$value_mm[count] <- sweSnodas[metaOut$iCoord[station],metaOut$jCoord[station]]
+      sweOutPts$tag[count] <- 'SNODAS'
+      sweOutPts$lat[count] <- latTmp
+      sweOutPts$lon[count] <- lonTmp
+      count <- count + 1
    }
-
-   # Read in SNODAS data
-   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-                            strftime(dCurrent,"%Y%m%d"),".nc")
-   id <- nc_open(snodasFilePath)
-   sweSnodas <- ncvar_get(id,'SNEQV')
-   nc_close(id)
-   sweOutPts$uniqueId[count] <- uniqueTmp[station]
-   sweOutPts$POSIXct[count] <- dCurrent
-   sweOutPts$value_mm[count] <- sweSnodas[metaOut$iCoord[station],metaOut$jCoord[station]]
-   sweOutPts$tag[count] <- 'SNODAS'
-   sweOutPts$lat[count] <- latTmp
-   sweOutPts$lon[count] <- lonTmp
-   count <- count + 1
 }
 
 # Second loop to read in and average daily observed values. 
@@ -195,6 +196,13 @@ for (day in 1:nSteps){
    }
    sdModel <- array(sdModel,dim=c(nCol,nRow,length(modTags)))
 
+   # Read in SNODAS data
+   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                            strftime(dCurrent,"%Y%m%d"),".nc")
+   id <- nc_open(snodasFilePath)
+   sdSnodas <- ncvar_get(id,'SNOWH')
+   nc_close(id)
+
    # Loop through each observation station and pull values based on I/J coordinates calculated earlier. 
    for (station in 1:length(uniqueTmp)){
       latTmp <- metaOut$latitude[station]
@@ -211,21 +219,15 @@ for (day in 1:nSteps){
          sdOutPts$lon[count] <- lonTmp
          count <- count + 1
       }
+      # Pull SNODAS data out for station
+      sdOutPts$uniqueId[count] <- uniqueTmp[station]
+      sdOutPts$POSIXct[count] <- dCurrent
+      sdOutPts$value_mm[count] <- sdSnodas[metaOut$iCoord[station],metaOut$jCoord[station]]
+      sdOutPts$tag[count] <- 'SNODAS'
+      sdOutPts$lat[count] <- latTmp
+      sdOutPts$lon[count] <- lonTmp
+      count <- count + 1
    }
-
-   # Read in SNODAS data
-   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-                            strftime(dCurrent,"%Y%m%d"),".nc")
-   id <- nc_open(snodasFilePath)
-   sdSnodas <- ncvar_get(id,'SNOWH')
-   nc_close(id)
-   sdOutPts$uniqueId[count] <- uniqueTmp[station]
-   sdOutPts$POSIXct[count] <- dCurrent
-   sdOutPts$value_mm[count] <- sdSnodas[metaOut$iCoord[station],metaOut$jCoord[station]]
-   sdOutPts$tag[count] <- 'SNODAS'
-   sdOutPts$lat[count] <- latTmp
-   sdOutPts$lon[count] <- lonTmp
-   count <- count + 1
 }
 
 # Second loop to read in and average daily observed values.
