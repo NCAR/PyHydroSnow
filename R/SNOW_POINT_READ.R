@@ -253,4 +253,4 @@ sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 #sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
 # Save output
-save(sweOut,sdOut,file=outFile)
+save(sweOutPts,sdOutPts,file=outFile)
