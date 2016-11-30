@@ -106,8 +106,8 @@ for (day in 1:nSteps){
       nc_close(id)
       if(tag == 1){
          sweModel <- tmpModel
-         nCol <- dim(sweModel)[0]
-         nRow <- dim(sweModel)[1]
+         nCol <- dim(sweModel)[1]
+         nRow <- dim(sweModel)[2]
       } else {
          sweModel <- cbind(sweModel,tmpModel)
       }
