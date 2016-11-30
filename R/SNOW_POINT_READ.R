@@ -118,23 +118,23 @@ for (day in 1:nSteps){
    # time period are averaged. Modeled values are then pulled.
    for (station in 1:length(uniqueTmp)){
       #indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
-      sweOutPts$uniqueId[count] <- uniqueTmp[station]
-      sweOutPts$POSIXct[count] <- dCurrent
-      #sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
-      #sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & uniqueId == uniqueTmp[station]]$obs_mm)
-      sweOutPts$tag[count] <- 'Obs'
+      #sweOutPts$uniqueId[count] <- uniqueTmp[station]
+      #sweOutPts$POSIXct[count] <- dCurrent
+      ##sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
+      ##sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & uniqueId == uniqueTmp[station]]$obs_mm)
+      #sweOutPts$tag[count] <- 'Obs'
 
-      # Pull meta data info for this station
-      #indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
-      print('--------------------')
-      print(station)
-      print(uniqueTmp[station])
-      latTmp <- metaOut$latitude[station]
-      lonTmp <- metaOut$longitude[station]
+      ## Pull meta data info for this station
+      ##indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
+      #print('--------------------')
+      #print(station)
+      #print(uniqueTmp[station])
+      #latTmp <- metaOut$latitude[station]
+      #lonTmp <- metaOut$longitude[station]
 
-      sweOutPts$lat[count] <- latTmp
-      sweOutPts$lon[count] <- lonTmp
-      count <- count + 1
+      #sweOutPts$lat[count] <- latTmp
+      #sweOutPts$lon[count] <- lonTmp
+      #count <- count + 1
 
       # Loop through model groups to read in.
       for (tag in 1:length(modTags)){
@@ -158,6 +158,37 @@ for (day in 1:nSteps){
    }
 }
 
+uniqueTmp <- unique(metaOut$uniqueId)
+for (station in 1:length(uniqueTmp)){
+
+   obsTmp <- sweOut[uniqueId == uniqueTmp[station]]
+
+   count <- 1 
+   for (day in 1:nSteps){
+      dCurrent <- dateStart + dt*day
+      print(dCurrent)
+      # Find all observations that fall on this day
+      dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+      sweOutPts$uniqueId[count] <- uniqueTmp[station]
+      sweOutPts$POSIXct[count] <- dCurrent
+      ##sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
+      sweOutPts$value_mm[count] <- mean(obsTmp[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1]$obs_mm)
+      sweOutPts$tag[count] <- 'Obs'
+
+      # Pull meta data info for this station
+      #indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
+      print('--------------------')
+      print(station)
+      print(uniqueTmp[station])
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
+
+      sweOutPts$lat[count] <- latTmp
+      sweOutPts$lon[count] <- lonTmp
+      count <- count + 1
+
+}
 ## Depth Second.
 #count <- 1
 #for (day in 1:nSteps){
