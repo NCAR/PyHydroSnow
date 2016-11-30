@@ -9,6 +9,7 @@
 
 # Load necessary libraries
 library(rwrfhydro)
+library(data.table)
 
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
@@ -35,7 +36,6 @@ dt <- 24*3600
 # Open point observations file and use meta dataframe
 # to extract i/j coordinates for each point. These will
 # be used to extract gridded snow values.
-
 load(ptObsFile)
 
 # Loop through each obs point and calculate i/j coordinates
@@ -50,149 +50,192 @@ dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude
 metaOut[['iCoord']] <- dfCoord$ew
 metaOut[['jCoord']] <- dfCoord$sn
 
-## Subset coordinates to remove NA values that fall outside of domain.
-#metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
+# Subset coordinates to remove NA values that fall outside of domain.
+metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
 
-## Calculate total number of observations based on observations file and number of model
-## groups.
-#numPossSwePts <- length(sweOut$obs_mm)*length(modTags)
-#numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
+# Calculate total number of observations based on observations file and number of model
+# groups.
+numPossSwePts <- length(sweOut$obs_mm)*length(modTags)
+numPossSdPts <- length(sdOut$obs_mm)*length(modTags)
 
-## Create output dataframes
-#sweOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSwePts))
-#sdOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSdPts))
+# Create output dataframes
+sweOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSwePts))
+sdOutPts <- data.frame(matrix(NA,ncol=7,nrow=numPossSdPts))
 
-#names(sweOutPts) <- c('uniqueId','lat','lon','POSIXct','region','value_mm','tag')
-#names(sdOutPts) <- c('uniqueId','lat','lon','POSIXct','region','value_mm','tag')
+names(sweOutPts) <- c('uniqueId','lat','lon','region','POSIXct','value_mm','tag')
+names(sdOutPts) <- c('uniqueId','lat','lon','region','POSIXct','value_mm','tag')
 
-#sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
-#sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 
-## Loop time period of interest. Pull model values for each daily output file. 
-## In addition, check for observations for given day, if they exist, calculate
-## an average for the 24 hour time period and use that as the "observed" value.
+# Perform two loops. First will loop through each day and pull model/SNODAS output for each
+# observation station. Second loop will loop through each observation station, subset 
+# observations based on station ID, and then loop through each time step to pull out 
+# a daily average value. 
 
-#count <- 1
-## SWE First.
-#for (day in 1:nSteps){
-#   dCurrent <- dateStart + dt*day
-#
-#   # Find all observations that fall on this day
-#   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-#   ind <- which(strftime(sweOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
-#   if(length(ind) == 0){
-#      print(paste0('WARNING: No SWE Observations Found For: ',strftime(dCurrent,'%Y-%m-%d',tz='UTC')))
-#      continue
-#   }
-#
-#   # Subset observation database for this timestep
-#   obsTmp <- sweOut[ind,]
-#   uniqueTmp <- unique(metaOut$uniqueId)
-#
-#   # Loop through unique stations found in this time step. Average observed values found during 
-#   # time period are averaged. Modeled values are then pulled.
-#   for (station in 1:length(uniqueTmp)){
-#      indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
-#      sweOutPts$uniqueId[count] <- uniqueTmp[station]
-#      sweOutPts$POSIXct[count] <- dCurrent
-#      sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
-#      sweOutPts$tag[count] <- 'Obs'
-#
-#      # Pull meta data info for this station
-#      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
-#      latTmp <- metaOut$latitude[indMeta]
-#      lonTmp <- metaOut$longitude[indMeta]
-#      regionTmp <- metaOut$region[indMeta]
-#
-#      sweOutPts$lat[count] <- latTmp
-#      sweOutPts$lon[count] <- lonTmp
-#      sweOutPts$region[count] <- regionTmp
-#      count <- count + 1
-#
-#      # Loop through model groups to read in.
-#      for (tag in 1:length(modTags)){
-#         modTag <- modTags[tag]
-#         tmpPath = modPaths[[tag]]
-#         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-#                            "00.LDASOUT_DOMAIN1")
-#         id <- nc_open(snowPath)
-#         sweModel <- ncvar_get(id,'SNEQV')
-#         nc_close(id)
-#
-#         sweOutPts$uniqueId[count] <- uniqueTmp[station]
-#         sweOutPts$POSIXct[count] <- dCurrent
-#         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
-#         sweOutPts$tag[count] <- modTag
-#         sweOutPts$lat[count] <- latTmp
-#         sweOutPts$lon[count] <- lonTmp
-#         sweOutPts$region[count] <- regionTmp
-#         count <- count + 1
-#      } 
-#   }
-#}
+count <- 1
+# SWE First.
+for (day in 1:nSteps){
+   dCurrent <- dateStart + dt*day
+   print(dCurrent)
+   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
 
-## Depth Second.
-#count <- 1
-#for (day in 1:nSteps){
-#   dCurrent <- dateStart + dt*j
-#
-#   # Find all observations that fall on this day
-#   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-#   ind <- which(strftime(sdOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
-#   if(length(ind) == 0){
-#      print(paste0('WARNING: No SWE Observations Found For: ',strftime(dCurrent,'%Y-%m-%d',tz='UTC')))
-#      continue
-#   }
-#
-#   # Subset observation database for this timestep
-#   obsTmp <- sdOut[ind,]
-#   uniqueTmp <- unique(metaOut$uniqueId)
-#
-#   # Loop through unique stations found in this time step. Average observed values found during
-#   # time period are averaged. Modeled values are then pulled.
-#   for (station in 1:length(uniqueTmp)){
-#      indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
-#      sdOutPts$uniqueId[count] <- uniqueTmp[station]
-#      sdOutPts$POSIXct[count] <- dCurrent
-#      sdOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
-#      sdOutPts$tag[count] <- 'Obs'
-#
-#      # Pull meta data info for this station
-#      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
-#      latTmp <- metaOut$latitude[indMeta]
-#      lonTmp <- metaOut$longitude[indMeta]
-#      regionTmp <- metaOut$region[indMeta]
-#
-#      sdOutPts$lat[count] <- latTmp
-#      sdOutPts$lon[count] <- lonTmp
-#      sdOutPts$region[count] <- regionTmp
-#      count <- count + 1
-#
-#      # Loop through model groups to read in.
-#      for (tag in 1:length(modTags)){
-#         modTag <- modTags[tag]
-#         tmpPath = modPaths[[tag]]
-#         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-#                            "00.LDASOUT_DOMAIN1")
-#         id <- nc_open(snowPath)
-#         sdModel <- ncvar_get(id,'SNEQV')
-#         nc_close(id)
-#
-#         sdOutPts$uniqueId[count] <- uniqueTmp[station]
-#         sdOutPts$POSIXct[count] <- dCurrent
-#         sdOutPts$value_mm[count] <- sdModel[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
-#         sdOutPts$tag[count] <- modTag
-#         sdOutPts$lat[count] <- latTmp
-#         sdOutPts$lon[count] <- lonTmp
-#         sdOutPts$region[count] <- regionTmp
-#         count <- count + 1
-#      }
-#   }
-#}
+   # Create list of ID values 
+   uniqueTmp <- unique(metaOut$uniqueId)
+   
+   # Read in model output. If multiple model directories, stack each model output
+   # array ontop of each other to create a 3D array for referencing. 
+   for (tag in 1:length(modTags)){
+      modTag <- modTags[tag]
+      tmpPath <- modPaths[[tag]]
+      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                         "00.LDASOUT_DOMAIN1")
+      id <- nc_open(snowPath)
+      tmpModel <- ncvar_get(id,'SNEQV')
+      nc_close(id)
+      if(tag == 1){
+         sweModel <- tmpModel
+         nCol <- dim(sweModel)[1]
+         nRow <- dim(sweModel)[2]
+      } else {
+         sweModel <- cbind(sweModel,tmpModel)
+      }
+   }
+   sweModel <- array(sweModel,dim=c(nCol,nRow,length(modTags)))
 
-## Subset data frames to exclude any missing values
-#sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
-#sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+   # Loop through each observation station and pull values based on I/J coordinates calculated earlier. 
+   for (station in 1:length(uniqueTmp)){
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
 
-## Save output
-#save(sweOut,sdOut,file=outFile)
+      # Loop through model groups to read in.
+      for (tag in 1:length(modTags)){
+         modTag <- modTags[tag]
+         sweOutPts$uniqueId[count] <- uniqueTmp[station]
+         sweOutPts$POSIXct[count] <- dCurrent
+         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
+         sweOutPts$tag[count] <- modTag
+         sweOutPts$lat[count] <- latTmp
+         sweOutPts$lon[count] <- lonTmp
+         sweOutPts$region[count] <- metaOut$region[station]
+         count <- count + 1
+      } 
+   }
+}
+
+# Second loop to read in and average daily observed values. 
+uniqueTmp <- unique(metaOut$uniqueId)
+for (station in 1:length(uniqueTmp)){
+   # Subset observations based on ID.
+   obsTmp <- sweOut[uniqueId == uniqueTmp[station]]
+
+   #count <- 1 
+   for (day in 1:nSteps){
+      if(day == 1){
+         print(station)
+      }
+      dCurrent <- dateStart + dt*day
+      dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+      sweOutPts$uniqueId[count] <- uniqueTmp[station]
+      sweOutPts$POSIXct[count] <- dCurrent
+      sweOutPts$value_mm[count] <- mean(obsTmp[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1]$obs_mm)
+      sweOutPts$tag[count] <- 'Obs'
+
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
+
+      sweOutPts$lat[count] <- latTmp
+      sweOutPts$lon[count] <- lonTmp
+      sweOutPts$region[count] <- metaOut$region[station]
+      count <- count + 1
+   }
+
+}
+
+# Snow Depth Next.
+count <- 1
+for (day in 1:nSteps){
+   dCurrent <- dateStart + dt*day
+   print(dCurrent)
+   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+   # Create list of ID values
+   uniqueTmp <- unique(metaOut$uniqueId)
+
+   # Read in model output. If multiple model directories, stack each model output
+   # array ontop of each other to create a 3D array for referencing.
+   for (tag in 1:length(modTags)){
+      modTag <- modTags[tag]
+      tmpPath <- modPaths[[tag]]
+      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                         "00.LDASOUT_DOMAIN1")
+      id <- nc_open(snowPath)
+      tmpModel <- ncvar_get(id,'SNOWH')
+      nc_close(id)
+      if(tag == 1){
+         sdModel <- tmpModel
+         nCol <- dim(sdModel)[1]
+         nRow <- dim(sdModel)[2]
+      } else {
+         sdModel <- cbind(sdModel,tmpModel)
+      }
+   }
+   sdModel <- array(sdModel,dim=c(nCol,nRow,length(modTags)))
+
+   # Loop through each observation station and pull values based on I/J coordinates calculated earlier. 
+   for (station in 1:length(uniqueTmp)){
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
+
+      # Loop through model groups to read in.
+      for (tag in 1:length(modTags)){
+         modTag <- modTags[tag]
+         sdOutPts$uniqueId[count] <- uniqueTmp[station]
+         sdOutPts$POSIXct[count] <- dCurrent
+         sdOutPts$value_mm[count] <- sdModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
+         sdOutPts$tag[count] <- modTag
+         sdOutPts$lat[count] <- latTmp
+         sdOutPts$lon[count] <- lonTmp
+         sdOutPts$region[count] <- metaOut$region[station]
+         count <- count + 1
+      }
+   }
+}
+
+# Second loop to read in and average daily observed values.
+uniqueTmp <- unique(metaOut$uniqueId)
+for (station in 1:length(uniqueTmp)){
+   # Subset observations based on ID.
+   obsTmp <- sdOut[uniqueId == uniqueTmp[station]]
+
+   #count <- 1
+   for (day in 1:nSteps){
+      if(day == 1){
+         print(station)
+      }
+      dCurrent <- dateStart + dt*day
+      dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+      sdOutPts$uniqueId[count] <- uniqueTmp[station]
+      sdOutPts$POSIXct[count] <- dCurrent
+      sdOutPts$value_mm[count] <- mean(obsTmp[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1]$obs_mm)
+      sdOutPts$tag[count] <- 'Obs'
+
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
+
+      sdOutPts$lat[count] <- latTmp
+      sdOutPts$lon[count] <- lonTmp
+      sdOutPts$region[count] <- metaOut$region[station]
+      count <- count + 1
+   }
+
+}
+
+# Subset data frames to exclude any missing values
+sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
+sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+
+# Save output
+save(sweOutPts,sdOutPts,file=outFile)
