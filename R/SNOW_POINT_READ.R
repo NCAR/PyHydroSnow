@@ -167,8 +167,8 @@ for (station in 1:length(uniqueTmp)){
    print(station)
    count <- 1 
    for (day in 1:nSteps){
-      dCurrent <- dateStart + dt*day
-      print(dCurrent)
+      #dCurrent <- dateStart + dt*day
+      #print(dCurrent)
       # Find all observations that fall on this day
       dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
 
@@ -248,9 +248,9 @@ for (station in 1:length(uniqueTmp)){
 #   }
 #}
 
-## Subset data frames to exclude any missing values
-#sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
+# Subset data frames to exclude any missing values
+sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 #sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
-## Save output
-#save(sweOut,sdOut,file=outFile)
+# Save output
+save(sweOut,sdOut,file=outFile)
