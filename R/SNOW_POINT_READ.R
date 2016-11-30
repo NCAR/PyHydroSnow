@@ -150,7 +150,7 @@ for (day in 1:nSteps){
          sweOutPts$POSIXct[count] <- dCurrent
          #sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
          print(dim(sweModel))
-         print(sweModel[metaOut$iCoord[station])
+         print(metaOut$iCoord[station])
          print(metaOut$jCoord[station])
          sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
          sweOutPts$tag[count] <- modTag
