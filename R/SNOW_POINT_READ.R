@@ -163,10 +163,11 @@ for (station in 1:length(uniqueTmp)){
 
    obsTmp <- sweOut[uniqueId == uniqueTmp[station]]
 
-   print('-------------------')
-   print(station)
-   count <- 1 
+   #count <- 1 
    for (day in 1:nSteps){
+      if(day == 1){
+         print(station)
+      }
       #dCurrent <- dateStart + dt*day
       #print(dCurrent)
       # Find all observations that fall on this day
@@ -249,7 +250,7 @@ for (station in 1:length(uniqueTmp)){
 #}
 
 # Subset data frames to exclude any missing values
-sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
+#sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 #sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
 # Save output
