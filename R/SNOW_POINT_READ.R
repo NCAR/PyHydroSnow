@@ -99,12 +99,12 @@ for (day in 1:nSteps){
       sweOutPts$tag[count] <- 'Obs'
 
       # Pull meta data info for this station
-      indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
+      #indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
+      print('--------------------')
       print(station)
       print(uniqueTmp[station])
-      print(indMeta)
-      latTmp <- metaOut$latitude[indMeta]
-      lonTmp <- metaOut$longitude[indMeta]
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
 
       sweOutPts$lat[count] <- latTmp
       sweOutPts$lon[count] <- lonTmp
@@ -122,7 +122,7 @@ for (day in 1:nSteps){
 
          sweOutPts$uniqueId[count] <- uniqueTmp[station]
          sweOutPts$POSIXct[count] <- dCurrent
-         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[indMeta],metaOut$jCoord[indMeta]]
+         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
          sweOutPts$tag[count] <- modTag
          sweOutPts$lat[count] <- latTmp
          sweOutPts$lon[count] <- lonTmp
