@@ -187,6 +187,7 @@ for (station in 1:length(uniqueTmp)){
       sweOutPts$lat[count] <- latTmp
       sweOutPts$lon[count] <- lonTmp
       count <- count + 1
+   }
 
 }
 ## Depth Second.
