@@ -129,8 +129,8 @@ for (day in 1:nSteps){
       #print('--------------------')
       #print(station)
       #print(uniqueTmp[station])
-      #latTmp <- metaOut$latitude[station]
-      #lonTmp <- metaOut$longitude[station]
+      latTmp <- metaOut$latitude[station]
+      lonTmp <- metaOut$longitude[station]
 
       #sweOutPts$lat[count] <- latTmp
       #sweOutPts$lon[count] <- lonTmp
