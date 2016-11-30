@@ -125,7 +125,7 @@ for (day in 1:nSteps){
    snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
                             strftime(dCurrent,"%Y%m%d"),".nc")
    id <- nc_open(snodasFilePath)
-   sweSnodas <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
+   sweSnodas <- ncvar_get(id,'SNEQV')
    nc_close(id)
    sweOutPts$uniqueId[count] <- uniqueTmp[station]
    sweOutPts$POSIXct[count] <- dCurrent
@@ -217,7 +217,7 @@ for (day in 1:nSteps){
    snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
                             strftime(dCurrent,"%Y%m%d"),".nc")
    id <- nc_open(snodasFilePath)
-   sdSnodas <- ncvar_get(id,'SNOWH',start=bStart,count=bCount)
+   sdSnodas <- ncvar_get(id,'SNOWH')
    nc_close(id)
    sdOutPts$uniqueId[count] <- uniqueTmp[station]
    sdOutPts$POSIXct[count] <- dCurrent
