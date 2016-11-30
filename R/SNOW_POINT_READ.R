@@ -84,23 +84,24 @@ for (day in 1:nSteps){
    print(dCurrent)
    # Find all observations that fall on this day
    dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-   ind <- which(strftime(sweOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
-   if(length(ind) == 0){
-      print(paste0('WARNING: No SWE Observations Found For: ',strftime(dCurrent,'%Y-%m-%d',tz='UTC')))
-      continue
-   }
+   #ind <- which(strftime(sweOut$POSIXct,'%Y-%m-%d',tz='UTC') == dStr1)
+   #if(length(ind) == 0){
+   #   print(paste0('WARNING: No SWE Observations Found For: ',strftime(dCurrent,'%Y-%m-%d',tz='UTC')))
+   #   continue
+   #}
 
    # Subset observation database for this timestep
-   obsTmp <- sweOut[ind,]
+   #obsTmp <- sweOut[ind,]
    uniqueTmp <- unique(metaOut$uniqueId)
 
    # Loop through unique stations found in this time step. Average observed values found during 
    # time period are averaged. Modeled values are then pulled.
    for (station in 1:length(uniqueTmp)){
-      indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
+      #indObs <- which(obsTmp$uniqueId == uniqueTmp[station])
       sweOutPts$uniqueId[count] <- uniqueTmp[station]
       sweOutPts$POSIXct[count] <- dCurrent
-      sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
+      #sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
+      sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1, & uniqueId == uniqueTmp[station]$obs_mm)
       sweOutPts$tag[count] <- 'Obs'
 
       # Pull meta data info for this station
