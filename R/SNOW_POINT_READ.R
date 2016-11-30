@@ -9,6 +9,7 @@
 
 # Load necessary libraries
 library(rwrfhydro)
+library(data.table)
 
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
@@ -37,6 +38,10 @@ dt <- 24*3600
 # be used to extract gridded snow values.
 
 load(ptObsFile)
+
+metaOut <- as.data.table(metaOut)
+sweOut <- as.data.table(sweOut)
+sdOut <- as.data.table(sdOut)
 
 # Loop through each obs point and calculate i/j coordinates
 # using geogrid file. 
