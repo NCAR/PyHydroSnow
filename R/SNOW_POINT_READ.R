@@ -121,7 +121,7 @@ for (day in 1:nSteps){
       sweOutPts$uniqueId[count] <- uniqueTmp[station]
       sweOutPts$POSIXct[count] <- dCurrent
       #sweOutPts$value_mm[count] <- mean(obsTmp$obs_mm[indObs])
-      sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & uniqueId == uniqueTmp[station]]$obs_mm)
+      #sweOutPts$value_mm[count] <- mean(sweOut[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & uniqueId == uniqueTmp[station]]$obs_mm)
       sweOutPts$tag[count] <- 'Obs'
 
       # Pull meta data info for this station
@@ -136,25 +136,25 @@ for (day in 1:nSteps){
       sweOutPts$lon[count] <- lonTmp
       count <- count + 1
 
-      ## Loop through model groups to read in.
-      #for (tag in 1:length(modTags)){
-      #   modTag <- modTags[tag]
-      #   #tmpPath = modPaths[[tag]]
-      #   #snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-      #   #                   "00.LDASOUT_DOMAIN1")
-      #   #id <- nc_open(snowPath)
-      #   #sweModel <- ncvar_get(id,'SNEQV')
-      #   #nc_close(id)
+      # Loop through model groups to read in.
+      for (tag in 1:length(modTags)){
+         modTag <- modTags[tag]
+         #tmpPath = modPaths[[tag]]
+         #snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+         #                   "00.LDASOUT_DOMAIN1")
+         #id <- nc_open(snowPath)
+         #sweModel <- ncvar_get(id,'SNEQV')
+         #nc_close(id)
 
-      #   sweOutPts$uniqueId[count] <- uniqueTmp[station]
-      #   sweOutPts$POSIXct[count] <- dCurrent
-      #   #sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
-      #   sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
-      #   sweOutPts$tag[count] <- modTag
-      #   sweOutPts$lat[count] <- latTmp
-      #   sweOutPts$lon[count] <- lonTmp
-      #   count <- count + 1
-      #} 
+         sweOutPts$uniqueId[count] <- uniqueTmp[station]
+         sweOutPts$POSIXct[count] <- dCurrent
+         #sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
+         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
+         sweOutPts$tag[count] <- modTag
+         sweOutPts$lat[count] <- latTmp
+         sweOutPts$lon[count] <- lonTmp
+         count <- count + 1
+      } 
    }
 }
 
