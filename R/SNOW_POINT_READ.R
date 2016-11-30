@@ -94,6 +94,25 @@ for (day in 1:nSteps){
    #obsTmp <- sweOut[ind,]
    uniqueTmp <- unique(metaOut$uniqueId)
 
+   
+   # Read in model output
+   for (tag in 1:length(modTags)){
+      modTag <- modTags[tag]
+      tmpPath <- modPaths[[tag]]
+      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                         "00.LDASOUT_DOMAIN1")
+      id <- nc_open(snowPath)
+      tmpModel <- ncvar_get(id,'SNEQV')
+      nc_close(id)
+      if(tag == 1){
+         sweModel <- tmpModel
+         nCol <- dim(sweModel)[0]
+         nRow <- dim(sweModel)[1]
+      } else {
+         sweModel <- cbind(sweModel,tmpModel)
+      }
+   sweModel <- array(sweModel,dim=c(nCol,nRow,length(modTags)))
+
    # Loop through unique stations found in this time step. Average observed values found during 
    # time period are averaged. Modeled values are then pulled.
    for (station in 1:length(uniqueTmp)){
@@ -119,16 +138,17 @@ for (day in 1:nSteps){
       # Loop through model groups to read in.
       for (tag in 1:length(modTags)){
          modTag <- modTags[tag]
-         tmpPath = modPaths[[tag]]
-         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-                            "00.LDASOUT_DOMAIN1")
-         id <- nc_open(snowPath)
-         sweModel <- ncvar_get(id,'SNEQV')
-         nc_close(id)
+         #tmpPath = modPaths[[tag]]
+         #snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+         #                   "00.LDASOUT_DOMAIN1")
+         #id <- nc_open(snowPath)
+         #sweModel <- ncvar_get(id,'SNEQV')
+         #nc_close(id)
 
          sweOutPts$uniqueId[count] <- uniqueTmp[station]
          sweOutPts$POSIXct[count] <- dCurrent
-         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
+         #sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
+         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
          sweOutPts$tag[count] <- modTag
          sweOutPts$lat[count] <- latTmp
          sweOutPts$lon[count] <- lonTmp
