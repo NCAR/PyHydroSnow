@@ -183,7 +183,7 @@ for (station in 1:length(uniqueTmp)){
       #indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
       #print('--------------------')
       #print(station)
-      print(uniqueTmp[station])
+      #print(uniqueTmp[station])
       latTmp <- metaOut$latitude[station]
       lonTmp <- metaOut$longitude[station]
 
@@ -250,7 +250,7 @@ for (station in 1:length(uniqueTmp)){
 #}
 
 # Subset data frames to exclude any missing values
-#sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
+sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 #sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
 # Save output
