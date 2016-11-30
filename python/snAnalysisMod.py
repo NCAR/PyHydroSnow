@@ -131,11 +131,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             raise
             
         cmd = "Rscript ./R/SNOW_POINT_READ_SNODAS.R " + tmpRFile
-        #try:
-        #    subprocess.call(cmd,shell=True)
-        #except:
-        #    print "ERROR: Failure to execute snow reads"
-        #    raise
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
+            raise
         
     # Situation #3 - Read in model snow fields aggregated to basins plus point obs.
     if args.snRead == "3":
@@ -152,11 +152,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             raise
             
         cmd = "Rscript ./R/SNOW_BASIN_POINT_READ.R " + tmpRFile
-        #try:
-        #    subprocess.call(cmd,shell=True)
-        #except:
-        #    print "ERROR: Failure to execute snow reads"
-        #    raise
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
+            raise
             
     # Situation #4 - Read in model + SNODAS fields aggregated to basins plus point obs.
     if args.snRead == "4":
@@ -177,11 +177,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             raise
             
         cmd = "Rscript ./R/SNOW_BASIN_POINT_READ_SNODAS.R " + tmpRFile
-        #try:
-        #    subprocess.call(cmd,shell=True)
-        #except:
-        #    print "ERROR: Failure to execute snow reads"
-        #    raise
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
+            raise
             
     # Situation #5 - Read in model snow fields aggregated to basins.
     if args.snRead == "5":
@@ -228,8 +228,8 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     print tmpRFile
     # Remove temporary R namelist file
-    #try:
-    #    os.remove(tmpRFile)
-    #except:
-    #    print "ERROR: Failure to remove temporary R namelist file."
-    #    raise
+    try:
+        os.remove(tmpRFile)
+    except:
+        print "ERROR: Failure to remove temporary R namelist file."
+        raise
