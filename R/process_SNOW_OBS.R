@@ -12,6 +12,7 @@
 # Load necessary libraries
 library(ncdf4)
 library(rwrfhydro)
+library(data.table)
 
 basinFlag <- 0
 # Process command line arguments.
@@ -174,6 +175,13 @@ if(numSdObs != 0){
    }
 }
 
+print('CONVERTING TO DATA TABLE')
 print('SAVING OUTPUT')
+metaOut <- as.data.table(metaOut)
+sweOut <- as.data.table(sweOut)
+sdOut <- as.data.table(sdOut)
+setkey(sweOut,uniqueId,POSIXct)
+setkey(sdOut,uniqueId,POSIXct)
+
 # Save output
 save(sweOut,sdOut,metaOut,file=outFile)
