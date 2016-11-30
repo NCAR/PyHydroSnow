@@ -163,6 +163,8 @@ for (station in 1:length(uniqueTmp)){
 
    obsTmp <- sweOut[uniqueId == uniqueTmp[station]]
 
+   print('-------------------')
+   print(station)
    count <- 1 
    for (day in 1:nSteps){
       dCurrent <- dateStart + dt*day
@@ -178,8 +180,8 @@ for (station in 1:length(uniqueTmp)){
 
       # Pull meta data info for this station
       #indMeta <- which(metaOut$uniqueId == uniqueTmp[station])
-      print('--------------------')
-      print(station)
+      #print('--------------------')
+      #print(station)
       print(uniqueTmp[station])
       latTmp <- metaOut$latitude[station]
       lonTmp <- metaOut$longitude[station]
