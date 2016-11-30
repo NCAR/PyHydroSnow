@@ -152,11 +152,7 @@ for (day in 1:nSteps){
          print(dim(sweModel))
          print(metaOut$iCoord[station])
          print(metaOut$jCoord[station])
-         if(length(modTags) == 1){
-            sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
-         } else {
-            sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
-         }
+         sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
          sweOutPts$tag[count] <- modTag
          sweOutPts$lat[count] <- latTmp
          sweOutPts$lon[count] <- lonTmp
