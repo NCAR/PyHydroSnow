@@ -149,9 +149,6 @@ for (day in 1:nSteps){
          sweOutPts$uniqueId[count] <- uniqueTmp[station]
          sweOutPts$POSIXct[count] <- dCurrent
          #sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station]]
-         print(dim(sweModel))
-         print(metaOut$iCoord[station])
-         print(metaOut$jCoord[station])
          sweOutPts$value_mm[count] <- sweModel[metaOut$iCoord[station],metaOut$jCoord[station],tag]
          sweOutPts$tag[count] <- modTag
          sweOutPts$lat[count] <- latTmp
