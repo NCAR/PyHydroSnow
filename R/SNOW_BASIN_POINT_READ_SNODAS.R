@@ -49,17 +49,18 @@ load(ptObsFile)
 
 print(nRowMod)
 print(nColMod)
-#dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude),
-#                           geoFile)
+dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude),
+                           geoFile)
 
-## Add coordinates to meta dataframe
-#metaOut[['iCoord']] <- dfCoord$ew
-#metaOut[['jCoord']] <- dfCoord$sn
-#metaOut[['kCoord']] <- (nRowMod*(dfCoord$ew-1)) + dfCoord$sn
+# Add coordinates to meta dataframe
+metaOut[['iCoord']] <- dfCoord$ew
+metaOut[['jCoord']] <- dfCoord$sn
+metaOut[['kCoord']] <- (nRowMod*(dfCoord$ew-1)) + dfCoord$sn
 
-## Subset coordinates to remove NA values that fall outside of domain.
-##metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
+# Subset coordinates to remove NA values that fall outside of domain.
+#metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
 
+print(metaOut)
 ## Loop through observations and assign kCoord to each entry. This will be used 
 ## when extracting gridded output.
 #sweOut[['kCoord']] <- -99
