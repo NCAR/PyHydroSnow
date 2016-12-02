@@ -98,6 +98,10 @@ sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,l
 sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
 
 #print(as.data.frame(sweOut[uniqueId == 8449]))
+# Calculate total number of observations based on observations file and number of model
+# groups.
+numPossSwePts <- length(sweOut$obs_mm)
+numPossSdPts <- length(sdOut$obs_mm)
 
 # Create output dataframes
 sweOutPts <- data.frame(matrix(NA,ncol=8,nrow=(numPossSwePts*(length(modTags)+2))))
