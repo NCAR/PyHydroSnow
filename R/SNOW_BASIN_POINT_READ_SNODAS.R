@@ -72,6 +72,7 @@ uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
 for(i in 1:length(uniqueSwePts)){
    idTmp <- uniqueSwePts[i]
+   print(idTmp)
    print(metaOut[uniqueId == idTmp])
    #sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
    #sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
@@ -84,7 +85,7 @@ for(i in 1:length(uniqueSwePts)){
 #   sdOut[uniqueId == idTmp]$latitude[] <- metaOut[uniqueId == idTmp]$latitude
 #   sdOut[uniqueId == idTmp]$longitude[] <- metaOut[uniqueId == idTmp]$longitude
 #}
-print(sweObs)
+#print(sweOut)
 ## Subset missing kCoord values as these points fall outside the modeling domain.
 #sweOut <- subset(sweOut,kCoord > 0)
 #sdOut <- subset(sdOut,kCoord > 0)
