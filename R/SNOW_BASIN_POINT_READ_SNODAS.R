@@ -70,7 +70,7 @@ sdOut[['longitude']] <- -99
 uniqueSwePts <- unique(sweOut$uniqueId)
 uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
-ifor(i in 1:length(uniqueSwePts)){
+for(i in 1:length(uniqueSwePts)){
    idTmp <- uniqueSwePts[i]
    sweOut[uniqueId == idTmp]$kCoord[] <- metaOut[uniqueId == idTmp]$kCoord
    sweOut[uniqueId == idTmp]$latitude[] <- metaOut[uniqueId == idTmp]$latitude
