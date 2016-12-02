@@ -76,9 +76,9 @@ for(i in 1:length(uniqueSwePts)){
    print(metaOut[uniqueId == idTmp]$kCoord)
    print(metaOut[uniqueId == idTmp]$latitude)
    print(metaOut[uniqueId == idTmp]$longitude)
-   sweOut[uniqueId == idTmp]$kCoord[] <- metaOut[uniqueId == idTmp]$kCoord
-   sweOut[uniqueId == idTmp]$latitude[] <- metaOut[uniqueId == idTmp]$latitude
-   sweOut[uniqueId == idTmp]$longitude[] <- metaOut[uniqueId == idTmp]$longitude
+   sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
+   sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
+   sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
 }
 print('Placing K,Lat,Lon into SD Obs DF')
 for(i in 1:length(uniqueSdPts)){
