@@ -87,14 +87,16 @@ sweOut <- subset(sweOut,!is.na(kCoord))
 sdOut <- subset(sdOut,!is.na(kCoord))
 
 print(as.data.frame(sweOut[uniqueId == 8449]))
-## truncate hourly observations to a daily mean.
-#sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
-#sdDatesTmp <- CalcDateTrunc(sdOut$POSIXct)
-#sweOut$POSIXct[] <- sweDatesTmp
-#sdOut$POSIXct[] <- sdDatesTmp
-#sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
-#sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
+# truncate hourly observations to a daily mean.
+print('Truncating Dates from Observations')
+sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
+sdDatesTmp <- CalcDateTrunc(sdOut$POSIXct)
+sweOut$POSIXct[] <- sweDatesTmp
+sdOut$POSIXct[] <- sdDatesTmp
+sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
+sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
 
+print(as.data.frame(sweOut[uniqueId == 8449]))
 ## Calculate total number of observations based on observations file and number of model
 ## groups.
 #numPossSwePts <- length(sweOut$obs_mm)*(length(modTags)+2)
