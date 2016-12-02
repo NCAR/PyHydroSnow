@@ -10,7 +10,8 @@
 # Load necessary libraries
 library(rwrfhydro)
 library(data.table)
-
+library(ncdf4)
+ 
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
 sourceFile <- args[1]
