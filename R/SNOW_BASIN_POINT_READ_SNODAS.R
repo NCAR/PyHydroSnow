@@ -57,9 +57,6 @@ metaOut[['iCoord']] <- dfCoord$ew
 metaOut[['jCoord']] <- dfCoord$sn
 metaOut[['kCoord']] <- (nRowMod*(dfCoord$ew-1)) + dfCoord$sn
 
-# Subset coordinates to remove NA values that fall outside of domain.
-metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
-
 # Loop through observations and assign kCoord to each entry. This will be used 
 # when extracting gridded output.
 sweOut[['kCoord']] <- -99
@@ -73,25 +70,24 @@ print('Placing K,Lat,Lon into SWE Obs DF')
 for(i in 1:length(uniqueSwePts)){
    idTmp <- uniqueSwePts[i]
    print(idTmp)
-   print(metaOut[uniqueId == idTmp])
-   #sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
-   #sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
-   #sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
+   sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
+   sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
+   sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
 }
-#print('Placing K,Lat,Lon into SD Obs DF')
-#for(i in 1:length(uniqueSdPts)){
-#   idTmp <- uniqueSdPts[i]
-#   sdOut[uniqueId == idTmp]$kCoord[] <- metaOut[uniqueId == idTmp]$kCoord
-#   sdOut[uniqueId == idTmp]$latitude[] <- metaOut[uniqueId == idTmp]$latitude
-#   sdOut[uniqueId == idTmp]$longitude[] <- metaOut[uniqueId == idTmp]$longitude
-#}
-#print(sweOut)
-## Subset missing kCoord values as these points fall outside the modeling domain.
-#sweOut <- subset(sweOut,kCoord > 0)
-#sdOut <- subset(sdOut,kCoord > 0)
-#sweOut <- subset(sweOut,!is.na(kCoord))
-#sdOut <- subset(sdOut,!is.na(kCoord))
+print('Placing K,Lat,Lon into SD Obs DF')
+for(i in 1:length(uniqueSdPts)){
+   idTmp <- uniqueSdPts[i]
+   sdOut[uniqueId == idTmp]$kCoord[] <- metaOut[uniqueId == idTmp]$kCoord
+   sdOut[uniqueId == idTmp]$latitude[] <- metaOut[uniqueId == idTmp]$latitude
+   sdOut[uniqueId == idTmp]$longitude[] <- metaOut[uniqueId == idTmp]$longitude
+}
+# Subset missing kCoord values as these points fall outside the modeling domain.
+sweOut <- subset(sweOut,kCoord > 0)
+sdOut <- subset(sdOut,kCoord > 0)
+sweOut <- subset(sweOut,!is.na(kCoord))
+sdOut <- subset(sdOut,!is.na(kCoord))
 
+print(sweOut)
 ## truncate hourly observations to a daily mean.
 #sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
 #sdDatesTmp <- CalcDateTrunc(sdOut$POSIXct)
