@@ -98,14 +98,10 @@ sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,l
 sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
 
 #print(as.data.frame(sweOut[uniqueId == 8449]))
-# Calculate total number of observations based on observations file and number of model
-# groups.
-numPossSwePts <- length(sweOut$obs_mm)*(length(modTags)+2)
-numPossSdPts <- length(sdOut$obs_mm)*(length(modTags)+2)
 
 # Create output dataframes
-sweOutPts <- data.frame(matrix(NA,ncol=8,nrow=numPossSwePts))
-sdOutPts <- data.frame(matrix(NA,ncol=8,nrow=numPossSdPts))
+sweOutPts <- data.frame(matrix(NA,ncol=8,nrow=(numPossSwePts*(length(modTags)+2))))
+sdOutPts <- data.frame(matrix(NA,ncol=8,nrow=(numPossSdPts*(length(modTags)+2))))
 
 names(sweOutPts) <- c('uniqueId','lat','lon','region','POSIXct','value_mm','tag','kCoord')
 names(sdOutPts) <- c('uniqueId','lat','lon','region','POSIXct','value_mm','tag','kCoord')
@@ -114,7 +110,8 @@ sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 
 # Place observations, meta data into data frame to pre-populate everything except model/SNODAS
-# values. 
+# values.
+print( 
 print(numPossSwePts)
 sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
 sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
