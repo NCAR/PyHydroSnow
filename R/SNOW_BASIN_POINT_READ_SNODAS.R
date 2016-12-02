@@ -60,7 +60,7 @@ metaOut[['kCoord']] <- (nRowMod*(dfCoord$ew-1)) + dfCoord$sn
 # Subset coordinates to remove NA values that fall outside of domain.
 #metaOut <- subset(metaOut,!is.na(metaOut$iCoord))
 
-print(metaOut)
+print(as.data.frame(metaOut))
 ## Loop through observations and assign kCoord to each entry. This will be used 
 ## when extracting gridded output.
 #sweOut[['kCoord']] <- -99
