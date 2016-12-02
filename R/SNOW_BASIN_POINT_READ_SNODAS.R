@@ -129,7 +129,7 @@ for(i in 1:length(modTags)){
    print(modTags[i])
    print(numPossSwePts*i + 1)
    print(numPossSwePts*(i+1))
-   print(paste0('DELTA = ',numPossSwePts*(i+1)-(numPossSwePts*i + 1))
+   print(paste0('DELTA = ',numPossSwePts*(i+1)-(numPossSwePts*i + 1)))
    sweOutPts$uniqueId[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$uniqueId[1:numPossSwePts]
    sweOutPts$lat[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$latitude[1:numPossSwePts]
    sweOutPts$lon[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$longitude[1:numPossSwePts]
@@ -141,7 +141,7 @@ for(i in 1:length(modTags)){
 # Handle SNODAS data
 print(numPossSwePts*(length(modTags)+1)+1)
 print(numPossSwePts*(length(modTags)+2))
-pritn(paste0('DELTA = ',numPossSwePts*(length(modTags)+2)-(numPossSwePts*(length(modTags)+1)+1))
+print(paste0('DELTA = ',numPossSwePts*(length(modTags)+2)-(numPossSwePts*(length(modTags)+1)+1)))
 sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
 sweOutPts$lat[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$latitude[1:numPossSwePts]
 sweOutPts$lon[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$longitude[1:numPossSwePts]
