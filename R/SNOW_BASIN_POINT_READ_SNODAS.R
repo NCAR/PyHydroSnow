@@ -62,6 +62,8 @@ metaOut[['kCoord']] <- (nRowMod*(dfCoord$ew-1)) + dfCoord$sn
 sweOut[['kCoord']] <- -99
 sdOut[['kCoord']] <- -99
 sweOut[['latitude']] <- -99.0
+sdOut[['latitude']] <- -99.0
+sweOut[['longitude']] <- -99.0
 sdOut[['longitude']] <- -99.0
 
 uniqueSwePts <- unique(sweOut$uniqueId)
