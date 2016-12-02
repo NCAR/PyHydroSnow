@@ -73,9 +73,9 @@ print('Placing K,Lat,Lon into SWE Obs DF')
 for(i in 1:length(uniqueSwePts)){
    idTmp <- uniqueSwePts[i]
    print(metaOut[uniqueId == idTmp])
-   sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
-   sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
-   sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
+   #sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
+   #sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
+   #sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
 }
 print('Placing K,Lat,Lon into SD Obs DF')
 for(i in 1:length(uniqueSdPts)){
