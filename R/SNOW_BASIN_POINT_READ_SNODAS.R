@@ -72,10 +72,7 @@ uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
 for(i in 1:length(uniqueSwePts)){
    idTmp <- uniqueSwePts[i]
-   print(idTmp)
-   print(metaOut[uniqueId == idTmp]$kCoord)
-   print(metaOut[uniqueId == idTmp]$latitude)
-   print(metaOut[uniqueId == idTmp]$longitude)
+   print(metaOut[uniqueId == idTmp])
    sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
    sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
    sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
