@@ -115,7 +115,6 @@ sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 
 # Place observations, meta data into data frame to pre-populate everything except model/SNODAS
 # values.
-print( 
 print(numPossSwePts)
 sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
 sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
