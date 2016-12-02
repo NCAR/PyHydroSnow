@@ -69,7 +69,6 @@ uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
 for(i in 1:length(uniqueSwePts)){
    idTmp <- uniqueSwePts[i]
-   print(idTmp)
    sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
    sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
    sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
@@ -77,7 +76,6 @@ for(i in 1:length(uniqueSwePts)){
 print('Placing K,Lat,Lon into SD Obs DF')
 for(i in 1:length(uniqueSdPts)){
    idTmp <- uniqueSdPts[i]
-   print(idTmp)
    sdOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
    sdOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
    sdOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
@@ -88,7 +86,7 @@ sdOut <- subset(sdOut,kCoord > 0)
 sweOut <- subset(sweOut,!is.na(kCoord))
 sdOut <- subset(sdOut,!is.na(kCoord))
 
-print(as.data.frame(sweOut))
+print(as.data.frame(sweOut[uniqueId == 8449]))
 ## truncate hourly observations to a daily mean.
 #sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
 #sdDatesTmp <- CalcDateTrunc(sdOut$POSIXct)
