@@ -117,27 +117,27 @@ sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 # Place observations, meta data into data frame to pre-populate everything except model/SNODAS
 # values.
 print(numPossSwePts)
-#sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
-#sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
-#sweOutPts$lon[1:numPossSwePts] <- sweOut$longitude[1:numPossSwePts]
-#sweOutPts$region[1:numPossSwePts] <- sweOut$region[1:numPossSwePts]
-#sweOutPts$POSIXct[1:numPossSwePts] <- sweOut$POSIXct[1:numPossSwePts]
-#sweOutPts$value_mm[1:numPossSwePts] <- sweOut$obs_mm[1:numPossSwePts]
-#sweOutPts$tag[1:numPossSwePts] <- 'Obs'
-#sweOutPts$kCoord[1:numPossSwePts] <- sweOut$kCoord[1:numPossSwePts]
-#for(i in 1:length(modTags)){
-#   print(modTags[i])
-#   print(numPossSwePts*i + 1)
-#   print(numPossSwePts*(i+1))
-#   print(paste0('DELTA = ',numPossSwePts*(i+1)-(numPossSwePts*i + 1)))
-#   sweOutPts$uniqueId[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$uniqueId[1:numPossSwePts]
-#   sweOutPts$lat[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$latitude[1:numPossSwePts]
-#   sweOutPts$lon[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$longitude[1:numPossSwePts]
-#   sweOutPts$region[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$region[1:numPossSwePts]
-#   sweOutPts$POSIXct[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$POSIXct[1:numPossSwePts]
-#   sweOutPts$tag[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- modTags[i]
-#   sweOutPts$kCoord[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$kCoord[1:numPossSwePts]
-#}
+sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
+sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
+sweOutPts$lon[1:numPossSwePts] <- sweOut$longitude[1:numPossSwePts]
+sweOutPts$region[1:numPossSwePts] <- sweOut$region[1:numPossSwePts]
+sweOutPts$POSIXct[1:numPossSwePts] <- sweOut$POSIXct[1:numPossSwePts]
+sweOutPts$value_mm[1:numPossSwePts] <- sweOut$obs_mm[1:numPossSwePts]
+sweOutPts$tag[1:numPossSwePts] <- 'Obs'
+sweOutPts$kCoord[1:numPossSwePts] <- sweOut$kCoord[1:numPossSwePts]
+for(i in 1:length(modTags)){
+   print(modTags[i])
+   print(numPossSwePts*i + 1)
+   print(numPossSwePts*(i+1))
+   print(paste0('DELTA = ',numPossSwePts*(i+1)-(numPossSwePts*i + 1)))
+   sweOutPts$uniqueId[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$uniqueId[1:numPossSwePts]
+   sweOutPts$lat[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$latitude[1:numPossSwePts]
+   sweOutPts$lon[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$longitude[1:numPossSwePts]
+   sweOutPts$region[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$region[1:numPossSwePts]
+   sweOutPts$POSIXct[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$POSIXct[1:numPossSwePts]
+   sweOutPts$tag[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- modTags[i]
+   sweOutPts$kCoord[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$kCoord[1:numPossSwePts]
+}
 # Handle SNODAS data
 print(numPossSwePts*(length(modTags)+1)+1)
 print(numPossSwePts*(length(modTags)+2))
