@@ -142,7 +142,9 @@ for(i in 1:length(modTags)){
 print(numPossSwePts*(length(modTags)+1)+1)
 print(numPossSwePts*(length(modTags)+2))
 print(paste0('DELTA = ',numPossSwePts*(length(modTags)+2)-(numPossSwePts*(length(modTags)+1)+1)))
-print(length(sweOut$uniqueId[1:numPossSwePts]))
+
+print((numPossSwePts*(length(modTags)+1)+1))
+print(numPossSwePts*(length(modTags)+2))
 sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
 print('b')
 sweOutPts$lat[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$latitude[1:numPossSwePts]
