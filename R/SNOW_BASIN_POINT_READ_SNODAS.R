@@ -147,7 +147,7 @@ print((numPossSwePts*(length(modTags)+1)+1))
 print(numPossSwePts*(length(modTags)+2))
 print(numPossSwePts)
 print(length(sweOut$uniqueId))
-sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
+#sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
 print('b')
 #sweOutPts$lat[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$latitude[1:numPossSwePts]
 #print('c')
@@ -275,5 +275,5 @@ print(as.data.frame(sweOutPts))
 #sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 #sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
-## Save output
-#save(sweOutPts,sdOutPts,file=outFile)
+# Save output
+save(sweOutPts,sdOutPts,file=outFile)
