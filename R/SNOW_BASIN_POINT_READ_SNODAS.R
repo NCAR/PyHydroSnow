@@ -143,12 +143,19 @@ print(numPossSwePts*(length(modTags)+1)+1)
 print(numPossSwePts*(length(modTags)+2))
 print(paste0('DELTA = ',numPossSwePts*(length(modTags)+2)-(numPossSwePts*(length(modTags)+1)+1)))
 sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
+print('b')
 sweOutPts$lat[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$latitude[1:numPossSwePts]
+print('c')
 sweOutPts$lon[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$longitude[1:numPossSwePts]
+print('d')
 sweOutPts$region[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$region[1:numPossSwePts]
+print('e')
 sweOutPts$POSIXct[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$POSIXct[1:numPossSwePts]
+print('f')
 sweOutPts$tag[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- 'SNODAS'
+print('g')
 sweOutPts$kCoord[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$kCoord[1:numPossSwePts]
+print('h')
 
 print(as.data.frame(sweOutPts))
 ## Fill out snow depth data frame
