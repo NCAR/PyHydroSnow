@@ -145,6 +145,8 @@ print(paste0('DELTA = ',numPossSwePts*(length(modTags)+2)-(numPossSwePts*(length
 
 print((numPossSwePts*(length(modTags)+1)+1))
 print(numPossSwePts*(length(modTags)+2))
+print(sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)])
+print('balls')
 sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
 print('b')
 sweOutPts$lat[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$latitude[1:numPossSwePts]
