@@ -57,7 +57,7 @@ metaOut[['iCoord']] <- dfCoord$ew
 print(dfCoord$ew)
 metaOut[['jCoord']] <- dfCoord$sn
 print(dfCoord$sn)
-metaOut[['kCoord']] <- (nRowMod*(dfCoord$ew-1)) + dfCoord$sn
+metaOut[['kCoord']] <- (nColMod*(dfCoord$sn-1)) + dfCoord$ew
 
 # Loop through observations and assign kCoord to each entry. This will be used 
 # when extracting gridded output.
@@ -219,7 +219,6 @@ for (day in 1:nSteps){
       print(snowPath)
       tmpModel <- ncvar_get(id,'SNEQV')
       print(tmpModel[547,2892])
-      tmpModel <- FlipUD(tmpModel)
       nc_close(id)
       # Extract kCoord values for this particular time step
       kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
