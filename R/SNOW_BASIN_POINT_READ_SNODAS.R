@@ -152,7 +152,6 @@ print(eInd)
 #sweOutPts$tag[bInd:eInd] <- 'SNODAS'
 #sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
 
-print(as.data.frame(sweOutPts))
 ## Fill out snow depth data frame
 #sdOutPts$uniqueId[1:numPossSdPts] <- sdOut$uniqueId[1:numPossSdPts]
 #sdOutPts$lat[1:numPossSdPts] <- sdOut$latitude[1:numPossSdPts]
