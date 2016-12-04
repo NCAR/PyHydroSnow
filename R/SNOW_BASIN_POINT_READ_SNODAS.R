@@ -215,6 +215,7 @@ for (day in 1:nSteps){
                          "00.LDASOUT_DOMAIN1")
       id <- nc_open(snowPath)
       tmpModel <- ncvar_get(id,'SNEQV')
+      tmpModel <- FlipUD(tmpModel)
       nc_close(id)
       # Extract kCoord values for this particular time step
       kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
