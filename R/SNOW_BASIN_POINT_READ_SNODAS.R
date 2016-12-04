@@ -216,9 +216,7 @@ for (day in 0:nSteps){
       snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
                          "00.LDASOUT_DOMAIN1")
       id <- nc_open(snowPath)
-      print(snowPath)
       tmpModel <- ncvar_get(id,'SNEQV')
-      print(tmpModel[547,2892])
       nc_close(id)
       # Extract kCoord values for this particular time step
       kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
@@ -236,9 +234,10 @@ for (day in 0:nSteps){
    nc_close(id)
    # Extract kCoord values for this particular time step 
    kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
+   print(kCoordsTmp)
+   print(sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS'])
    # Pull values for these coordinates out of file
-   modelValuesTmp <- tmpModel[kCoordsTmp]
-   print(modelValuesTmp)
+   modelValuesTmp <- sweSnodas[kCoordsTmp]
    # Place into data table
    #sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
 }
@@ -274,7 +273,7 @@ for (day in 0:nSteps){
    # Extract kCoord values for this particular time step
    kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
    # Pull values for these coordinates out of file
-   modelValuesTmp <- tmpModel[kCoordsTmp]
+   modelValuesTmp <- sdSnodas[kCoordsTmp]
    # Place into data table
    #sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
 }
