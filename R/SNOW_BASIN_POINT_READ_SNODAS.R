@@ -234,6 +234,7 @@ for (day in 1:nSteps){
    kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
    # Pull values for these coordinates out of file
    modelValuesTmp <- tmpModel[kCoordsTmp]
+   print(modelValuesTmp)
    # Place into data table
    #sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
 }
