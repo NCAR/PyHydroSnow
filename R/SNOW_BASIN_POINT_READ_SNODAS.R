@@ -220,6 +220,8 @@ for (day in 0:nSteps){
       nc_close(id)
       # Extract kCoord values for this particular time step
       kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+      print(kCoordsTmp)
+      print(sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag])
       # Pull values for these coordinates out of file
       modelValuesTmp <- tmpModel[kCoordsTmp]
       # Place into data table
@@ -234,8 +236,6 @@ for (day in 0:nSteps){
    nc_close(id)
    # Extract kCoord values for this particular time step 
    kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-   print(kCoordsTmp)
-   print(sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS'])
    # Pull values for these coordinates out of file
    modelValuesTmp <- sweSnodas[kCoordsTmp]
    # Place into data table
