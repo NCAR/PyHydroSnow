@@ -216,7 +216,9 @@ for (day in 1:nSteps){
       snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
                          "00.LDASOUT_DOMAIN1")
       id <- nc_open(snowPath)
+      print(snowPath)
       tmpModel <- ncvar_get(id,'SNEQV')
+      print(tmpModel[547,2892])
       tmpModel <- FlipUD(tmpModel)
       nc_close(id)
       # Extract kCoord values for this particular time step
