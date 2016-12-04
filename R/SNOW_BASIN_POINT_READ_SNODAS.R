@@ -203,7 +203,7 @@ sdOutPts <- as.data.table(sdOutPts)
 # Loop through each day in the time period of analysis. Read in model/SNODAS grids,
 # then use kCoord values for each data table to extract all obs for that time.
 # SWE First.
-for (day in 1:nSteps){
+for (day in 0:nSteps){
    dCurrent <- dateStart + dt*day
    print(dCurrent)
    dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
@@ -225,7 +225,7 @@ for (day in 1:nSteps){
       # Pull values for these coordinates out of file
       modelValuesTmp <- tmpModel[kCoordsTmp]
       # Place into data table
-      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
+      #sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
    }
 
    # Read in SNODAS data
@@ -244,7 +244,7 @@ for (day in 1:nSteps){
 }
 
 # Snow Depth Next.
-for (day in 1:nSteps){
+for (day in 0:nSteps){
    dCurrent <- dateStart + dt*day
    print(dCurrent)
    dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
