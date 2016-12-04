@@ -225,7 +225,7 @@ for (day in 0:nSteps){
       # Pull values for these coordinates out of file
       modelValuesTmp <- tmpModel[kCoordsTmp]
       # Place into data table
-      #sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
+      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
    }
 
    # Read in SNODAS data
@@ -242,6 +242,7 @@ for (day in 0:nSteps){
    #sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
 }
 
+print(sweOutPts)
 # Snow Depth Next.
 for (day in 0:nSteps){
    dCurrent <- dateStart + dt*day
