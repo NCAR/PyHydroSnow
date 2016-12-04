@@ -233,3 +233,114 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     except:
         print "ERROR: Failure to remove temporary R namelist file."
         raise
+        
+def runSnow(args,dbIn,begDateObj,endDateObj,size,rank):
+    # Function to run snow analysis and plotting based on
+    # input user arguments and input file. 
+
+    # Go through various options chosen by user and edit namelist file accordingly
+    numModIn = len(args.modelProjects)
+    numModDb = len(dbIn.alias)
+    for i in range(0,numModDb):
+        if dbIn.alias[i] == args.modelProjects[0]:
+            indDbOrig = i
+    
+    # Calculate model tags associated with alias values chosen.
+    tagInds = []
+    tags = []
+    aliasTags = []
+    modPaths = []
+    for i in range(0, numModDb):
+        for j in range(0, numModIn):
+            if dbIn.alias[i] == args.modelProjects[j]:
+                tagInds.append(i)
+                tags.append(dbIn.tag[i])
+                aliasTags.append(dbIn.alias[i])
+                modPaths.append(dbIn.modelInDir[i])
+
+    # Compose tag string that will be placed into namelist file
+    tagStr = "c("
+    for i in range(0, numModIn):
+        if i == (numModIn - 1):
+            tagStr = tagStr + "'" + tags[i] + "')"
+        else:
+            tagStr = tagStr + "'" + tags[i] + "', "
+    tagStr  = "modTags <- " + tagStr + "\n"
+    
+    # Compose datetime strings
+    begDateStr = "dateStart <- as.POSIXct('" + begDateObj.strftime('%Y-%m-%d %H') + \
+                 ":00', format='%Y-%m-%d %H:%M', tz='UTC')\n" 
+    endDateStr = "dateEnd <- as.POSIXct('" + endDateObj.strftime('%Y-%m-%d %H') + \
+                 ":00', format='%Y-%m-%d %H:%M', tz='UTC')\n"
+            
+    # Establish constants
+    jobDir = dbIn.topDir[indDbOrig] + "/" + dbIn.alias[indDbOrig] + "/" + args.jobName
+    jobDirStr = "jobDir <- '" + jobDir + "'\n"
+    
+    # Compose strings conveying MPI size/rank information
+    sizeStr = "size <- " + str(size) + "\n"
+    rankStr = "rank <- " + str(rank) + "\n"
+    
+    # Create output directory to hold statistics and plots
+    outDirStr = "outDir <- '" + jobDir + "'\n"
+    
+    # Create empty temporary text file. This will be used by R to read in options for
+    # reading in data.
+    tmpRFile = jobDir + "/R_NAMELIST_TMP.R"
+    try:
+        ioMgmntMod.openTmpFile(tmpRFile)
+    except:
+        print "ERROR: Unable to create temporary R file."
+        raise
+        
+    # Place basic information into R file
+    try:
+        ioMgmntMod.writeStrToFile(tmpRFile,jobDirStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,tagStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,begDateStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,endDateStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,sizeStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,rankStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,outDirStr)
+    except:
+        print("ERROR: Unable to write basic R information to temporary file.")
+        raise
+        
+    # Situation #1 - Calculate statistics at snow observation points. 
+    if args.snRun == "1":
+        cmd = "Rscript ./R/SNOW_PT_STATS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow analysis job"
+            raise
+        
+    # Situation #2 - Calculate statistics at snow observatinos points + 
+    #                individual timeseries plots for each point.
+    if args.snRun == "2":
+        cmd = "Rscript ./R/SNOW_PT_STATS_PLOTS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow analysis job"
+            raise
+            
+    # Situation #3 - Calculate statistics of gridded snow fields aggregated
+    #                to basins/regions.
+    if args.snRun == "3":
+        cmd = "Rscript ./R/SNOW_BAS_STATS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow analysis job"
+            raise
+            
+    # Situation #4 - Calculate statistics + plots for gridded snow fields 
+    #                aggregated to basins/regions. 
+    if args.snRun == "4":
+        cmd = "Rscript ./R/SNOW_BAS_STATS_PLOTS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow analysis job"
+            raise

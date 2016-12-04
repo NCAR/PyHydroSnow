@@ -47,16 +47,12 @@ nc_close(id)
 # be used to extract gridded snow values.
 load(ptObsFile)
 
-print(nRowMod)
-print(nColMod)
 dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude),
                            geoFile)
 
 # Add coordinates to meta dataframe
 metaOut[['iCoord']] <- dfCoord$ew
-print(dfCoord$ew)
 metaOut[['jCoord']] <- dfCoord$sn
-print(dfCoord$sn)
 metaOut[['kCoord']] <- (nColMod*(dfCoord$sn-1)) + dfCoord$ew
 
 # Loop through observations and assign kCoord to each entry. This will be used 
@@ -99,7 +95,6 @@ sdOut$POSIXct[] <- sdDatesTmp
 sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
 sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
 
-#print(as.data.frame(sweOut[uniqueId == 8449]))
 # Calculate total number of observations based on observations file and number of model
 # groups.
 numPossSwePts <- length(sweOut$obs_mm)
@@ -128,11 +123,8 @@ sweOutPts$value_mm[1:numPossSwePts] <- sweOut$obs_mm[1:numPossSwePts]
 sweOutPts$tag[1:numPossSwePts] <- 'Obs'
 sweOutPts$kCoord[1:numPossSwePts] <- sweOut$kCoord[1:numPossSwePts]
 for(i in 1:length(modTags)){
-   print(modTags[i])
    bInd <- numPossSwePts*i + 1
    eInd <- numPossSwePts*(i+1)
-   print(bInd)
-   print(eInd)
    sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
    sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
    sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
@@ -144,8 +136,6 @@ for(i in 1:length(modTags)){
 # Handle SNODAS data
 bInd <- numPossSwePts*(length(modTags)+1)+1
 eInd <- numPossSwePts*(length(modTags)+2)
-print(bInd)
-print(eInd)
 sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
 sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
 sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
@@ -164,11 +154,8 @@ sdOutPts$value_mm[1:numPossSdPts] <- sdOut$obs_mm[1:numPossSdPts]
 sdOutPts$tag[1:numPossSdPts] <- 'Obs'
 sdOutPts$kCoord[1:numPossSdPts] <- sdOut$kCoord[1:numPossSdPts]
 for(i in 1:length(modTags)){
-   print(modTags[i])
    bInd <- numPossSdPts*i + 1
    eInd <- numPossSdPts*(i+1)
-   print(bInd)
-   print(eInd)
    sdOutPts$uniqueId[bInd:eInd] <- sdOut$uniqueId[1:numPossSdPts]
    sdOutPts$lat[bInd:eInd] <- sdOut$latitude[1:numPossSdPts]
    sdOutPts$lon[bInd:eInd] <- sdOut$longitude[1:numPossSdPts]
@@ -200,7 +187,6 @@ sdOutPts <- subset(sdOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= 
 sweOutPts <- as.data.table(sweOutPts)
 sdOutPts <- as.data.table(sdOutPts)
 
-print(sweOutPts)
 # Loop through each day in the time period of analysis. Read in model/SNODAS grids,
 # then use kCoord values for each data table to extract all obs for that time.
 # SWE First.
@@ -221,7 +207,6 @@ for (day in 0:nSteps){
       nc_close(id)
       # Extract kCoord values for this particular time step
       kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-      print(kCoordsTmp)
       print(sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag])
       # Pull values for these coordinates out of file
       modelValuesTmp <- tmpModel[kCoordsTmp]
@@ -243,7 +228,6 @@ for (day in 0:nSteps){
    sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
 }
 
-print(sweOutPts)
 # Snow Depth Next.
 for (day in 0:nSteps){
    dCurrent <- dateStart + dt*day
