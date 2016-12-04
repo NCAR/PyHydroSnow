@@ -240,7 +240,7 @@ for (day in 0:nSteps){
    # Pull values for these coordinates out of file
    modelValuesTmp <- sweSnodas[kCoordsTmp]
    # Place into data table
-   #sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+   sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
 }
 
 print(sweOutPts)
@@ -263,7 +263,7 @@ for (day in 0:nSteps){
       # Pull values for these coordinates out of file
       modelValuesTmp <- tmpModel[kCoordsTmp]
       # Place into data table
-      #sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+      sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
    }
 
    # Read in SNODAS data
@@ -277,12 +277,12 @@ for (day in 0:nSteps){
    # Pull values for these coordinates out of file
    modelValuesTmp <- sdSnodas[kCoordsTmp]
    # Place into data table
-   #sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+   sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
 }
 
 # Subset data frames to exclude any missing values
-#sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
-#sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
+sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
 # Save output
 save(sweOutPts,sdOutPts,file=outFile)
