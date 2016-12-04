@@ -200,6 +200,7 @@ sdOutPts <- subset(sdOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= 
 sweOutPts <- as.data.table(sweOutPts)
 sdOutPts <- as.data.table(sdOutPts)
 
+print(sweOutPts)
 # Loop through each day in the time period of analysis. Read in model/SNODAS grids,
 # then use kCoord values for each data table to extract all obs for that time.
 # SWE First.
