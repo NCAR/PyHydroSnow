@@ -236,7 +236,6 @@ for (day in 1:nSteps){
    modelValuesTmp <- tmpModel[kCoordsTmp]
    # Place into data table
    sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
-   }
 }
 
 # Snow Depth Next.
