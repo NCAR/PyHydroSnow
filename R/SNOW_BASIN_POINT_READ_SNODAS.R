@@ -198,84 +198,84 @@ sdOutPts <- subset(sdOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= 
 sweOutPts <- as.data.table(sweOutPts)
 sdOutPts <- as.data.table(sdOutPts)
 
-## Loop through each day in the time period of analysis. Read in model/SNODAS grids,
-## then use kCoord values for each data table to extract all obs for that time.
-## SWE First.
-#for (day in 1:nSteps){
-#   dCurrent <- dateStart + dt*day
-#   print(dCurrent)
-#   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-#
-#   # Read in model output. If multiple model directories, stack each model output
-#   # array ontop of each other to create a 3D array for referencing. 
-#   for (tag in 1:length(modTags)){
-#      modTag <- modTags[tag]
-#      tmpPath <- modPaths[[tag]]
-#      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-#                         "00.LDASOUT_DOMAIN1")
-#      id <- nc_open(snowPath)
-#      tmpModel <- ncvar_get(id,'SNEQV')
-#      nc_close(id)
-#      # Extract kCoord values for this particular time step
-#      kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-#      # Pull values for these coordinates out of file
-#      modelValuesTmp <- tmpModel[kCoordsTmp]
-#      # Place into data table
-#      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
-#   }
-#
-#   # Read in SNODAS data
-#   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-#                            strftime(dCurrent,"%Y%m%d"),".nc")
-#   id <- nc_open(snodasFilePath)
-#   sweSnodas <- ncvar_get(id,'SNEQV')
-#   nc_close(id)
-#   # Extract kCoord values for this particular time step 
-#   kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-#   # Pull values for these coordinates out of file
-#   modelValuesTmp <- tmpModel[kCoordsTmp]
-#   # Place into data table
-#   sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
-#   }
-#}
+# Loop through each day in the time period of analysis. Read in model/SNODAS grids,
+# then use kCoord values for each data table to extract all obs for that time.
+# SWE First.
+for (day in 1:nSteps){
+   dCurrent <- dateStart + dt*day
+   print(dCurrent)
+   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
 
-## Snow Depth Next.
-#for (day in 1:nSteps){
-#   dCurrent <- dateStart + dt*day
-#   print(dCurrent)
-#   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-#
-#   for (tag in 1:length(modTags)){
-#      modTag <- modTags[tag]
-#      tmpPath <- modPaths[[tag]]
-#      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-#                         "00.LDASOUT_DOMAIN1")
-#      id <- nc_open(snowPath)
-#      tmpModel <- ncvar_get(id,'SNOWH')
-#      nc_close(id)
-#      # Extract kCoord values for this particular time step 
-#      kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-#      # Pull values for these coordinates out of file
-#      modelValuesTmp <- tmpModel[kCoordsTmp]
-#      # Place into data table
-#      sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
-#   }
-#
-#   # Read in SNODAS data
-#   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-#                            strftime(dCurrent,"%Y%m%d"),".nc")
-#   id <- nc_open(snodasFilePath)
-#   sdSnodas <- ncvar_get(id,'SNOWH')
-#   nc_close(id)
-#   # Extract kCoord values for this particular time step
-#   kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-#   # Pull values for these coordinates out of file
-#   modelValuesTmp <- tmpModel[kCoordsTmp]
-#   # Place into data table
-#   sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
-#}
+   # Read in model output. If multiple model directories, stack each model output
+   # array ontop of each other to create a 3D array for referencing. 
+   for (tag in 1:length(modTags)){
+      modTag <- modTags[tag]
+      tmpPath <- modPaths[[tag]]
+      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                         "00.LDASOUT_DOMAIN1")
+      id <- nc_open(snowPath)
+      tmpModel <- ncvar_get(id,'SNEQV')
+      nc_close(id)
+      # Extract kCoord values for this particular time step
+      kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+      # Pull values for these coordinates out of file
+      modelValuesTmp <- tmpModel[kCoordsTmp]
+      # Place into data table
+      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
+   }
 
-## Subset data frames to exclude any missing values
+   # Read in SNODAS data
+   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                            strftime(dCurrent,"%Y%m%d"),".nc")
+   id <- nc_open(snodasFilePath)
+   sweSnodas <- ncvar_get(id,'SNEQV')
+   nc_close(id)
+   # Extract kCoord values for this particular time step 
+   kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
+   # Pull values for these coordinates out of file
+   modelValuesTmp <- tmpModel[kCoordsTmp]
+   # Place into data table
+   sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
+   }
+}
+
+# Snow Depth Next.
+for (day in 1:nSteps){
+   dCurrent <- dateStart + dt*day
+   print(dCurrent)
+   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+   for (tag in 1:length(modTags)){
+      modTag <- modTags[tag]
+      tmpPath <- modPaths[[tag]]
+      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                         "00.LDASOUT_DOMAIN1")
+      id <- nc_open(snowPath)
+      tmpModel <- ncvar_get(id,'SNOWH')
+      nc_close(id)
+      # Extract kCoord values for this particular time step 
+      kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+      # Pull values for these coordinates out of file
+      modelValuesTmp <- tmpModel[kCoordsTmp]
+      # Place into data table
+      sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == modTag]$value_mm <- modelValuesTmp
+   }
+
+   # Read in SNODAS data
+   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                            strftime(dCurrent,"%Y%m%d"),".nc")
+   id <- nc_open(snodasFilePath)
+   sdSnodas <- ncvar_get(id,'SNOWH')
+   nc_close(id)
+   # Extract kCoord values for this particular time step
+   kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
+   # Pull values for these coordinates out of file
+   modelValuesTmp <- tmpModel[kCoordsTmp]
+   # Place into data table
+   sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & modTag == 'SNODAS']$value_mm <- modelValuesTmp
+}
+
+# Subset data frames to exclude any missing values
 sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
 
