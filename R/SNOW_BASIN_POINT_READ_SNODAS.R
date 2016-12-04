@@ -144,13 +144,13 @@ bInd <- numPossSwePts*(length(modTags)+1)+1
 eInd <- numPossSwePts*(length(modTags)+2)
 print(bInd)
 print(eInd)
-#sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
-#sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
-#sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
-#sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
-#sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
-#sweOutPts$tag[bInd:eInd] <- 'SNODAS'
-#sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
+sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
+sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
+sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
+sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
+sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
+sweOutPts$tag[bInd:eInd] <- 'SNODAS'
+sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
 
 ## Fill out snow depth data frame
 #sdOutPts$uniqueId[1:numPossSdPts] <- sdOut$uniqueId[1:numPossSdPts]
