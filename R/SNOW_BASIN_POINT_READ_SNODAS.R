@@ -127,40 +127,30 @@ sweOutPts$tag[1:numPossSwePts] <- 'Obs'
 sweOutPts$kCoord[1:numPossSwePts] <- sweOut$kCoord[1:numPossSwePts]
 for(i in 1:length(modTags)){
    print(modTags[i])
-   print(numPossSwePts*i + 1)
-   print(numPossSwePts*(i+1))
-   print(paste0('DELTA = ',numPossSwePts*(i+1)-(numPossSwePts*i + 1)))
-   sweOutPts$uniqueId[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$uniqueId[1:numPossSwePts]
-   sweOutPts$lat[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$latitude[1:numPossSwePts]
-   sweOutPts$lon[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$longitude[1:numPossSwePts]
-   sweOutPts$region[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$region[1:numPossSwePts]
-   sweOutPts$POSIXct[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$POSIXct[1:numPossSwePts]
-   sweOutPts$tag[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- modTags[i]
-   sweOutPts$kCoord[(numPossSwePts*i + 1):numPossSwePts*(i+1)] <- sweOut$kCoord[1:numPossSwePts]
+   bInd <- numPossSwePts*i + 1
+   eInd <- numPossSwePts*(i+1)
+   print(bInd)
+   print(eInd)
+   sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
+   sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
+   sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
+   sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
+   sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
+   sweOutPts$tag[bInd:eInd] <- modTags[i]
+   sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
 }
 # Handle SNODAS data
-print(numPossSwePts*(length(modTags)+1)+1)
-print(numPossSwePts*(length(modTags)+2))
-print(paste0('DELTA = ',numPossSwePts*(length(modTags)+2)-(numPossSwePts*(length(modTags)+1)+1)))
-
-print((numPossSwePts*(length(modTags)+1)+1))
-print(numPossSwePts*(length(modTags)+2))
-print(numPossSwePts)
-print(length(sweOut$uniqueId))
-#sweOutPts$uniqueId[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$uniqueId[1:numPossSwePts]
-print('b')
-#sweOutPts$lat[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$latitude[1:numPossSwePts]
-#print('c')
-#sweOutPts$lon[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$longitude[1:numPossSwePts]
-#print('d')
-#sweOutPts$region[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$region[1:numPossSwePts]
-#print('e')
-#sweOutPts$POSIXct[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$POSIXct[1:numPossSwePts]
-#print('f')
-#sweOutPts$tag[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- 'SNODAS'
-#print('g')
-#sweOutPts$kCoord[(numPossSwePts*(length(modTags)+1)+1):numPossSwePts*(length(modTags)+2)] <- sweOut$kCoord[1:numPossSwePts]
-#print('h')
+bInd <- numPossSwePts*(length(modTags)+1)+1
+eInd <- numPossSwePts*(length(modTags)+2)
+print(bInd)
+print(eInd)
+#sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
+#sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
+#sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
+#sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
+#sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
+#sweOutPts$tag[bInd:eInd] <- 'SNODAS'
+#sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
 
 print(as.data.frame(sweOutPts))
 ## Fill out snow depth data frame
