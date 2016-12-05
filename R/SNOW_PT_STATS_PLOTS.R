@@ -63,9 +63,13 @@ for (day in 0:nSteps){
       print(modTmp)
       idsObs <- unique(obsTmp$uniqueId)
       idsMod <- unique(modTmp$uniqueId)
+      print(idsObs)
+      print(idsMod)
       # Subset only where we have both obs and model values
       modTmp <- modTmp[uniqueId == idsObs]
+      print(motTmp)
       lenMod <- length(modTmp$uniqueId)
+      print(lenMod)
       bInd <- count
       eInd <- count + lenMod
       sweStats$POSIXct[bInd:eInd] <- dCurrent
