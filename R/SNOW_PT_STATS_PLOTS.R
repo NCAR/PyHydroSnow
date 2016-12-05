@@ -62,7 +62,7 @@ for (day in 0:nSteps){
       # Subset only where we have both obs and model values
       modTmp <- modTmp[uniqueId == idsObs]
       lenMod <- length(modTmp$uniqueId)
-      if(lenMod > 0 & len(obsTmp$uniqueId) > 0){
+      if(lenMod > 0 & length(obsTmp$uniqueId) > 0){
          bInd <- count
          eInd <- count + lenMod
          sweStats$POSIXct[bInd:eInd] <- dCurrent
