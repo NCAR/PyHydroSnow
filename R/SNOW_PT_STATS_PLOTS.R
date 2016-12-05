@@ -95,5 +95,5 @@ for (station in 1:length(stns)){
          ggtitle(title) + xlab('Date') + ylab('SWE (mm)') 
    outPath <- paste0(jobDir,'/SWE_',stns[station],'_',strftime(dateStart,'%Y%m%d',tz='UTC'),
                      '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
-   ggsave(filename=fileOutPath,plot=gg)
+   ggsave(filename=outPath,plot=gg)
 }
