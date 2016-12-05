@@ -105,7 +105,7 @@ for (i in 1:length(mskgeo.nameList)) {
          modoutTag <- modTags[k]
          tmpPath = modPaths[[k]]
          snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
-			    "00.LDASOUT_DOMAIN1")
+			    "0000.LDASOUT_DOMAIN1")
          id <- nc_open(snowPath)
          sweModel <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
          nc_close(id)

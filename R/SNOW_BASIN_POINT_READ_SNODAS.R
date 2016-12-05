@@ -201,7 +201,7 @@ for (day in 0:nSteps){
       modTag <- modTags[tag]
       tmpPath <- modPaths[[tag]]
       snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-                         "00.LDASOUT_DOMAIN1")
+                         "0000.LDASOUT_DOMAIN1")
       id <- nc_open(snowPath)
       tmpModel <- ncvar_get(id,'SNEQV')
       nc_close(id)

@@ -7,6 +7,7 @@
 
 # Load necessary libraries
 library(data.table)
+library(ggplot2)
 
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
@@ -30,7 +31,9 @@ dt <- 24*3600
 # Calculate unique number of "tags". Possible combinations may include
 # SNODAS.
 tags <- unique(sweOutPts$tag)
+print(tags)
 tags <- tags[which(tags != "Obs")]
+print(tags)
 numTags <- length(tags)
 
 # Calculate number of unique reporting stations.
@@ -51,22 +54,24 @@ for (day in 0:nSteps){
 
    # Loop through each tag and calculate stats.
    for (tag in 1:numTags){
-      modTag <- unique(sweOutPts$tag)[tag]
-      obsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'Obs'])
-      modTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag])
+      modTag <- tags[tag]
+      obsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'Obs']
+      modTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]
       idsObs <- unique(obsTmp$uniqueId)
       idsMod <- unique(modTmp$uniqueId)
       # Subset only where we have both obs and model values
       modTmp <- modTmp[uniqueId == idsObs]
       lenMod <- length(modTmp$uniqueId)
-      bInd <- count
-      eInd <- count + lenMod
-      sweStats$POSIXct[bInd:eInd] <- dCurrent
-      sweStats$uniqueId[bInd:eInd] <- idsObs
-      sweStats$tag[bInd:eInd] <- modTag
-      sweStats$bias[bInd:eInd] <- (modTmp - obsTmp)/obsTmp * 100.0
-      sweStats$diff[bInd:eInd] <- modTmp - obsTmp
-      count <- count + lenMod
+      if(lenMod > 0 & length(obsTmp$uniqueId) > 0){
+         bInd <- count
+         eInd <- count + lenMod
+         sweStats$POSIXct[bInd:eInd] <- dCurrent
+         sweStats$uniqueId[bInd:eInd] <- idsObs
+         sweStats$tag[bInd:eInd] <- modTag
+         sweStats$bias[bInd:eInd] <- (modTmp$value_mm - obsTmp$value_mm)/obsTmp$value_mm * 100.0
+         sweStats$diff[bInd:eInd] <- modTmp$value_mm - obsTmp$value_mm
+         count <- count + lenMod
+      }
    }
 }
 
