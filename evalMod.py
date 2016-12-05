@@ -44,11 +44,12 @@ def main(argv):
     args = parser.parse_args()
 
     # Check to make sure arguments make sense
-    try:	
-        pyHydroEvalUtils.checkArgs(args)
-    except:
-        print "ERROR: Improper arguments passed."
-        sys.exit(1)
+    pyHydroEvalUtils.checkArgs(args)
+    #try:	
+    #    pyHydroEvalUtils.checkArgs(args)
+    #except:
+    #    print "ERROR: Improper arguments passed."
+    #    sys.exit(1)
 
     # Convert date arguments to datetime objects. Also check to ensure dates make sense.
     if args.begADate or args.endADate:
