@@ -67,7 +67,7 @@ for (day in 0:nSteps){
       print(idsMod)
       # Subset only where we have both obs and model values
       modTmp <- modTmp[uniqueId == idsObs]
-      print(motTmp)
+      print(modTmp)
       lenMod <- length(modTmp$uniqueId)
       print(lenMod)
       bInd <- count
