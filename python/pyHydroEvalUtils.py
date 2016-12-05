@@ -61,9 +61,10 @@ def checkArgs(parser):
         if len(parser.bsnMskFile) == 0:
             print "ERROR: Zero length basin subset file passed to program."
             raise
-    if int(parser.snRead) > 2 and not parser.bsnMskFile:
-        print "ERROR: Mask file necessary for aggregated reads."
-        raise
+    if parser.snRead:
+        if int(parser.snRead) > 2 and not parser.bsnMskFile:
+            print "ERROR: Mask file necessary for aggregated reads."
+            raise
     if parser.bsnSubFile:
         if len(parser.bsnSubFile) == 0:
             print "ERROR: Zero length basin subset file passed to program."
