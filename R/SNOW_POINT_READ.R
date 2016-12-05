@@ -113,7 +113,6 @@ sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 
 # Place observations, meta data into data frame to pre-populate everything except model/SNODAS
 # values.
-print(numPossSwePts)
 sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
 sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
 sweOutPts$lon[1:numPossSwePts] <- sweOut$longitude[1:numPossSwePts]
@@ -181,7 +180,6 @@ for (day in 0:nSteps){
       nc_close(id)
       # Extract kCoord values for this particular time step
       kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-      print(sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag])
       # Pull values for these coordinates out of file
       modelValuesTmp <- tmpModel[kCoordsTmp]
       # Place into data table
