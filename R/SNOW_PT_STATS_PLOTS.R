@@ -54,7 +54,7 @@ for (day in 0:nSteps){
 
    # Loop through each tag and calculate stats.
    for (tag in 1:numTags){
-      modTag <- unique(sweOutPts$tag)[tag]
+      modTag <- tags[tag]
       print(modTag)
       print(dStr1)
       obsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'Obs']
