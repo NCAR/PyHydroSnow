@@ -44,12 +44,11 @@ def main(argv):
     args = parser.parse_args()
 
     # Check to make sure arguments make sense
-    pyHydroEvalUtils.checkArgs(args)
-    #try:	
-    #    pyHydroEvalUtils.checkArgs(args)
-    #except:
-    #    print "ERROR: Improper arguments passed."
-    #    sys.exit(1)
+    try:	
+        pyHydroEvalUtils.checkArgs(args)
+    except:
+        print "ERROR: Improper arguments passed."
+        sys.exit(1)
 
     # Convert date arguments to datetime objects. Also check to ensure dates make sense.
     if args.begADate or args.endADate:
@@ -92,11 +91,20 @@ def main(argv):
         sys.exit(1)
     
     # Run snow reading functions if desired by user.
-    try:
-        snAnalysisMod.readSnow(args,db,begADateObj,endADateObj,size,rank)
-    except:
-        print "ERROR: Unable to read snow observations/analysis in."
-        sys.exit(1)
+    if args.snRead:
+        try:
+            snAnalysisMod.readSnow(args,db,begADateObj,endADateObj,size,rank)
+        except:
+            print "ERROR: Unable to read snow observations/analysis in."
+            sys.exit(1)
+        
+    # Run snow analysis funtion if desired by user.
+    if args.snRun:
+        try:
+            snAnalysisMod.runSnow(args,db,begADateObj,endADateObj,size,rank)
+        except:
+            print "ERROR: Unable to run snow analysis."
+            sys.exit(1)
 
     ## Copy template namelist file to namelist directory in model project directory.
     ## If multiple model projects have been chosen for cross-model validation, 
