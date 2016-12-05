@@ -31,7 +31,9 @@ dt <- 24*3600
 # Calculate unique number of "tags". Possible combinations may include
 # SNODAS.
 tags <- unique(sweOutPts$tag)
+print(tags)
 tags <- tags[which(tags != "Obs")]
+print(tags)
 numTags <- length(tags)
 
 # Calculate number of unique reporting stations.
