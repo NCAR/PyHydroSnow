@@ -281,8 +281,8 @@ def runSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     sizeStr = "size <- " + str(size) + "\n"
     rankStr = "rank <- " + str(rank) + "\n"
     
-    # Create output directory to hold statistics and plots
-    outDirStr = "outDir <- '" + jobDir + "'\n"
+    # Compose string to direct R to input file.    
+    inStr = "inFile <- '" + args.inFile + "'\n"
     
     # Create empty temporary text file. This will be used by R to read in options for
     # reading in data.
@@ -297,11 +297,11 @@ def runSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     try:
         ioMgmntMod.writeStrToFile(tmpRFile,jobDirStr)
         ioMgmntMod.writeStrToFile(tmpRFile,tagStr)
+        ioMgmntMod.writeStrToFile(tmpRFile,inStr)
         ioMgmntMod.writeStrToFile(tmpRFile,begDateStr)
         ioMgmntMod.writeStrToFile(tmpRFile,endDateStr)
         ioMgmntMod.writeStrToFile(tmpRFile,sizeStr)
         ioMgmntMod.writeStrToFile(tmpRFile,rankStr)
-        ioMgmntMod.writeStrToFile(tmpRFile,outDirStr)
     except:
         print("ERROR: Unable to write basic R information to temporary file.")
         raise
@@ -327,20 +327,20 @@ def runSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Situation #3 - Calculate statistics of gridded snow fields aggregated
     #                to basins/regions.
-    if args.snRun == "3":
-        cmd = "Rscript ./R/SNOW_BAS_STATS.R " + tmpRFile
-        try:
-            subprocess.call(cmd,shell=True)
-        except:
-            print "ERROR: Failure to execute snow analysis job"
-            raise
+    #if args.snRun == "3":
+    #    cmd = "Rscript ./R/SNOW_BAS_STATS.R " + tmpRFile
+    #    try:
+    #        subprocess.call(cmd,shell=True)
+    #    except:
+    #        print "ERROR: Failure to execute snow analysis job"
+    #        raise
             
     # Situation #4 - Calculate statistics + plots for gridded snow fields 
     #                aggregated to basins/regions. 
-    if args.snRun == "4":
-        cmd = "Rscript ./R/SNOW_BAS_STATS_PLOTS.R " + tmpRFile
-        try:
-            subprocess.call(cmd,shell=True)
-        except:
-            print "ERROR: Failure to execute snow analysis job"
-            raise
+    #if args.snRun == "4":
+    #    cmd = "Rscript ./R/SNOW_BAS_STATS_PLOTS.R " + tmpRFile
+    #    try:
+    #        subprocess.call(cmd,shell=True)
+    #    except:
+    #        print "ERROR: Failure to execute snow analysis job"
+    #        raise

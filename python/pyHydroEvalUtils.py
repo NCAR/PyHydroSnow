@@ -54,7 +54,7 @@ def checkArgs(parser):
         if not parser.inFile:
             print "ERROR: Input file necessary for analysis."
             raise
-        elif len(parser.inFile):
+        elif len(parser.inFile) == 0:
             print "ERROR: Zero length input file passed to program when file needed for analysis."
             raise
     if parser.bsnMskFile:
