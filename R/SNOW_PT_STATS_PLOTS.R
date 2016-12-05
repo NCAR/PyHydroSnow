@@ -79,9 +79,9 @@ for (day in 0:nSteps){
       print(modTag)
       sweStats$tag[bInd:eInd] <- modTag
       print('a')
-      #sweStats$bias[bInd:eInd] <- (modTmp - obsTmp)/obsTmp * 100.0
+      sweStats$bias[bInd:eInd] <- (modTmp$value_mm - obsTmp$value_mm)/obsTmp$value_mm * 100.0
       print('b')
-      sweStats$diff[bInd:eInd] <- modTmp - obsTmp
+      sweStats$diff[bInd:eInd] <- modTmp$value_mm - obsTmp$value_mm
       count <- count + lenMod
    }
 }
