@@ -55,34 +55,23 @@ for (day in 0:nSteps){
    # Loop through each tag and calculate stats.
    for (tag in 1:numTags){
       modTag <- tags[tag]
-      print(modTag)
-      print(dStr1)
       obsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'Obs']
       modTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]
-      print(obsTmp)
-      print(modTmp)
       idsObs <- unique(obsTmp$uniqueId)
       idsMod <- unique(modTmp$uniqueId)
-      print(idsObs)
-      print(idsMod)
       # Subset only where we have both obs and model values
       modTmp <- modTmp[uniqueId == idsObs]
-      print(modTmp)
       lenMod <- length(modTmp$uniqueId)
-      print(lenMod)
-      bInd <- count
-      eInd <- count + lenMod
-      print(dCurrent)
-      sweStats$POSIXct[bInd:eInd] <- dCurrent
-      print(idsObs)
-      sweStats$uniqueId[bInd:eInd] <- idsObs
-      print(modTag)
-      sweStats$tag[bInd:eInd] <- modTag
-      print('a')
-      sweStats$bias[bInd:eInd] <- (modTmp$value_mm - obsTmp$value_mm)/obsTmp$value_mm * 100.0
-      print('b')
-      sweStats$diff[bInd:eInd] <- modTmp$value_mm - obsTmp$value_mm
-      count <- count + lenMod
+      if(lenMod > 0 & len(obsTmp$uniqueId) > 0){
+         bInd <- count
+         eInd <- count + lenMod
+         sweStats$POSIXct[bInd:eInd] <- dCurrent
+         sweStats$uniqueId[bInd:eInd] <- idsObs
+         sweStats$tag[bInd:eInd] <- modTag
+         sweStats$bias[bInd:eInd] <- (modTmp$value_mm - obsTmp$value_mm)/obsTmp$value_mm * 100.0
+         sweStats$diff[bInd:eInd] <- modTmp$value_mm - obsTmp$value_mm
+         count <- count + lenMod
+      }
    }
 }
 
