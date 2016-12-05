@@ -94,6 +94,6 @@ for (station in 1:length(stns)){
    gg <- ggplot(tablePlot,aes(x=POSIXct,y=value_mm,color=tag)) + geom_line() + 
          ggtitle(title) + xlab('Date') + ylab('SWE (mm)') 
    outPath <- paste0(jobDir,'/SWE_',stns[station],'_',strftime(dateStart,'%Y%m%d',tz='UTC'),
-                     ,'_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
+                     '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
    ggsave(filename=fileOutPath,plot=gg)
 }
