@@ -59,9 +59,10 @@ for (day in 0:nSteps){
       modTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]
       idsObs <- unique(obsTmp$uniqueId)
       idsMod <- unique(modTmp$uniqueId)
-      print(idsObs)
+      print(length(idsObs))
+      print(length(idsMod))
       # Subset only where we have both obs and model values
-      modTmp <- modTmp[uniqueId == idsObs]
+      #modTmp <- modTmp[uniqueId == idsObs]
       lenMod <- length(modTmp$uniqueId)
       if(lenMod > 0 & length(obsTmp$uniqueId) > 0){
          bInd <- count
