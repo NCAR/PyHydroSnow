@@ -50,6 +50,7 @@ load(ptObsFile)
 dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude),
                            geoFile)
 
+print(dfCoord)
 # Add coordinates to meta dataframe
 metaOut[['iCoord']] <- dfCoord$ew
 metaOut[['jCoord']] <- dfCoord$sn
@@ -64,7 +65,6 @@ sdOut[['latitude']] <- -99.0
 sweOut[['longitude']] <- -99.0
 sdOut[['longitude']] <- -99.0
 
-print(sweOut)
 uniqueSwePts <- unique(sweOut$uniqueId)
 uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
