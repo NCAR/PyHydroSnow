@@ -86,6 +86,7 @@ sdOut <- subset(sdOut,kCoord > 0)
 sweOut <- subset(sweOut,!is.na(kCoord))
 sdOut <- subset(sdOut,!is.na(kCoord))
 
+print(sweOut)
 # truncate hourly observations to a daily mean.
 print('Truncating Dates from Observations')
 sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
