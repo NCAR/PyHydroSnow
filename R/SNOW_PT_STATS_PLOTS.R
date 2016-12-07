@@ -99,3 +99,59 @@ for (station in 1:length(stns)){
                      '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
    ggsave(filename=outPath,plot=gg)
 }
+
+# Create scatter plots of observed SWE vs. Modeled SWE values for by basin/region, if they exist.
+regions <- unique(sweOutPts$region)
+if(length(regions[!is.na(regions)) != 0){
+   # Regions exist in dataset, perform scatter plotting.
+   for(r in 1:length(regions)){
+      regionTmp <- regions[r]
+      for(t in 1:numTags){
+         tagTmp <- tags[t]
+         dtTmp <- subset(sweOutPts,region == regionTmp)
+         dtTmp2 <- subset(dtTmp,tag == tagTmp)
+         obsTmp <- subset(dtTmp,tag == 'Obs')
+         dtTmp2 <- as.data.frame(dtTmp2)
+         dtTmp2[['Obs']] <- obsTmp$value_mm
+         outFile <- paste0(jobDir,'/SWE_SCATTER_REGION_',regionTmp,'_',tagTmp,'_',
+                           strftime(dateStart,'%Y%m%d',tz='UTC'),'_',
+                           strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
+
+         title <- paste0('In-Situ SWE Observations for: ',strftime(dateStart,'%Y-%m-%d',tz='UTC'),
+                         ' to: ',strftime(dateEnd,'%Y-%m-%d',tz='UTC'))
+         xLab <- 'Observed SWE (mm)'
+         yLab <- 'Simulated SWE (mm)'
+
+         lmOut <- lm(value_mm ~ Obs,dtTmp2)
+         slope <- format(round(lmOut$coefficients[[2]],2),nsmall=2)
+         icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
+         cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
+
+         maxCheck1 <- max(dtTmp2$value_mm)
+         maxCheck2 <- max(dtTmp2$Obs)
+         if(maxCheck1 > maxCheck2){
+            maxSnow <- maxCheck1
+         }else{
+            maxSnow <- maxCheck2
+         }
+
+         gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
+         ggplot2::geom_point(alpha = 0.2) +
+         ggplot2::ggtitle(title) +
+         ggplot2::xlab(xLab) +
+         ggplot2::ylab(yLab) +
+         theme(plot.title = element_text(size=20)) +
+         theme(axis.title.x = element_text(size=20)) +
+         theme(axis.title.y = element_text(size=20)) +
+         ggplot2::geom_abline(intercept = 0, slope = 1) +
+         coord_cartesian(xlim = c(0, maxSnow),ylim = c(0,maxSnow)) +
+         annotate("text", x= (0.2*maxSnow), y = (0.95*maxSnow), label = paste0("Slope: ",toString(slope)),
+                  colour="darkred", family="serif", fontface="italic", size = 7) +
+         annotate("text", x= (0.2*maxSnow), y = (0.9*maxSnow), label = paste0("Intercept: ",toString(icpt)),
+                  colour="darkred", family="serif", fontface="italic", size = 7) +
+         annotate("text", x= (0.2*maxSnow), y = (0.85*maxSnow), label = paste0("Correlation: ",toString(cc)),
+                  colour="darkred", family="serif", fontface="italic", size = 7)
+         ggplot2::ggsave(filename=outFile,plot=gg, units="in", width=8, height=6, dpi=100)
+      }
+   }
+}
