@@ -63,46 +63,60 @@ print('d')
 
 # Loop through observations and assign kCoord to each entry. This will be used 
 # when extracting gridded output.
-print(names(sweOut))
-print(names(sdOut))
-sweOut[['kCoord']] <- -99
-sdOut[['kCoord']] <- -99
-sweOut[['latitude']] <- -99.0
-sdOut[['latitude']] <- -99.0
-sweOut[['longitude']] <- -99.0
-sdOut[['longitude']] <- -99.0
+if(length(sweOut$uniqueId) > 0){
+   sweOut[['kCoord']] <- -99
+   sweOut[['latitude']] <- -99.0
+   sweOut[['longitude']] <- -99.0
+}
+if(length(sdOut$uniqueId) > 0){
+   sdOut[['kCoord']] <- -99
+   sdOut[['latitude']] <- -99.0
+   sdOut[['longitude']] <- -99.0
+}
 
 uniqueSwePts <- unique(sweOut$uniqueId)
 uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
-for(i in 1:length(uniqueSwePts)){
-   idTmp <- uniqueSwePts[i]
-   sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
-   sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
-   sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
+if(length(sweOut$uniqueId) > 0){
+   for(i in 1:length(uniqueSwePts)){
+      idTmp <- uniqueSwePts[i]
+      sweOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
+      sweOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
+      sweOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
+   }
 }
 print('Placing K,Lat,Lon into SD Obs DF')
-for(i in 1:length(uniqueSdPts)){
-   idTmp <- uniqueSdPts[i]
-   sdOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
-   sdOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
-   sdOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
+if(length(sdOut$uniqueId) > 0){
+   for(i in 1:length(uniqueSdPts)){
+      idTmp <- uniqueSdPts[i]
+      sdOut[uniqueId == idTmp]$kCoord <- metaOut[uniqueId == idTmp]$kCoord
+      sdOut[uniqueId == idTmp]$latitude <- metaOut[uniqueId == idTmp]$latitude
+      sdOut[uniqueId == idTmp]$longitude <- metaOut[uniqueId == idTmp]$longitude
+   }
 }
 # Subset missing kCoord values as these points fall outside the modeling domain.
-sweOut <- subset(sweOut,kCoord > 0)
-sdOut <- subset(sdOut,kCoord > 0)
-sweOut <- subset(sweOut,!is.na(kCoord))
-sdOut <- subset(sdOut,!is.na(kCoord))
+if(length(sweOut$uniqueId) > 0){
+   sweOut <- subset(sweOut,kCoord > 0)
+   sweOut <- subset(sweOut,!is.na(kCoord))
+}
+if(length(sdOut$uniqueId) > 0){
+   sdOut <- subset(sdOut,kCoord > 0)
+   sdOut <- subset(sdOut,!is.na(kCoord))
+}
 
 print(sweOut)
 # truncate hourly observations to a daily mean.
 print('Truncating Dates from Observations')
-sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
-sdDatesTmp <- CalcDateTrunc(sdOut$POSIXct)
-sweOut$POSIXct[] <- sweDatesTmp
-sdOut$POSIXct[] <- sdDatesTmp
-sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
-sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
+if(length(sweOut$uniqueId) > 0){
+   sweDatesTmp <- CalcDateTrunc(sweOut$POSIXct)
+   sweOut$POSIXct[] <- sweDatesTmp
+   sweOut <- sweOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
+}
+if(length(sdOut$uniqueId) > 0){
+   sdDatesTmp <- CalcDateTrunc(sdOut$POSIXct)
+   sdOut$POSIXct[] <- sdDatesTmp
+   sdOut <- sdOut[, .(obs_mm=mean(obs_mm)), by=.(uniqueId,POSIXct,region,kCoord,latitude,longitude)]
+}
 
 # Calculate total number of observations based on observations file and number of model
 # groups.
@@ -112,166 +126,176 @@ numPossSdPts <- length(sdOut$obs_mm)
 # Create output dataframes
 print(numPossSwePts*(length(modTags)+2))
 sweOutPts <- data.frame(matrix(NA,ncol=8,nrow=(numPossSwePts*(length(modTags)+2))))
-sdOutPts <- data.frame(matrix(NA,ncol=8,nrow=(numPossSdPts*(length(modTags)+2))))
-
 names(sweOutPts) <- c('uniqueId','lat','lon','region','POSIXct','value_mm','tag','kCoord')
+sdOutPts <- data.frame(matrix(NA,ncol=8,nrow=(numPossSdPts*(length(modTags)+2))))
 names(sdOutPts) <- c('uniqueId','lat','lon','region','POSIXct','value_mm','tag','kCoord')
+if(numPossSwePts > 0){
+   sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+}
 
-sweOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
-sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+if(numPossSdPts > 0){
+   sdOutPts$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
+}
 
 # Place observations, meta data into data frame to pre-populate everything except model/SNODAS
 # values.
-sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
-sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
-sweOutPts$lon[1:numPossSwePts] <- sweOut$longitude[1:numPossSwePts]
-sweOutPts$region[1:numPossSwePts] <- sweOut$region[1:numPossSwePts]
-sweOutPts$POSIXct[1:numPossSwePts] <- sweOut$POSIXct[1:numPossSwePts]
-sweOutPts$value_mm[1:numPossSwePts] <- sweOut$obs_mm[1:numPossSwePts]
-sweOutPts$tag[1:numPossSwePts] <- 'Obs'
-sweOutPts$kCoord[1:numPossSwePts] <- sweOut$kCoord[1:numPossSwePts]
-for(i in 1:length(modTags)){
-   bInd <- numPossSwePts*i + 1
-   eInd <- numPossSwePts*(i+1)
+if(numPossSwePts > 0){
+   sweOutPts$uniqueId[1:numPossSwePts] <- sweOut$uniqueId[1:numPossSwePts]
+   sweOutPts$lat[1:numPossSwePts] <- sweOut$latitude[1:numPossSwePts]
+   sweOutPts$lon[1:numPossSwePts] <- sweOut$longitude[1:numPossSwePts]
+   sweOutPts$region[1:numPossSwePts] <- sweOut$region[1:numPossSwePts]
+   sweOutPts$POSIXct[1:numPossSwePts] <- sweOut$POSIXct[1:numPossSwePts]
+   sweOutPts$value_mm[1:numPossSwePts] <- sweOut$obs_mm[1:numPossSwePts]
+   sweOutPts$tag[1:numPossSwePts] <- 'Obs'
+   sweOutPts$kCoord[1:numPossSwePts] <- sweOut$kCoord[1:numPossSwePts]
+   for(i in 1:length(modTags)){
+      bInd <- numPossSwePts*i + 1
+      eInd <- numPossSwePts*(i+1)
+      sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
+      sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
+      sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
+      sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
+      sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
+      sweOutPts$tag[bInd:eInd] <- modTags[i]
+      sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
+   }
+   # Handle SNODAS data
+   bInd <- numPossSwePts*(length(modTags)+1)+1
+   eInd <- numPossSwePts*(length(modTags)+2)
    sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
    sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
    sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
    sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
    sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
-   sweOutPts$tag[bInd:eInd] <- modTags[i]
+   sweOutPts$tag[bInd:eInd] <- 'SNODAS'
    sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
+   # Subset any values that fall outside the date range
+   sweOutPts <- subset(sweOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= dateStart &
+                       as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') <= dateEnd)
+   sweOutPts <- as.data.table(sweOutPts)
 }
-# Handle SNODAS data
-bInd <- numPossSwePts*(length(modTags)+1)+1
-eInd <- numPossSwePts*(length(modTags)+2)
-sweOutPts$uniqueId[bInd:eInd] <- sweOut$uniqueId[1:numPossSwePts]
-sweOutPts$lat[bInd:eInd] <- sweOut$latitude[1:numPossSwePts]
-sweOutPts$lon[bInd:eInd] <- sweOut$longitude[1:numPossSwePts]
-sweOutPts$region[bInd:eInd] <- sweOut$region[1:numPossSwePts]
-sweOutPts$POSIXct[bInd:eInd] <- sweOut$POSIXct[1:numPossSwePts]
-sweOutPts$tag[bInd:eInd] <- 'SNODAS'
-sweOutPts$kCoord[bInd:eInd] <- sweOut$kCoord[1:numPossSwePts]
 
-## Fill out snow depth data frame
-sdOutPts$uniqueId[1:numPossSdPts] <- sdOut$uniqueId[1:numPossSdPts]
-sdOutPts$lat[1:numPossSdPts] <- sdOut$latitude[1:numPossSdPts]
-sdOutPts$lon[1:numPossSdPts] <- sdOut$longitude[1:numPossSdPts]
-sdOutPts$region[1:numPossSdPts] <- sdOut$region[1:numPossSdPts]
-sdOutPts$POSIXct[1:numPossSdPts] <- sdOut$POSIXct[1:numPossSdPts]
-sdOutPts$value_mm[1:numPossSdPts] <- sdOut$obs_mm[1:numPossSdPts]
-sdOutPts$tag[1:numPossSdPts] <- 'Obs'
-sdOutPts$kCoord[1:numPossSdPts] <- sdOut$kCoord[1:numPossSdPts]
-for(i in 1:length(modTags)){
-   bInd <- numPossSdPts*i + 1
-   eInd <- numPossSdPts*(i+1)
+if(numPossSdPts > 0){
+   ## Fill out snow depth data frame
+   sdOutPts$uniqueId[1:numPossSdPts] <- sdOut$uniqueId[1:numPossSdPts]
+   sdOutPts$lat[1:numPossSdPts] <- sdOut$latitude[1:numPossSdPts]
+   sdOutPts$lon[1:numPossSdPts] <- sdOut$longitude[1:numPossSdPts]
+   sdOutPts$region[1:numPossSdPts] <- sdOut$region[1:numPossSdPts]
+   sdOutPts$POSIXct[1:numPossSdPts] <- sdOut$POSIXct[1:numPossSdPts]
+   sdOutPts$value_mm[1:numPossSdPts] <- sdOut$obs_mm[1:numPossSdPts]
+   sdOutPts$tag[1:numPossSdPts] <- 'Obs'
+   sdOutPts$kCoord[1:numPossSdPts] <- sdOut$kCoord[1:numPossSdPts]
+   for(i in 1:length(modTags)){
+      bInd <- numPossSdPts*i + 1
+      eInd <- numPossSdPts*(i+1)
+      sdOutPts$uniqueId[bInd:eInd] <- sdOut$uniqueId[1:numPossSdPts]
+      sdOutPts$lat[bInd:eInd] <- sdOut$latitude[1:numPossSdPts]
+      sdOutPts$lon[bInd:eInd] <- sdOut$longitude[1:numPossSdPts]
+      sdOutPts$region[bInd:eInd] <- sdOut$region[1:numPossSdPts]
+      sdOutPts$POSIXct[bInd:eInd] <- sdOut$POSIXct[1:numPossSdPts]
+      sdOutPts$tag[bInd:eInd] <- modTags[i]
+      sdOutPts$kCoord[bInd:eInd] <- sdOut$kCoord[1:numPossSdPts]
+   }
+   # Handle SNODAS data
+   bInd <- numPossSdPts*(length(modTags)+1)+1
+   eInd <- numPossSdPts*(length(modTags)+2)
    sdOutPts$uniqueId[bInd:eInd] <- sdOut$uniqueId[1:numPossSdPts]
    sdOutPts$lat[bInd:eInd] <- sdOut$latitude[1:numPossSdPts]
    sdOutPts$lon[bInd:eInd] <- sdOut$longitude[1:numPossSdPts]
    sdOutPts$region[bInd:eInd] <- sdOut$region[1:numPossSdPts]
    sdOutPts$POSIXct[bInd:eInd] <- sdOut$POSIXct[1:numPossSdPts]
-   sdOutPts$tag[bInd:eInd] <- modTags[i]
+   sdOutPts$tag[bInd:eInd] <- 'SNODAS'
    sdOutPts$kCoord[bInd:eInd] <- sdOut$kCoord[1:numPossSdPts]
-}
-# Handle SNODAS data
-bInd <- numPossSdPts*(length(modTags)+1)+1
-eInd <- numPossSdPts*(length(modTags)+2)
-sdOutPts$uniqueId[bInd:eInd] <- sdOut$uniqueId[1:numPossSdPts]
-sdOutPts$lat[bInd:eInd] <- sdOut$latitude[1:numPossSdPts]
-sdOutPts$lon[bInd:eInd] <- sdOut$longitude[1:numPossSdPts]
-sdOutPts$region[bInd:eInd] <- sdOut$region[1:numPossSdPts]
-sdOutPts$POSIXct[bInd:eInd] <- sdOut$POSIXct[1:numPossSdPts]
-sdOutPts$tag[bInd:eInd] <- 'SNODAS'
-sdOutPts$kCoord[bInd:eInd] <- sdOut$kCoord[1:numPossSdPts]
-
-# Subset any values that fall outside the date range
-sweOutPts <- subset(sweOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= dateStart &
-                    as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') <= dateEnd)
-sdOutPts <- subset(sdOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= dateStart &
-                    as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') <= dateEnd)
-
-# Convert to data table
-sweOutPts <- as.data.table(sweOutPts)
-sdOutPts <- as.data.table(sdOutPts)
-
-# Loop through each day in the time period of analysis. Read in model/SNODAS grids,
-# then use kCoord values for each data table to extract all obs for that time.
-# SWE First.
-for (day in 0:nSteps){
-   dCurrent <- dateStart + dt*day
-   print(dCurrent)
-   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-
-   # Read in model output. If multiple model directories, stack each model output
-   # array ontop of each other to create a 3D array for referencing. 
-   for (tag in 1:length(modTags)){
-      modTag <- modTags[tag]
-      tmpPath <- modPaths[[tag]]
-      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-                         "0000.LDASOUT_DOMAIN1")
-      id <- nc_open(snowPath)
-      tmpModel <- ncvar_get(id,'SNEQV')
-      nc_close(id)
-      # Extract kCoord values for this particular time step
-      kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-      # Pull values for these coordinates out of file
-      modelValuesTmp <- tmpModel[kCoordsTmp]
-      # Place into data table
-      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
-   }
-
-   # Read in SNODAS data
-   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-                            strftime(dCurrent,"%Y%m%d"),".nc")
-   id <- nc_open(snodasFilePath)
-   sweSnodas <- ncvar_get(id,'SNEQV')
-   nc_close(id)
-   # Extract kCoord values for this particular time step 
-   kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-   # Pull values for these coordinates out of file
-   modelValuesTmp <- sweSnodas[kCoordsTmp]
-   # Place into data table
-   sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+   # Subset any values that fall outside the date range
+   sdOutPts <- subset(sdOutPts,as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') >= dateStart &
+                      as.POSIXct(POSIXct,'%Y-%m-%d %H:%M:%S',tz='UTC') <= dateEnd)
+   sdOutPts <- as.data.table(sdOutPts)
 }
 
-# Snow Depth Next.
-for (day in 0:nSteps){
-   dCurrent <- dateStart + dt*day
-   print(dCurrent)
-   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
 
-   for (tag in 1:length(modTags)){
-      modTag <- modTags[tag]
-      tmpPath <- modPaths[[tag]]
-      snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
-                         "0000.LDASOUT_DOMAIN1")
-      id <- nc_open(snowPath)
-      tmpModel <- ncvar_get(id,'SNOWH')
+if(numPossSwePts > 0){
+   # Loop through each day in the time period of analysis. Read in model/SNODAS grids,
+   # then use kCoord values for each data table to extract all obs for that time.
+   # SWE First.
+   for (day in 0:nSteps){
+      dCurrent <- dateStart + dt*day
+      print(dCurrent)
+      dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+      # Read in model output. If multiple model directories, stack each model output
+      # array ontop of each other to create a 3D array for referencing. 
+      for (tag in 1:length(modTags)){
+         modTag <- modTags[tag]
+         tmpPath <- modPaths[[tag]]
+         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                            "0000.LDASOUT_DOMAIN1")
+         id <- nc_open(snowPath)
+         tmpModel <- ncvar_get(id,'SNEQV')
+         nc_close(id)
+         # Extract kCoord values for this particular time step
+         kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+         # Pull values for these coordinates out of file
+         modelValuesTmp <- tmpModel[kCoordsTmp]
+         # Place into data table
+         sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+      }
+
+      # Read in SNODAS data
+      snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                               strftime(dCurrent,"%Y%m%d"),".nc")
+      id <- nc_open(snodasFilePath)
+      sweSnodas <- ncvar_get(id,'SNEQV')
       nc_close(id)
       # Extract kCoord values for this particular time step 
-      kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+      kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
       # Pull values for these coordinates out of file
-      modelValuesTmp <- tmpModel[kCoordsTmp]
+      modelValuesTmp <- sweSnodas[kCoordsTmp]
       # Place into data table
-      sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
    }
 
-   # Read in SNODAS data
-   snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
-                            strftime(dCurrent,"%Y%m%d"),".nc")
-   id <- nc_open(snodasFilePath)
-   sdSnodas <- ncvar_get(id,'SNOWH')
-   nc_close(id)
-   # Extract kCoord values for this particular time step
-   kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-   # Pull values for these coordinates out of file
-   modelValuesTmp <- sdSnodas[kCoordsTmp]
-   # Place into data table
-   sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+   sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
 }
 
-# Subset data frames to exclude any missing values
-sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
-sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+if(numPossSdPts > 0){
+   # Snow Depth Next.
+   for (day in 0:nSteps){
+      dCurrent <- dateStart + dt*day
+      print(dCurrent)
+      dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+
+      for (tag in 1:length(modTags)){
+         modTag <- modTags[tag]
+         tmpPath <- modPaths[[tag]]
+         snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
+                            "0000.LDASOUT_DOMAIN1")
+         id <- nc_open(snowPath)
+         tmpModel <- ncvar_get(id,'SNOWH')
+         nc_close(id)
+         # Extract kCoord values for this particular time step 
+         kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+         # Pull values for these coordinates out of file
+         modelValuesTmp <- tmpModel[kCoordsTmp]
+         # Place into data table
+         sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+      }
+
+      # Read in SNODAS data
+      snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
+                               strftime(dCurrent,"%Y%m%d"),".nc")
+      id <- nc_open(snodasFilePath)
+      sdSnodas <- ncvar_get(id,'SNOWH')
+      nc_close(id)
+      # Extract kCoord values for this particular time step
+      kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
+      # Pull values for these coordinates out of file
+      modelValuesTmp <- sdSnodas[kCoordsTmp]
+      # Place into data table
+      sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+   }
+
+   sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+}
 
 # Save output
 save(sweOutPts,sdOutPts,file=outFile)
