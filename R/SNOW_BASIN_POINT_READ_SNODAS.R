@@ -50,7 +50,8 @@ load(ptObsFile)
 dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude),
                            geoFile)
 
-print(dfCoord)
+print(length(dfCoord$ew))
+print(length(metaOut$region))
 # Add coordinates to meta dataframe
 metaOut[['iCoord']] <- dfCoord$ew
 metaOut[['jCoord']] <- dfCoord$sn
