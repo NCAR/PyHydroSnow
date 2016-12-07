@@ -102,7 +102,7 @@ for (station in 1:length(stns)){
 
 # Create scatter plots of observed SWE vs. Modeled SWE values for by basin/region, if they exist.
 regions <- unique(sweOutPts$region)
-if(length(regions[!is.na(regions)) != 0){
+if(length(regions[!is.na(regions)]) != 0){
    # Regions exist in dataset, perform scatter plotting.
    for(r in 1:length(regions)){
       regionTmp <- regions[r]
