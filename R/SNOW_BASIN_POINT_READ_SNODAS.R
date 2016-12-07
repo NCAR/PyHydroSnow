@@ -47,7 +47,6 @@ nc_close(id)
 # be used to extract gridded snow values.
 load(ptObsFile)
 
-print(sweOut)
 dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude),
                            geoFile)
 
@@ -65,6 +64,7 @@ sdOut[['latitude']] <- -99.0
 sweOut[['longitude']] <- -99.0
 sdOut[['longitude']] <- -99.0
 
+print(sweOut)
 uniqueSwePts <- unique(sweOut$uniqueId)
 uniqueSdPts <- unique(sdOut$uniqueId)
 print('Placing K,Lat,Lon into SWE Obs DF')
