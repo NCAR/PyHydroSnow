@@ -63,6 +63,8 @@ print('d')
 
 # Loop through observations and assign kCoord to each entry. This will be used 
 # when extracting gridded output.
+print(names(sweOut))
+print(names(sdOut))
 sweOut[['kCoord']] <- -99
 sdOut[['kCoord']] <- -99
 sweOut[['latitude']] <- -99.0
