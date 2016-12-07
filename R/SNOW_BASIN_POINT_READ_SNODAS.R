@@ -53,9 +53,13 @@ dfCoord <- GetGeogridIndex(data.frame(lon=metaOut$longitude,lat=metaOut$latitude
 print(length(dfCoord$ew))
 print(length(metaOut$region))
 # Add coordinates to meta dataframe
+print('a')
 metaOut[['iCoord']] <- dfCoord$ew
+print('b')
 metaOut[['jCoord']] <- dfCoord$sn
+print('c')
 metaOut[['kCoord']] <- (nColMod*(dfCoord$sn-1)) + dfCoord$ew
+print('d')
 
 # Loop through observations and assign kCoord to each entry. This will be used 
 # when extracting gridded output.
