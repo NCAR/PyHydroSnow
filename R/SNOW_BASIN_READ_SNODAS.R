@@ -81,7 +81,7 @@ count = 1
 # Loop through basins and calculate SNODAS/model statistics
 for (i in 1:length(mskgeo.nameList)) {
    bName <- mskgeo.nameList[[i]]
-   if(bName != "5"){
+   if(bName != "50"){
       next
    }
    bStart <- c(mskgeo.minInds$x[i],mskgeo.minInds$y[i],1)
