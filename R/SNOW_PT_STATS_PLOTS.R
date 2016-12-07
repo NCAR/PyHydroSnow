@@ -36,6 +36,12 @@ tags <- tags[which(tags != "Obs")]
 print(tags)
 numTags <- length(tags)
 
+# TEMPORARY
+tags <- tags[which(tags != "SNODAS")]
+print(tags)
+numTags <- length(tags)
+# TEMPORARY
+
 # Calculate number of unique reporting stations.
 stns <- unique(sweOutPts$uniqueId)
 
@@ -122,6 +128,9 @@ if(length(regions[!is.na(regions)]) != 0){
          xLab <- 'Observed SWE (mm)'
          yLab <- 'Simulated SWE (mm)'
 
+         if(length(dtTmp2$value_mm) == 0){
+            next
+         }
          lmOut <- lm(value_mm ~ Obs,dtTmp2)
          slope <- format(round(lmOut$coefficients[[2]],2),nsmall=2)
          icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
