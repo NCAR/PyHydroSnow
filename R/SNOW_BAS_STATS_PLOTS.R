@@ -7,6 +7,7 @@
 # Load necessary libraries
 library(ggplot2)
 
+print('lskdjf')
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
 sourceFile <- args[1]
