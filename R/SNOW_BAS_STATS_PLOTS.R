@@ -7,7 +7,6 @@
 # Load necessary libraries
 library(ggplot2)
 
-print('lskdjf')
 # Process command line arguments.
 args <- commandArgs(trailingOnly = TRUE)
 sourceFile <- args[1]
@@ -29,6 +28,7 @@ dt <- 24*3600
 bDStr <- strftime(dateStart,'%Y%m%d',tz='UTC')
 eDStr <- strftime(dateEnd,'%Y%m%d',tz='UTC')
 
+print('blah')
 numBasins <- unique(snowBasinData$Basin)
 basins <- unique(snowBasinData$Basin)
 numTags <- unique(snowBasinData$product)
