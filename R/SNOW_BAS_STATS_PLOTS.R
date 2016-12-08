@@ -41,6 +41,6 @@ for(basin in 1:numBasins){
    gg <- ggplot(dfTmp,aes(x=Date,y=snow_volume_acre_feet,color=product)) +
          geom_line() + 
          xlab('Date') + 
-         ylab('SWE Volume (acre-feet)
+         ylab('SWE Volume (acre-feet)')
    ggsave(filename=outPath1,plot=gg,units="in", width=8, height=6, dpi=100)
 }
