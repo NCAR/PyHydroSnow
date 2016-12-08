@@ -337,10 +337,10 @@ def runSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     # Situation #4 - Calculate statistics + plots for gridded snow fields 
     #                aggregated to basins/regions. 
-    #if args.snRun == "4":
-    #    cmd = "Rscript ./R/SNOW_BAS_STATS_PLOTS.R " + tmpRFile
-    #    try:
-    #        subprocess.call(cmd,shell=True)
-    #    except:
-    #        print "ERROR: Failure to execute snow analysis job"
-    #        raise
+    if args.snRun == "4":
+        cmd = "Rscript ./R/SNOW_BAS_STATS_PLOTS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow analysis job"
+            raise
