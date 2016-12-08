@@ -35,6 +35,7 @@ tags <- unique(snowBasinData$product)
 # Loop through each basin available and calculate plots.
 for(basin in 1:numBasins){
    basinTmp <- basins[basin]
+   print(basinTmp)
    outPath1 <- paste0(jobDir,'/SWE_VOLUME_',basinTmp,'_',bDStr,'_',eDStr,'.png')
    dfTmp <- subset(snowBasinData,Basin == basinTmp)
    gg <- ggplot(dfTmp,aes(x=Date,y=snow_volume_acre_feet,color=product)) +
