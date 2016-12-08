@@ -38,7 +38,7 @@ for(basin in 1:numBasins){
    print(basinTmp)
    outPath1 <- paste0(jobDir,'/SWE_VOLUME_',basinTmp,'_',bDStr,'_',eDStr,'.png')
    dfTmp <- subset(snowBasinData,Basin == basinTmp)
-   dfTmp <- dfTmp$snow_volume_acre_feet/1000.0 # Convert to thousands of acre-feet
+   dfTmp$snow_volume_acre_feet <- dfTmp$snow_volume_acre_feet/1000.0 # Convert to thousands of acre-feet
    gg <- ggplot(dfTmp,aes(x=Date,y=snow_volume_acre_feet,color=product)) +
          geom_line() + 
          xlab('Date') + 
