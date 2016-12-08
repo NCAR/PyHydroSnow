@@ -31,6 +31,8 @@ eDStr <- strftime(dateEnd,'%Y%m%d',tz='UTC')
 numBasins <- length(unique(snowBasinData$Basin))
 basins <- unique(snowBasinData$Basin)
 # Loop through each basin available and calculate plots.
+print(basins)
+print(numBasins)
 for(basin in 1:numBasins){
    basinTmp <- basins[basin]
    print(basinTmp)
