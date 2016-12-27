@@ -190,7 +190,7 @@ for(t in 1:numTags){
         cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
 
 	print(cc)
-	testData <- cor.test(dtTmp2$value_mm,dtTmp2$Obs,method='pearson')
+	testData <- cor.test(as.vector(dtTmp2$value_mm),as.vector(dtTmp2$Obs),method='pearson')
 	print(testData)
         maxCheck1 <- max(dtTmp2$value_mm)
         maxCheck2 <- max(dtTmp2$Obs)
