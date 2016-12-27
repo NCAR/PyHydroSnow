@@ -170,7 +170,7 @@ for(t in 1:numTags){
 	tagTmp <- tags[t]
 	dtTmp <- subset(sweOutPts,tag == tagTmp)
 	obsTmp <- subset(sweOutPts,tag == 'Obs')
-	dtTmp2 <- as.data.Frame(dtTmp)
+	dtTmp2 <- as.data.frame(dtTmp)
 	dtTmp2[['obs']] <- obsTmp$value_mm
 	outFile <- paste0(jobDir,'/SWE_SCATTER_ALL_',tagTmp,'_',
                            strftime(dateStart,'%Y%m%d',tz='UTC'),'_',
