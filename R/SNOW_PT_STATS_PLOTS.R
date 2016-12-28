@@ -149,7 +149,7 @@ sweStats$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 #         ggplot2::ggtitle(title) +
 #         ggplot2::xlab(xLab) +
 #         ggplot2::ylab(yLab) +
-#         theme(plot.title = element_text(size=20)) +
+#         theme(plot.title = element_text(size=16)) +
 #         theme(axis.title.x = element_text(size=20)) +
 #         theme(axis.title.y = element_text(size=20)) +
 #         ggplot2::geom_abline(intercept = 0, slope = 1) +
@@ -205,7 +205,7 @@ for(t in 1:numTags){
         ggplot2::ggtitle(title) +
         ggplot2::xlab(xLab) +
         ggplot2::ylab(yLab) +
-        theme(plot.title = element_text(size=20)) +
+        theme(plot.title = element_text(size=16)) +
         theme(axis.title.x = element_text(size=20)) +
         theme(axis.title.y = element_text(size=20)) +
         ggplot2::geom_abline(intercept = 0, slope = 1) +
