@@ -116,6 +116,7 @@ if(length(regions[!is.na(regions)]) != 0){
          tagTmp <- tags[t]
          dtTmp <- subset(sweOutPts,region == regionTmp)
          dtTmp2 <- subset(dtTmp,tag == tagTmp)
+         snodasTmp <- subset(dtTmp, tag == 'SNODAS')
          obsTmp <- subset(dtTmp,tag == 'Obs')
          dtTmp2 <- as.data.frame(dtTmp2)
          dtTmp2[['Obs']] <- obsTmp$value_mm
@@ -127,6 +128,52 @@ if(length(regions[!is.na(regions)]) != 0){
                          ' to: ',strftime(dateEnd,'%Y-%m-%d',tz='UTC'))
          xLab <- 'Observed SWE (mm)'
          yLab <- 'Simulated SWE (mm)'
+
+         if(length(dtTmp2$value_mm) == 0){
+            next
+         }
+         lmOut <- lm(value_mm ~ Obs,dtTmp2)
+         slope <- format(round(lmOut$coefficients[[2]],2),nsmall=2)
+         icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
+         cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
+
+         maxCheck1 <- max(dtTmp2$value_mm)
+         maxCheck2 <- max(dtTmp2$Obs)
+         if(maxCheck1 > maxCheck2){
+            maxSnow <- maxCheck1
+         }else{
+            maxSnow <- maxCheck2
+         }
+
+         gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
+         ggplot2::geom_point(alpha = 0.2) +
+         ggplot2::ggtitle(title) +
+         ggplot2::xlab(xLab) +
+         ggplot2::ylab(yLab) +
+         theme(plot.title = element_text(size=16)) +
+         theme(axis.title.x = element_text(size=20)) +
+         theme(axis.title.y = element_text(size=20)) +
+         ggplot2::geom_abline(intercept = 0, slope = 1) +
+         coord_cartesian(xlim = c(0, maxSnow),ylim = c(0,maxSnow)) +
+         annotate("text", x= (0.2*maxSnow), y = (0.95*maxSnow), label = paste0("Slope: ",toString(slope)),
+                  colour="darkred", family="serif", fontface="italic", size = 7) +
+         annotate("text", x= (0.2*maxSnow), y = (0.9*maxSnow), label = paste0("Intercept: ",toString(icpt)),
+                  colour="darkred", family="serif", fontface="italic", size = 7) +
+         annotate("text", x= (0.2*maxSnow), y = (0.85*maxSnow), label = paste0("Correlation: ",toString(cc)),
+                  colour="darkred", family="serif", fontface="italic", size = 7)
+         ggplot2::ggsave(filename=outFile,plot=gg, units="in", width=8, height=6, dpi=100)
+
+	 # Scatter plots of SNODAS against Gamma
+         dtTmp2 <- as.data.frame(snodasTmp)
+         dtTmp2[['Obs']] <- obsTmp$value_mm
+         outFile <- paste0(jobDir,'/SWE_SCATTER_REGION_',regionTmp,'_SNODAS_',
+                           strftime(dateStart,'%Y%m%d',tz='UTC'),'_',
+                           strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
+
+         title <- paste0(tagTmp,' In-Situ SWE Observations for: ',strftime(dateStart,'%Y-%m-%d',tz='UTC'),
+                         ' to: ',strftime(dateEnd,'%Y-%m-%d',tz='UTC'))
+         xLab <- 'Observed SWE (mm)'
+         yLab <- 'SNODAS SWE (mm)'
 
          if(length(dtTmp2$value_mm) == 0){
             next
@@ -169,6 +216,7 @@ if(length(regions[!is.na(regions)]) != 0){
 for(t in 1:numTags){
 	tagTmp <- tags[t]
 	dtTmp <- subset(sweOutPts,tag == tagTmp)
+	snodasTmp <- subset(sweOutPts, tag == 'SNODAS')
 	obsTmp <- subset(sweOutPts,tag == 'Obs')
 	dtTmp2 <- as.data.frame(dtTmp)
 	dtTmp2[['Obs']] <- obsTmp$value_mm
@@ -218,4 +266,53 @@ for(t in 1:numTags){
                  colour="darkred", family="serif", fontface="italic", size = 7)
         ggplot2::ggsave(filename=outFile,plot=gg, units="in", width=8, height=6, dpi=100)
 
+	# SNODAS scatter
+        snodasTmp <- subset(sweOutPts, tag == 'SNODAS')
+        dtTmp2 <- as.data.frame(snodasTmp)
+        dtTmp2[['Obs']] <- obsTmp$value_mm
+        outFile <- paste0(jobDir,'/SWE_SCATTER_ALL_SNODAS_',
+                           strftime(dateStart,'%Y%m%d',tz='UTC'),'_',
+                           strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
+
+        title <- paste0(tagTmp,' In-Situ SWE Observations for: ',strftime(dateStart,'%Y-%m-%d',tz='UTC'),
+                        ' to: ',strftime(dateEnd,'%Y-%m-%d',tz='UTC'))
+        xLab <- 'Observed SWE (mm)'
+        yLab <- 'SNODAS SWE (mm)'
+
+        if(length(dtTmp2$value_mm) == 0){
+           next
+        }
+        lmOut <- lm(value_mm ~ Obs,dtTmp2)
+        slope <- format(round(lmOut$coefficients[[2]],2),nsmall=2)
+        icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
+        cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
+
+        print(cc)
+        testData <- cor.test(as.vector(dtTmp2$value_mm),as.vector(dtTmp2$Obs),method='pearson')
+        print(testData)
+        maxCheck1 <- max(dtTmp2$value_mm)
+        maxCheck2 <- max(dtTmp2$Obs)
+        if(maxCheck1 > maxCheck2){
+           maxSnow <- maxCheck1
+        }else{
+           maxSnow <- maxCheck2
+        }
+
+        gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
+        ggplot2::geom_point(alpha = 0.2) +
+        ggplot2::ggtitle(title) +
+        ggplot2::xlab(xLab) +
+        ggplot2::ylab(yLab) +
+        theme(plot.title = element_text(size=16)) +
+        theme(axis.title.x = element_text(size=20)) +
+        theme(axis.title.y = element_text(size=20)) +
+        ggplot2::geom_abline(intercept = 0, slope = 1) +
+        coord_cartesian(xlim = c(0, maxSnow),ylim = c(0,maxSnow)) +
+        annotate("text", x= (0.2*maxSnow), y = (0.95*maxSnow), label = paste0("Slope: ",toString(slope)),
+                 colour="darkred", family="serif", fontface="italic", size = 7) +
+        annotate("text", x= (0.2*maxSnow), y = (0.9*maxSnow), label = paste0("Intercept: ",toString(icpt)),
+                 colour="darkred", family="serif", fontface="italic", size = 7) +
+        annotate("text", x= (0.2*maxSnow), y = (0.85*maxSnow), label = paste0("Correlation: ",toString(cc)),
+                 colour="darkred", family="serif", fontface="italic", size = 7)
+        ggplot2::ggsave(filename=outFile,plot=gg, units="in", width=8, height=6, dpi=100)
 }
