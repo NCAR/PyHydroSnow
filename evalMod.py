@@ -92,11 +92,12 @@ def main(argv):
     
     # Run snow reading functions if desired by user.
     if args.snRead:
-        try:
-            snAnalysisMod.readSnow(args,db,begADateObj,endADateObj,size,rank)
-        except:
-            print "ERROR: Unable to read snow observations/analysis in."
-            sys.exit(1)
+	snAnalysisMod.readSnow(args,db,begADateObj,endADateObj,size,rank)
+        #try:
+        #    snAnalysisMod.readSnow(args,db,begADateObj,endADateObj,size,rank)
+        #except:
+        #    print "ERROR: Unable to read snow observations/analysis in."
+        #    sys.exit(1)
         
     # Run snow analysis funtion if desired by user.
     if args.snRun:
