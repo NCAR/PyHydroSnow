@@ -137,13 +137,14 @@ if(length(regions[!is.na(regions)]) != 0){
          icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
          cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
 
-         maxCheck1 <- max(dtTmp2$value_mm)
-         maxCheck2 <- max(dtTmp2$Obs)
-         if(maxCheck1 > maxCheck2){
-            maxSnow <- maxCheck1
-         }else{
-            maxSnow <- maxCheck2
-         }
+	 maxSnow <- max(dtTmp2$Obs)
+         #maxCheck1 <- max(dtTmp2$value_mm)
+         #maxCheck2 <- max(dtTmp2$Obs)
+         #if(maxCheck1 > maxCheck2){
+         #   maxSnow <- maxCheck1
+         #}else{
+         #   maxSnow <- maxCheck2
+         #}
 
          gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
          ggplot2::geom_point(alpha = 0.2) +
@@ -183,13 +184,14 @@ if(length(regions[!is.na(regions)]) != 0){
          icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
          cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
 
-         maxCheck1 <- max(dtTmp2$value_mm)
-         maxCheck2 <- max(dtTmp2$Obs)
-         if(maxCheck1 > maxCheck2){
-            maxSnow <- maxCheck1
-         }else{
-            maxSnow <- maxCheck2
-         }
+	 maxSnow <- max(dtTmp2$Obs)
+         #maxCheck1 <- max(dtTmp2$value_mm)
+         #maxCheck2 <- max(dtTmp2$Obs)
+         #if(maxCheck1 > maxCheck2){
+         #   maxSnow <- maxCheck1
+         #}else{
+         #   maxSnow <- maxCheck2
+         #}
 
          gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
          ggplot2::geom_point(alpha = 0.2) +
@@ -240,13 +242,15 @@ for(t in 1:numTags){
 	print(cc)
 	testData <- cor.test(as.vector(dtTmp2$value_mm),as.vector(dtTmp2$Obs),method='pearson')
 	print(testData)
-        maxCheck1 <- max(dtTmp2$value_mm)
-        maxCheck2 <- max(dtTmp2$Obs)
-        if(maxCheck1 > maxCheck2){
-           maxSnow <- maxCheck1
-        }else{
-           maxSnow <- maxCheck2
-        }
+        
+	maxSnow <- max(dtTmp2$Obs)
+	#maxCheck1 <- max(dtTmp2$value_mm)
+        #maxCheck2 <- max(dtTmp2$Obs)
+        #if(maxCheck1 > maxCheck2){
+        #   maxSnow <- maxCheck1
+        #}else{
+        #   maxSnow <- maxCheck2
+        #}
 
         gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
         ggplot2::geom_point(alpha = 0.2) +
@@ -290,13 +294,15 @@ for(t in 1:numTags){
         print(cc)
         testData <- cor.test(as.vector(dtTmp2$value_mm),as.vector(dtTmp2$Obs),method='pearson')
         print(testData)
-        maxCheck1 <- max(dtTmp2$value_mm)
-        maxCheck2 <- max(dtTmp2$Obs)
-        if(maxCheck1 > maxCheck2){
-           maxSnow <- maxCheck1
-        }else{
-           maxSnow <- maxCheck2
-        }
+
+	maxSnow <- max(dtTmp2$Obs)
+        #maxCheck1 <- max(dtTmp2$value_mm)
+        #maxCheck2 <- max(dtTmp2$Obs)
+        #if(maxCheck1 > maxCheck2){
+        #   maxSnow <- maxCheck1
+        #}else{
+        #   maxSnow <- maxCheck2
+        #}
 
         gg <- ggplot2::ggplot(dtTmp2,ggplot2::aes(x=Obs,y=value_mm)) +
         ggplot2::geom_point(alpha = 0.2) +
