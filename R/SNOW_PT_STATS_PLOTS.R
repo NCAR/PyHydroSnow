@@ -95,16 +95,16 @@ outFile <- paste0(jobDir,'/SN_PT_STATS_',strftime(dateStart,'%Y%m%d',tz='UTC'),
 save(sweStats,file=outFile)
 
 # Loop through each unique ID and generate timeseries plots 
-for (station in 1:length(stns)){
-   tablePlot <- sweOutPts[uniqueId == stns[station]]
-
-   title <- paste0('SWE Timseries For: ',stns[station])
-   gg <- ggplot(tablePlot,aes(x=POSIXct,y=value_mm,color=tag)) + geom_line() + 
-         ggtitle(title) + xlab('Date') + ylab('SWE (mm)') 
-   outPath <- paste0(jobDir,'/SWE_',stns[station],'_',strftime(dateStart,'%Y%m%d',tz='UTC'),
-                     '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
-   ggsave(filename=outPath,plot=gg)
-}
+#for (station in 1:length(stns)){
+#   tablePlot <- sweOutPts[uniqueId == stns[station]]
+#
+#   title <- paste0('SWE Timseries For: ',stns[station])
+#   gg <- ggplot(tablePlot,aes(x=POSIXct,y=value_mm,color=tag)) + geom_line() + 
+#         ggtitle(title) + xlab('Date') + ylab('SWE (mm)') 
+#   outPath <- paste0(jobDir,'/SWE_',stns[station],'_',strftime(dateStart,'%Y%m%d',tz='UTC'),
+#                     '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'.png')
+#   ggsave(filename=outPath,plot=gg)
+#}
 
 # Create scatter plots of observed SWE vs. Modeled SWE values for by basin/region, if they exist.
 regions <- unique(sweOutPts$region)
@@ -118,6 +118,10 @@ if(length(regions[!is.na(regions)]) != 0){
          dtTmp2 <- subset(dtTmp,tag == tagTmp)
          snodasTmp <- subset(dtTmp, tag == 'SNODAS')
          obsTmp <- subset(dtTmp,tag == 'Obs')
+         print '-------------'
+         print dtTmp2
+         print '-------------'
+         print obsTmp
          dtTmp2 <- as.data.frame(dtTmp2)
          dtTmp2[['Obs']] <- obsTmp$value_mm
          outFile <- paste0(jobDir,'/SWE_SCATTER_REGION_',regionTmp,'_',tagTmp,'_',
