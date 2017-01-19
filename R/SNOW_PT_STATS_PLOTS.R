@@ -118,10 +118,10 @@ if(length(regions[!is.na(regions)]) != 0){
          dtTmp2 <- subset(dtTmp,tag == tagTmp)
          snodasTmp <- subset(dtTmp, tag == 'SNODAS')
          obsTmp <- subset(dtTmp,tag == 'Obs')
-         print '-------------'
-         print dtTmp2
-         print '-------------'
-         print obsTmp
+         print('-------------')
+         print(dtTmp2)
+         print('-------------')
+         print(obsTmp)
          dtTmp2 <- as.data.frame(dtTmp2)
          dtTmp2[['Obs']] <- obsTmp$value_mm
          outFile <- paste0(jobDir,'/SWE_SCATTER_REGION_',regionTmp,'_',tagTmp,'_',
