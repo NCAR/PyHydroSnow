@@ -256,8 +256,13 @@ for (day in 0:nSteps){
 }
 
 # Subset data frames to exclude any missing values
-sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
-sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+testNA <- subset(sweOutPts,is.na(sweOutPts$value_mm))
+stationsOmmit <- unique(testNA$uniqueId)
+sweOutPts <- subset(sweOutPts,!(uniqueId %in% stationsOmmit))
+
+testNA <- subset(sdOutPts,is.na(sdOutPts$value_mm))
+stationsOmmit <- unique(testNA$uniqueId)
+sdOutPts <- subset(sdOutPts,!(uniqueId %in% stationsOmmit))
 
 # Save output
 save(sweOutPts,sdOutPts,file=outFile)

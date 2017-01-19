@@ -118,12 +118,6 @@ if(length(regions[!is.na(regions)]) != 0){
          dtTmp2 <- subset(dtTmp,tag == tagTmp)
          snodasTmp <- subset(dtTmp, tag == 'SNODAS')
          obsTmp <- subset(dtTmp,tag == 'Obs')
-         print('-------------')
-         print(dtTmp2)
-         print('-------------')
-         print(obsTmp)
-	 print('-------------')
-	 print(snodasTmp)
          dtTmp2 <- as.data.frame(dtTmp2)
          dtTmp2[['Obs']] <- obsTmp$value_mm
          outFile <- paste0(jobDir,'/SWE_SCATTER_REGION_',regionTmp,'_',tagTmp,'_',
@@ -143,7 +137,6 @@ if(length(regions[!is.na(regions)]) != 0){
          icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
          cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
 
-	 print('alksdjf')
          maxCheck1 <- max(dtTmp2$value_mm)
          maxCheck2 <- max(dtTmp2$Obs)
          if(maxCheck1 > maxCheck2){
@@ -170,7 +163,6 @@ if(length(regions[!is.na(regions)]) != 0){
                   colour="darkred", family="serif", fontface="italic", size = 7)
          ggplot2::ggsave(filename=outFile,plot=gg, units="in", width=8, height=6, dpi=100)
 
-	 print('TESTT')
 	 # Scatter plots of SNODAS against Gamma
          dtTmp2 <- as.data.frame(snodasTmp)
          dtTmp2[['Obs']] <- obsTmp$value_mm
@@ -191,7 +183,6 @@ if(length(regions[!is.na(regions)]) != 0){
          icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
          cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
 
-	 print('BLAH')
          maxCheck1 <- max(dtTmp2$value_mm)
          maxCheck2 <- max(dtTmp2$Obs)
          if(maxCheck1 > maxCheck2){

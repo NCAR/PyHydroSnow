@@ -254,7 +254,9 @@ if(numPossSwePts > 0){
       sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
    }
 
-   sweOutPts <- subset(sweOutPts,!is.na(sweOutPts$value_mm))
+   testNA <- subset(sweOutPts,is.na(sweOutPts$value_mm))
+   stationsOmmit <- unique(testNA$uniqueId)
+   sweOutPts <- subset(sweOutPts,!(uniqueId %in% stationsOmmit))
 }
 
 if(numPossSdPts > 0){
@@ -294,7 +296,9 @@ if(numPossSdPts > 0){
       sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
    }
 
-   sdOutPts <- subset(sdOutPts,!is.na(sdOutPts$value_mm))
+   testNA <- subset(sdOutPts,is.na(sdOutPts$value_mm))
+   stationsOmmit <- unique(testNA$uniqueId)
+   sdOutPts <- subset(sdOutPts,!(uniqueId %in% stationsOmmit))
 }
 
 # Save output
