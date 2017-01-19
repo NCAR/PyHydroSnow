@@ -53,46 +53,46 @@ sweStats$POSIXct <- as.Date(as.POSIXct('1900-01-01'),tz='UTC')
 
 count <- 1
 # Loop through each time step and calculate statistics
-for (day in 0:nSteps){
-   dCurrent <- dateStart + dt*day
-   print(dCurrent)
-   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
-
-   # Loop through each tag and calculate stats.
-   for (tag in 1:numTags){
-      modTag <- tags[tag]
-      obsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'Obs']
-      modTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]
-      idsObs <- unique(obsTmp$uniqueId)
-      idsMod <- unique(modTmp$uniqueId)
-      print(length(idsObs))
-      print(length(idsMod))
-      # Subset only where we have both obs and model values
-      #modTmp <- modTmp[uniqueId == idsObs]
-      lenMod <- length(modTmp$uniqueId)
-      if(lenMod > 0 & length(obsTmp$uniqueId) > 0){
-         bInd <- count
-         eInd <- count + lenMod
-         sweStats$POSIXct[bInd:eInd] <- dCurrent
-         sweStats$uniqueId[bInd:eInd] <- idsObs
-         sweStats$tag[bInd:eInd] <- modTag
-         sweStats$bias[bInd:eInd] <- (modTmp$value_mm - obsTmp$value_mm)/obsTmp$value_mm * 100.0
-         sweStats$diff[bInd:eInd] <- modTmp$value_mm - obsTmp$value_mm
-         count <- count + lenMod
-      }
-   }
-}
+#for (day in 0:nSteps){
+#   dCurrent <- dateStart + dt*day
+#   print(dCurrent)
+#   dStr1 <- strftime(dCurrent,'%Y-%m-%d',tz='UTC')
+#
+#   # Loop through each tag and calculate stats.
+#   for (tag in 1:numTags){
+#      modTag <- tags[tag]
+#      obsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'Obs']
+#      modTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]
+#      idsObs <- unique(obsTmp$uniqueId)
+#      idsMod <- unique(modTmp$uniqueId)
+#      print(length(idsObs))
+#      print(length(idsMod))
+#      # Subset only where we have both obs and model values
+#      #modTmp <- modTmp[uniqueId == idsObs]
+#      lenMod <- length(modTmp$uniqueId)
+#      if(lenMod > 0 & length(obsTmp$uniqueId) > 0){
+#         bInd <- count
+#         eInd <- count + lenMod
+#         sweStats$POSIXct[bInd:eInd] <- dCurrent
+#         sweStats$uniqueId[bInd:eInd] <- idsObs
+#         sweStats$tag[bInd:eInd] <- modTag
+#         sweStats$bias[bInd:eInd] <- (modTmp$value_mm - obsTmp$value_mm)/obsTmp$value_mm * 100.0
+#         sweStats$diff[bInd:eInd] <- modTmp$value_mm - obsTmp$value_mm
+#         count <- count + lenMod
+#      }
+#   }
+#}
 
 # Remove any unecssary NA values.
-sweStats <- subset(sweStats,!is.na(bias))
+#sweStats <- subset(sweStats,!is.na(bias))
 
 # Convert output to data table.
-sweStats <- as.data.table(sweStats)
+#sweStats <- as.data.table(sweStats)
 
 # Save output
-outFile <- paste0(jobDir,'/SN_PT_STATS_',strftime(dateStart,'%Y%m%d',tz='UTC'),
-                  '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'Rdata')
-save(sweStats,file=outFile)
+#outFile <- paste0(jobDir,'/SN_PT_STATS_',strftime(dateStart,'%Y%m%d',tz='UTC'),
+#                  '_',strftime(dateEnd,'%Y%m%d',tz='UTC'),'Rdata')
+#save(sweStats,file=outFile)
 
 # Loop through each unique ID and generate timeseries plots 
 #for (station in 1:length(stns)){
