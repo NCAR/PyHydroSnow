@@ -189,6 +189,7 @@ if(length(regions[!is.na(regions)]) != 0){
          icpt <- format(round(lmOut$coefficients[[1]],2),nsmall=2)
          cc <- format(round(cor(dtTmp2$value_mm,dtTmp2$Obs),3),nsmall=2)
 
+	 print('BLAH')
          maxCheck1 <- max(dtTmp2$value_mm)
          maxCheck2 <- max(dtTmp2$Obs)
          if(maxCheck1 > maxCheck2){
