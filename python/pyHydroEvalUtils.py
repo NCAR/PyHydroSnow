@@ -36,7 +36,7 @@ def checkArgs(parser):
         print "ERROR: Zero length job name passed to program."
         raise
     if parser.snRead:
-        if int(parser.snRead) < 1 or int(parser.snRead) > 6:
+        if int(parser.snRead) < 1 or int(parser.snRead) > 10:
             print "ERROR: Invalid Snow Read Value."
             raise
     if parser.snRun:
