@@ -99,7 +99,7 @@ for (i in 1:length(mskgeo.nameList)) {
       # SNODAS first
       snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
                                strftime(dCurrent,"%Y%m%d"),".nc")
-      if(file.exists(snodasFilePath){
+      if(file.exists(snodasFilePath)){
       	id <- nc_open(snodasFilePath)
       	sweSnodas <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
       	nc_close(id)
