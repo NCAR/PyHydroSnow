@@ -106,15 +106,15 @@ for (i in 1:length(mskgeo.nameList)) {
          tmpPath = modPaths[[k]]
          snowPath <- paste0(modPaths[[k]],"/",strftime(dCurrent,"%Y%m%d"),
 			    "0000.LDASOUT_DOMAIN1")
+	 snowBasinData$Basin[count] <- bName
+         snowBasinData$Date[count] <- dCurrent
+         snowBasinData$product[count] <- modoutTag
          if(file.exists(snowPath)){
             id <- nc_open(snowPath)
             sweModel <- ncvar_get(id,'SNEQV',start=bStart,count=bCount)
             nc_close(id)
 
             statsTemp <- basSnowMetrics(sweModel,mskVar,basElev,res=resKM)
-            snowBasinData$Basin[count] <- bName
-	    snowBasinData$Date[count] <- dCurrent
-            snowBasinData$product[count] <- modoutTag
             snowBasinData$basin_area_km[count] <- statsTemp$totArea
             snowBasinData$snow_area_km[count] <- statsTemp$totSnoArea
             snowBasinData$snow_cover_fraction[count] <- statsTemp$snoFrac

@@ -229,29 +229,33 @@ if(numPossSwePts > 0){
          tmpPath <- modPaths[[tag]]
          snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
                             "0000.LDASOUT_DOMAIN1")
-         id <- nc_open(snowPath)
-         tmpModel <- ncvar_get(id,'SNEQV')
-         nc_close(id)
-         # Extract kCoord values for this particular time step
-         kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-         # Pull values for these coordinates out of file
-         modelValuesTmp <- tmpModel[kCoordsTmp]
-         # Place into data table
-         sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+         if(file.exists(snowPath)){
+         	id <- nc_open(snowPath)
+         	tmpModel <- ncvar_get(id,'SNEQV')
+         	nc_close(id)
+         	# Extract kCoord values for this particular time step
+         	kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+         	# Pull values for these coordinates out of file
+         	modelValuesTmp <- tmpModel[kCoordsTmp]
+         	# Place into data table
+         	sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+         }
       }
 
       # Read in SNODAS data
       snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
                                strftime(dCurrent,"%Y%m%d"),".nc")
-      id <- nc_open(snodasFilePath)
-      sweSnodas <- ncvar_get(id,'SNEQV')
-      nc_close(id)
-      # Extract kCoord values for this particular time step 
-      kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-      # Pull values for these coordinates out of file
-      modelValuesTmp <- sweSnodas[kCoordsTmp]
-      # Place into data table
-      sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+      if(file.exists(snodasFilePath)){
+      	id <- nc_open(snodasFilePath)
+      	sweSnodas <- ncvar_get(id,'SNEQV')
+      	nc_close(id)
+      	# Extract kCoord values for this particular time step 
+      	kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
+     	# Pull values for these coordinates out of file
+      	modelValuesTmp <- sweSnodas[kCoordsTmp]
+      	# Place into data table
+      	sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+      }
    }
 
    testNA <- subset(sweOutPts,is.na(sweOutPts$value_mm))
@@ -271,29 +275,33 @@ if(numPossSdPts > 0){
          tmpPath <- modPaths[[tag]]
          snowPath <- paste0(modPaths[[tag]],"/",strftime(dCurrent,"%Y%m%d"),
                             "0000.LDASOUT_DOMAIN1")
-         id <- nc_open(snowPath)
-         tmpModel <- ncvar_get(id,'SNOWH')
-         nc_close(id)
-         # Extract kCoord values for this particular time step 
-         kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
-         # Pull values for these coordinates out of file
-         modelValuesTmp <- tmpModel[kCoordsTmp]
-         # Place into data table
-         sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+         if(file.exists(snowPath)){
+         	id <- nc_open(snowPath)
+         	tmpModel <- ncvar_get(id,'SNOWH')
+         	nc_close(id)
+         	# Extract kCoord values for this particular time step 
+         	kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
+         	# Pull values for these coordinates out of file
+         	modelValuesTmp <- tmpModel[kCoordsTmp]
+         	# Place into data table
+         	sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
+         }
       }
 
       # Read in SNODAS data
       snodasFilePath <- paste0(snodasPath,"/SNODAS_REGRIDDED_",
                                strftime(dCurrent,"%Y%m%d"),".nc")
-      id <- nc_open(snodasFilePath)
-      sdSnodas <- ncvar_get(id,'SNOWH')
-      nc_close(id)
-      # Extract kCoord values for this particular time step
-      kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
-      # Pull values for these coordinates out of file
-      modelValuesTmp <- sdSnodas[kCoordsTmp]
-      # Place into data table
-      sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+      if(file.exists(snodasFilePath)){
+      	id <- nc_open(snodasFilePath)
+      	sdSnodas <- ncvar_get(id,'SNOWH')
+      	nc_close(id)
+      	# Extract kCoord values for this particular time step
+      	kCoordsTmp <- sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$kCoord
+      	# Pull values for these coordinates out of file
+      	modelValuesTmp <- sdSnodas[kCoordsTmp]
+      	# Place into data table
+      	sdOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == 'SNODAS']$value_mm <- modelValuesTmp
+      }
    }
 
    testNA <- subset(sdOutPts,is.na(sdOutPts$value_mm))
