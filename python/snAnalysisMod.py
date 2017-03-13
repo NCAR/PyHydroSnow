@@ -247,11 +247,11 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             
     print tmpRFile
     # Remove temporary R namelist file
-    try:
-        os.remove(tmpRFile)
-    except:
-        print "ERROR: Failure to remove temporary R namelist file."
-        raise
+    #try:
+    #    os.remove(tmpRFile)
+    #except:
+    #    print "ERROR: Failure to remove temporary R namelist file."
+    #    raise
         
 def runSnow(args,dbIn,begDateObj,endDateObj,size,rank):
     # Function to run snow analysis and plotting based on
