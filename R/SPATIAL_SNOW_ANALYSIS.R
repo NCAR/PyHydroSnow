@@ -30,6 +30,8 @@ eDStr <- strftime(dateEnd,'%Y%m%d',tz='UTC')
 # and SNODAS. Calculate grids of differences, etc. Output 
 # to NetCDF format, and also GeoTIFF.
 for (day in 0:nSteps){
+   dCurrent <- dateStart + dt*day
+
    for (tag in 1:length(modTags)){
       modTag <- modTags[tag]
       tmpPath <- modPaths[[tag]]
