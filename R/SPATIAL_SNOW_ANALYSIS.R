@@ -64,7 +64,7 @@ for (day in 0:nSteps){
             indNDV <- which(sweModel<0.0 | is.na(sweModel) | sweSnodas < 0.0 | is.na(sweSnodas))
             indValid <- which(sweModel>=0.0 & sweSnodas>=0.0 & !is.na(sweModel) & !is.na(sweSnodas))
 
-            sweMode[indNDV] <- -9999.0
+            sweModel[indNDV] <- -9999.0
             sweSnodas[indNDV] <- -9999.0
 
             sweDiff <- sweModel - sweSnodas
