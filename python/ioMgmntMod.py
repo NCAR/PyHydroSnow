@@ -67,8 +67,6 @@ def openTmpFile(fileIn):
 def writeStrToFile(fileIn,str):
      # Generic function to write output string to text file.
      # If file exists, remove it.
-     if os.path.isfile(fileIn):
-        os.remove(fileIn)
      fileObj = open(fileIn,'a')
      fileObj.write(str)
      fileObj.close()
