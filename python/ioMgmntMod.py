@@ -9,7 +9,7 @@
 
 #import fileinput
 #import sys
-#import os
+import os
 #from pyHydroEvalUtils import editLine as el
 #from pyHydroEvalUtils import returnDate as rt
 #from pyHydroEvalUtils import findInFile as ff
@@ -57,11 +57,18 @@
 
 def openTmpFile(fileIn):
     # Generic routine to open temporary string to write R options to.
+    # If file exists, remove it.
+    if os.path.isfile(fileIn):
+        os.remove(fileIn)
+        
     fileObj = open(fileIn,'a')
     fileObj.close()
     
 def writeStrToFile(fileIn,str):
      # Generic function to write output string to text file.
+     # If file exists, remove it.
+     if os.path.isfile(fileIn):
+        os.remove(fileIn)
      fileObj = open(fileIn,'a')
      fileObj.write(str)
      fileObj.close()

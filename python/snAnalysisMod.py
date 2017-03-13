@@ -226,6 +226,25 @@ def readSnow(args,dbIn,begDateObj,endDateObj,size,rank):
             print "ERROR: Failure to execute snow reads"
             raise
             
+    # Situation #7 - Generate spatial analysis NetCDF/Tif files from model(s)
+    # against SNODAS.
+    if args.snRead == "7":
+        if len(dbIn.snodasPath[indDbOrig]) == 0:
+            print "ERROR: Path to SNODAS data necessary for reads."
+            raise
+        try:
+            ioMgmntMod.writeStrToFile(tmpRFile,snodasStr)
+        except:
+            print "ERROR: Unable to write to temporary R file."
+            raise
+            
+        cmd = "Rscript ./R/SPATIAL_SNOW_ANALYSIS.R " + tmpRFile
+        try:
+            subprocess.call(cmd,shell=True)
+        except:
+            print "ERROR: Failure to execute snow reads"
+            raise
+            
     print tmpRFile
     # Remove temporary R namelist file
     try:
