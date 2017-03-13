@@ -50,11 +50,11 @@ for (day in 0:nSteps){
       if(file.exists(snowPath)){
          if(file.exists(snodasFilePath)){
             id <- nc_open(snowPath)
-            sweModel ncvar_get(id,'SNEQV')
+            sweModel <- ncvar_get(id,'SNEQV')
             nc_close(id)
 
             id <- nc_open(snodasFilePath)
-            sweSnodas ncvar_get(id,'SNEQV')
+            sweSnodas <- ncvar_get(id,'SNEQV')
             nc_close(id)
 
             # Calculate index values for where missing/valid data are at.
