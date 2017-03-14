@@ -260,8 +260,9 @@ if(numPossSwePts > 0){
 
    testNA <- subset(sweOutPts,is.na(sweOutPts$value_mm))
    for (i in 0:length(testNA$value_mm)){
+      print(i)
       dateTmp <- testNA$POSIXct[i]
-      idTmp <- testNA$uniqueId
+      idTmp <- testNA$uniqueId[i]
       sweOutPts[POSIXct == dateTmp & uniqueId == idTmp]$value_mm <- NA
    }
    sweOutPts <- subset(sweOutPts,!is.na(value_mm))
@@ -312,8 +313,9 @@ if(numPossSdPts > 0){
 
    testNA <- subset(sdOutPts,is.na(sdOutPts$value_mm))
    for (i in 0:length(testNA$value_mm)){
+      print(i)
       dateTmp <- testNA$POSIXct[i]
-      idTmp <- testNA$uniqueId
+      idTmp <- testNA$uniqueId[i]
       sdOutPts[POSIXct == dateTmp & uniqueId == idTmp]$value_mm <- NA
    }
    sdOutPts <- subset(sdOutPts,!is.na(value_mm))
