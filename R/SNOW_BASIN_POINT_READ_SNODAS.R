@@ -260,9 +260,11 @@ if(numPossSwePts > 0){
 
    print(sweOutPts)
    testNA <- subset(sweOutPts,is.na(sweOutPts$value_mm))
-   stationsOmmit <- unique(testNA$uniqueId)
-   print(stationsOmmit)
-   sweOutPts <- subset(sweOutPts,!(uniqueId %in% stationsOmmit))
+   #stationsOmmit <- unique(testNA$uniqueId)
+   datesOmmit <- unique(testNA$POSIXct)
+   print(datesOmmit)
+   sweOutPts <- subset(sweOutPts,!(POSIXct %in% datesOmmit))
+   #sweOutPts <- subset(sweOutPts,!(uniqueId %in% stationsOmmit))
 }
 
 if(numPossSdPts > 0){
@@ -307,8 +309,11 @@ if(numPossSdPts > 0){
    }
 
    testNA <- subset(sdOutPts,is.na(sdOutPts$value_mm))
-   stationsOmmit <- unique(testNA$uniqueId)
-   sdOutPts <- subset(sdOutPts,!(uniqueId %in% stationsOmmit))
+   #stationsOmmit <- unique(testNA$uniqueId)
+   datesOmmit <- unique(testNA$POSIXct)
+   print(datesOmmit)
+   sdOutPts <- subset(sdOutPts,!(POSIXct %in% datesOmmit))
+   #sdOutPts <- subset(sdOutPts,!(uniqueId %in% stationsOmmit))
 }
 
 # Save output
