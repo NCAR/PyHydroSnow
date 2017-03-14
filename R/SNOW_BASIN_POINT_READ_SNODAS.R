@@ -237,7 +237,6 @@ if(numPossSwePts > 0){
          	kCoordsTmp <- sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$kCoord
          	# Pull values for these coordinates out of file
          	modelValuesTmp <- tmpModel[kCoordsTmp]
-		print(modelValuesTmp)
          	# Place into data table
          	sweOutPts[strftime(POSIXct,'%Y-%m-%d',tz='UTC') == dStr1 & tag == modTag]$value_mm <- modelValuesTmp
          }
@@ -259,8 +258,10 @@ if(numPossSwePts > 0){
       }
    }
 
+   print(sweOutPts)
    testNA <- subset(sweOutPts,is.na(sweOutPts$value_mm))
    stationsOmmit <- unique(testNA$uniqueId)
+   print(stationsOmmit)
    sweOutPts <- subset(sweOutPts,!(uniqueId %in% stationsOmmit))
 }
 
